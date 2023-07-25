@@ -11,5 +11,5 @@ make_variables(estimate_read_csv(paste("inputs_school_garden.csv",sep="")))
 
 # Model ####
 
-
+cost
 
