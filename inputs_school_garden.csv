@@ -1,6 +1,7 @@
 variable,lower ,median,upper,distribution,label
 number_of_years,5.00,,5.00,const,Number of years for garden simulation
 size_of_garden,50.00,,100.00,posnorm,Size of school garden in sq m
+CV_value,0.10,,0.40,posnorm,Coefficient of variation for our school garden intervention (%)
 if_school_has_canteen,0.20,,0.50,tnorm_0_1,Chance that the school has a canteen (%)
 ,,,,,
 equipment_cost,1.00,,5.00,posnorm,Costs of equipment for setting up garden (million VND)
