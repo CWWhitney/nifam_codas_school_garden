@@ -9,7 +9,7 @@ make_variables(estimate_read_csv(paste("inputs_school_garden.csv",sep="")))
 
 # Model ####
 
-example_decision_function <- function(x, varnames){
+school_garden_function <- function(x, varnames){
   
 # Cost####
 
@@ -50,28 +50,22 @@ harvest_value <- if (canteen_yes_no == 1) {
 # other values like outside investment (i.e. parents invest)
 # and increased enrollment by 
 # creating a good impression and gaining reputation
-ed_quality_yes_no <- chance_event(if_quality_education, value_if = 1, value_if_not = 0)
 
 #savings on learning
-learning_value <- if (ed_quality_yes_no) {
-  learning_value = vv(extra_cirricular_savings, CV_value, number_of_years)
-} else {
-  learning_value = 0
-}
+learning_value <- vv(extra_cirricular_savings, 
+                      CV_value, 
+                      number_of_years) * if_quality_education
 
 #investments from outside
-outside_investment <- if (ed_quality_yes_no) {
-  outside_investment = vv(outside_investment_value, CV_value, number_of_years)
-} else {
-  outside_investment = 0
-}
+outside_investment <- vv(outside_investment_value, 
+                          CV_value, 
+                          number_of_years) * if_quality_education
 
 #earnings from increased enrollment
-increased_enrollment <- if (ed_quality_yes_no) {
-  increased_enrollment = vv(increased_enrollment_value, CV_value, number_of_years)
-} else {
-  increased_enrollment = 0
-}
+increased_enrollment <-  vv(increased_enrollment_value, 
+                            CV_value, 
+                            number_of_years) * if_quality_education
+
 
 #It takes time to get a good reputation
 # make year 1 a zero
@@ -86,7 +80,8 @@ garden_intervention_result <- total_benefit - total_cost
 # The difference is inherent in our calculation so we do not need the 
 # comparative NPV here, just discount the intervention result
 NPV_interv <-
-  discount(garden_intervention_result, discount_rate, calculate_NPV = TRUE)
+  discount(garden_intervention_result, 
+            discount_rate, calculate_NPV = TRUE)
 
 # Beware, if you do not name your outputs (left-hand side of the equal sign) in the return section, 
 # the variables will be called output_1, _2, etc.
@@ -95,9 +90,45 @@ return(list(NPV_garden = NPV_interv,
             Cashflow_garden = garden_intervention_result))
 }
 
-mcSimulation_results <- decisionSupport::mcSimulation(
-  estimate = decisionSupport::estimate_read_csv("example_input_table.csv"),
-  model_function = example_decision_function,
-  numberOfModelRuns = 1e3, #run 1,000 times
+garden_simulation_results <- decisionSupport::mcSimulation(
+  estimate = decisionSupport::estimate_read_csv("inputs_school_garden.csv"),
+  model_function = school_garden_function,
+  numberOfModelRuns = 1e4, #run 10,000 times
   functionSyntax = "plainNames"
 )
+
+decisionSupport::plot_distributions(mcSimulation_object = garden_simulation_results, 
+                                    vars = "NPV_garden",
+                                    method = 'smooth_simple_overlay', 
+                                    base_size = 7)
+
+decisionSupport::plot_distributions(mcSimulation_object = garden_simulation_results, 
+                                    vars = "NPV_garden",
+                                    method = 'boxplot')
+
+# Cashflow 
+
+plot_cashflow(mcSimulation_object = garden_simulation_results, 
+              cashflow_var_name = "Cashflow_garden")
+
+# PLS
+
+pls_result <- plsr.mcSimulation(object = garden_simulation_results,
+                                resultName = names(mcSimulation_results$y)[1], 
+                                ncomp = 1)
+
+input_table <- read.csv("inputs_school_garden.csv")
+
+plot_pls(pls_result, input_table = input_table, threshold = 0)
+
+# EVPI 
+
+#here we subset the outputs from the mcSimulation function (y) 
+# by selecting the correct variables
+# be sure to run the multi_EVPI only on the variables that the we want
+mcSimulation_table <- data.frame(garden_simulation_results$x, 
+                                 garden_simulation_results$y[1])
+
+evpi <- multi_EVPI(mc = mcSimulation_table, first_out_var = "NPV_garden")
+
+plot_evpi(evpi, decision_vars = "NPV_garden")
