@@ -1,5 +1,9 @@
 variable,lower ,median,upper,distribution,label
-n_years,10,,10,const,Number of years for simulation
-discount_rate,10,,30,posnorm,Discount rate for reducing future cost and benefit to their present values (%)
-establis_cost,30,,60,posnorm,Cost for setting up agroforestry system (million VND/ha)
-main_cost_stage1,10,,30,posnorm,Annual cost to maintain agroforestry system (million VND/ha/year)
+number_of_years,5,,5,const,Number of years for garden simulation
+size_of_garden,50,,100,posnorm,Size of school garden in sq m
+equipment_cost,1,,5,posnorm,Costs of equipment for setting up garden (million VND)
+construction_cost,5,,30,posnorm,Costs of construction for setting up garden (million VND)
+teacher_training_cost,3,,5,posnorm,Costs of training teachers when setting up garden (million VND)
+input_cost,10,,30,posnorm,Annual cost to maintain school garden  (million VND/yr)
+maintaining_labor,3,,7,posnorm,Annual labor cost to maintain school garden  (million VND/yr)
+teacher_salary_cost,4,,10,posnorm,Teacher salary costs (million VND/yr)
