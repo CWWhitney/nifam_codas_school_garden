@@ -1,9 +1,14 @@
 variable,lower ,median,upper,distribution,label
 number_of_years,5,,5,const,Number of years for garden simulation
 size_of_garden,50,,100,posnorm,Size of school garden in sq m
+if_school_has_canteen,0.2,,0.5,tnorm_0_1,Chance that the school has a canteen (%)
+# Costs ####,,,,,
 equipment_cost,1,,5,posnorm,Costs of equipment for setting up garden (million VND)
 construction_cost,5,,30,posnorm,Costs of construction for setting up garden (million VND)
 teacher_training_cost,3,,5,posnorm,Costs of training teachers when setting up garden (million VND)
 input_cost,10,,30,posnorm,Annual cost to maintain school garden  (million VND/yr)
 maintaining_labor,3,,7,posnorm,Annual labor cost to maintain school garden  (million VND/yr)
 teacher_salary_cost,4,,10,posnorm,Teacher salary costs (million VND/yr)
+# Benefits ####,,,,,
+canteen_savings,2,,20,posnorm,Canteen savings (million VND/yr)
+sale_of_yield,1,,10,posnorm,Sales of garden products (million VND/yr)
