@@ -1,15 +1,20 @@
 variable,lower ,median,upper,distribution,label
-number_of_years,5.00,,5.00,const,Number of years for garden simulation
-size_of_garden,50.00,,100.00,posnorm,Size of school garden in sq m
-CV_value,0.10,,0.40,posnorm,Coefficient of variation for our school garden intervention (%)
-if_school_has_canteen,0.20,,0.50,tnorm_0_1,Chance that the school has a canteen (%)
+number_of_years,5,,5,const,Number of years for garden simulation
+discount_rate,5,,8,posnorm,Discounting factor
+size_of_garden,50,,100,posnorm,Size of school garden in sq m
+CV_value,0.1,,0.4,posnorm,Coefficient of variation for our school garden intervention (%)
+if_school_has_canteen,0.2,,0.5,tnorm_0_1,Chance that the school has a canteen (%)
 ,,,,,
-equipment_cost,1.00,,5.00,posnorm,Costs of equipment for setting up garden (million VND)
-construction_cost,5.00,,30.00,posnorm,Costs of construction for setting up garden (million VND)
-teacher_training_cost,3.00,,5.00,posnorm,Costs of training teachers when setting up garden (million VND)
-input_cost,10.00,,30.00,posnorm,Annual cost to maintain school garden  (million VND/yr)
-maintaining_labor,3.00,,7.00,posnorm,Annual labor cost to maintain school garden  (million VND/yr)
-teacher_salary_cost,4.00,,10.00,posnorm,Teacher salary costs (million VND/yr)
+equipment_cost,1,,5,posnorm,Costs of equipment for setting up garden (million VND)
+construction_cost,5,,30,posnorm,Costs of construction for setting up garden (million VND)
+teacher_training_cost,3,,5,posnorm,Costs of training teachers when setting up garden (million VND)
+input_cost,10,,30,posnorm,Annual cost to maintain school garden  (million VND/yr)
+maintaining_labor,3,,7,posnorm,Annual labor cost to maintain school garden  (million VND/yr)
+teacher_salary_cost,4,,10,posnorm,Teacher salary costs (million VND/yr)
 ,,,,,
-canteen_savings,2.00,,20.00,posnorm,Canteen savings (million VND/yr)
-sale_of_yield,1.00,,10.00,posnorm,Sales of garden products (million VND/yr)
+canteen_savings,2,,20,posnorm,Canteen savings (million VND/yr)
+sale_of_yield,1,,10,posnorm,Sales of garden products (million VND/yr)
+if_quality_education,0.2,,0.8,tnorm_0_1,Chance of high education quality (%)
+extra_cirricular_savings,20,,100,posnorm,savings from extra-cirriclar activities for kids thank to gardening activities (million VND/year)
+outside_investment_value,10,,500,posnorm,increasing value of outside investment due to the increase of school reputation(million VND/year)
+increased_enrollment_value,10,,100,posnorm,increasing value of enrollment due to the increase of school reputation(million VND/year)
