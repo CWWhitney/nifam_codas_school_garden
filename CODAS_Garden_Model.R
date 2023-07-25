@@ -27,11 +27,14 @@ maintenance_cost[2:5]<- input_cost + #fertilizer, irrigation, electricity
 
 total_cost <- establishment_cost + maintenance_cost
 
-#Benefit###
+#Benefit####
 harvest_value <- if (if_school_has_canteen) {
-  harvest_value = canteen_saving
+  harvest_value = vv(canteen_savings, CV_value, number_of_years)
 } else {
-  harvest_value = sale_of_yield
+  harvest_value = vv(sale_of_yield, CV_value, number_of_years)
 }
 
+
+
+#Risks####
 
