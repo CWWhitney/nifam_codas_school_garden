@@ -51,7 +51,7 @@ school_garden_function <- function(x, varnames){
   } else {
     harvest_value = vv(sale_of_yield, CV_value, 
                        number_of_years, 
-                       inflation_rate) #percentage of increase each year
+                       relative_trend = inflation_rate) #percentage of increase each year
   }
   
   # here we get a bit abstract but we do not want to leave this out
@@ -69,17 +69,20 @@ school_garden_function <- function(x, varnames){
   #savings on learning
   learning_value <- vv(extra_cirricular_savings, 
                        CV_value, 
-                       number_of_years) * if_quality_education
+                       number_of_years, 
+                       relative_trend = inflation_rate) * if_quality_education
   
   #investments from outside
   outside_investment <- vv(outside_investment_value, 
                            CV_value, 
-                           number_of_years) * if_quality_education
+                           number_of_years, 
+                           relative_trend = inflation_rate) * if_quality_education
   
   #earnings from increased enrollment
   increased_enrollment <-  vv(increased_enrollment_value, 
                               CV_value, 
-                              number_of_years) * if_quality_education
+                              number_of_years, 
+                              relative_trend = inflation_rate) * if_quality_education
   
   
   #It takes time to get a good reputation
@@ -129,7 +132,7 @@ plot_cashflow(mcSimulation_object = garden_simulation_results,
 # PLS
 
 pls_result <- plsr.mcSimulation(object = garden_simulation_results,
-                                resultName = names(mcSimulation_results$y)[1], 
+                                resultName = names(garden_simulation_results$y)[1], 
                                 ncomp = 1)
 
 input_table <- read.csv("inputs_school_garden.csv")
