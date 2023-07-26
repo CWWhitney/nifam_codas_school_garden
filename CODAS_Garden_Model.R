@@ -3,10 +3,10 @@ library(decisionSupport)
 # primary and secondary school
 
 make_variables <- function(est,n=1)
-{x <- random(rho=est,n=n)
+{x <- decisionSupport::random(rho=est,n=n)
 for(i in colnames(x))assign(i, as.numeric(x[1,i]),envir=.GlobalEnv)}
 
-make_variables(estimate_read_csv(paste("inputs_school_garden.csv",sep="")))
+make_variables(decisionSupport::estimate_read_csv(paste("inputs_school_garden.csv",sep="")))
 
 # Model ####
 
