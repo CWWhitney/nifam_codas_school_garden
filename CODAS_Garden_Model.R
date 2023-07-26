@@ -1,5 +1,6 @@
 library(decisionSupport)
 # School gardens in Hanoi ####
+# primary and secondary school
 
 make_variables <- function(est,n=1)
 {x <- random(rho=est,n=n)
@@ -18,25 +19,39 @@ school_garden_function <- function(x, varnames){
   harvest_value <- rep(0, number_of_years)
   
   
-  establishment_cost[1]<- equipment_cost + #consider to use cut-off value based on land area and number of participants
+  establishment_cost_year_one<- equipment_cost + #consider to use cut-off value based on land area and number of participants
     construction_cost +  # labor cost (2-3 people/day) + machine cost to setup garden system
     teacher_training_cost # cost for training teacher on gardening
   establishment_cost[2:number_of_years] <- 0 # ensure that following years are zero (maybe we do not need this)
   
+  maintenance_cost_annual <- input_cost + #fertilizer, irrigation, electricity
+    maintaining_labor + # technical staff etc
+    teacher_salary_cost # extra costs for teachers to work on the garden
+  
+  maintenance_cost <- vv(maintenance_cost_annual, 
+                         var_CV = CV_value, 
+                         n = number_of_years, 
+                         relative_trend = inflation_rate) #percentage of increase each year
+  
   maintenance_cost[1] <- 0 #make sure the first is zero
-  maintenance_cost[2:number_of_years] <- vv + #fertilizer, irrigation, electricity
-    maintaining_labor + teacher_salary_cost
+  
   
   # Add up all costs ####
   total_cost <- establishment_cost + maintenance_cost
   
   # Benefits and Risks ####
-  canteen_yes_no <- chance_event(if_school_has_canteen, value_if = 1, value_if_not = 0)
+  canteen_yes_no <- chance_event(if_school_has_canteen, 
+                                 value_if = 1, 
+                                 value_if_not = 0)
   
   harvest_value <- if (canteen_yes_no == 1) {
-    harvest_value = vv(canteen_savings, CV_value, number_of_years)
+    harvest_value = vv(canteen_savings, CV_value, 
+                       number_of_years,
+                       relative_trend = inflation_rate) #percentage of increase each year
   } else {
-    harvest_value = vv(sale_of_yield, CV_value, number_of_years)
+    harvest_value = vv(sale_of_yield, CV_value, 
+                       number_of_years, 
+                       inflation_rate) #percentage of increase each year
   }
   
   # here we get a bit abstract but we do not want to leave this out
