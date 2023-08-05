@@ -19,3 +19,6 @@ if_quality_education,0.2,,0.8,tnorm_0_1,Chance of high education quality (%)
 extra_cirricular_savings,20,,100,posnorm,savings from extra-cirriclar activities for kids thank to gardening activities (million VND/year)
 outside_investment_value,10,,500,posnorm,increasing value of outside investment due to the increase of school reputation(million VND/year)
 increased_enrollment_value,10,,100,posnorm,increasing value of enrollment due to the increase of school reputation(million VND/year)
+,,,,,
+value_of_non_garden_land_use,3,,6,posnorm,Value of non garden land use (million VND/yr)
+costs_of_non_garden_land_use,1,,2,posnorm,Cost of non garden land use (million VND/yr)

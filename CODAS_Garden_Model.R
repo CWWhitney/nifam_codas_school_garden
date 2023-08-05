@@ -14,30 +14,30 @@ school_garden_function <- function(x, varnames){
   
   # Cost####
   
-  establishment_cost <- rep(0, number_of_years)
-  maintenance_cost <- rep(0, number_of_years)
-  harvest_value <- rep(0, number_of_years)
+  # establishment_cost <- rep(0, number_of_years)
+  # maintenance_cost <- rep(0, number_of_years)
+  # harvest_value <- rep(0, number_of_years)
+  # 
   
-  
-  establishment_cost_year_one<- equipment_cost + #consider to use cut-off value based on land area and number of participants
+  establishment_cost_year_one <- equipment_cost + #consider to use cut-off value based on land area and number of students
     construction_cost +  # labor cost (2-3 people/day) + machine cost to setup garden system
     teacher_training_cost # cost for training teacher on gardening
-  establishment_cost[2:number_of_years] <- 0 # ensure that following years are zero (maybe we do not need this)
+  
   
   maintenance_cost_annual <- input_cost + #fertilizer, irrigation, electricity
     maintaining_labor + # technical staff etc
     teacher_salary_cost # extra costs for teachers to work on the garden
   
-  maintenance_cost <- vv(maintenance_cost_annual, 
+  total_cost <- vv(maintenance_cost_annual, 
                          var_CV = CV_value, 
                          n = number_of_years, 
                          relative_trend = inflation_rate) #percentage of increase each year
   
-  maintenance_cost[1] <- 0 #make sure the first is zero
-  
-  
   # Add up all costs ####
-  total_cost <- establishment_cost + maintenance_cost
+  # management plus establishment costs in the first year
+
+  total_cost[1] <- establishment_cost_year_one + maintenance_cost_annual #make sure the first is establishment_cost_year_one
+  
   
   # Benefits and Risks ####
   canteen_yes_no <- chance_event(if_school_has_canteen, 
@@ -61,7 +61,7 @@ school_garden_function <- function(x, varnames){
   # hiring more teaching staff, organizing more events for kids
   # we call this 'extra_cirricular_savings'
   
-  # education quality is correlate (highly) to the learning and to 
+  # education quality is correlated (highly) to the learning and to 
   # other values like outside investment (i.e. parents invest)
   # and increased enrollment by 
   # creating a good impression and gaining reputation
@@ -91,15 +91,36 @@ school_garden_function <- function(x, varnames){
   
   # Add up all benefits ####
   total_benefit <- harvest_value + learning_value + outside_investment + increased_enrollment
-  
+    
   # Final result of the costs and benefits
   garden_intervention_result <- total_benefit - total_cost
   
+  ## Alternative land-use result / costs and benefits
+  total_benefit_no <- vv(value_of_non_garden_land_use, 
+                         var_CV = CV_Value, 
+                         n = number_of_years)
+  
+  total_cost_no <- vv(costs_of_non_garden_land_use, 
+                         var_CV = CV_Value, 
+                         n = number_of_years)
+  
+  
+  no_intervention_result <- total_benefit_no - total_cost_no
+  
   # The difference is inherent in our calculation so we do not need the 
   # comparative NPV here, just discount the intervention result
+  # calculate the Net Present Value (NPV) with with the specified discount rate
   NPV_interv <-
-    discount(garden_intervention_result, 
-             discount_rate, calculate_NPV = TRUE)
+    discount(x = garden_intervention_result, 
+             discount_rate = discount_rate, 
+             calculate_NPV = TRUE)
+  
+  # NPV no intervention ####
+  
+  NPV_no_interv <-
+    discount(x = no_intervention_result, 
+             discount_rate = discount_rate, 
+             calculate_NPV = TRUE)
   
   # Beware, if you do not name your outputs (left-hand side of the equal sign) in the return section, 
   # the variables will be called output_1, _2, etc.
@@ -111,13 +132,13 @@ school_garden_function <- function(x, varnames){
 garden_simulation_results <- decisionSupport::mcSimulation(
   estimate = decisionSupport::estimate_read_csv("inputs_school_garden.csv"),
   model_function = school_garden_function,
-  numberOfModelRuns = 1e4, #run 10,000 times
+  numberOfModelRuns = 1000, #run 1000 times
   functionSyntax = "plainNames"
 )
 
 decisionSupport::plot_distributions(mcSimulation_object = garden_simulation_results, 
                                     vars = "NPV_garden",
-                                    method = 'smooth_simple_overlay', 
+                                    method = 'hist_simple_overlay', 
                                     base_size = 7)
 
 decisionSupport::plot_distributions(mcSimulation_object = garden_simulation_results, 
