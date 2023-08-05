@@ -229,11 +229,11 @@ plot_cashflow(mcSimulation_object = garden_simulation_results,
 # by selecting the correct variables
 # be sure to run the multi_EVPI only on the variables that the we want
 mcSimulation_table <- data.frame(garden_simulation_results$x, 
-                                 garden_simulation_results$y[1])
+                                 garden_simulation_results$y[1:3])
 
 evpi <- multi_EVPI(mc = mcSimulation_table, first_out_var = "NPV_garden")
 
-plot_evpi(evpi, decision_vars = "NPV_garden")
+plot_evpi(evpi, decision_vars = "decision")
 
 # PLS
 
