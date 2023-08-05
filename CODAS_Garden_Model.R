@@ -1,6 +1,8 @@
 library(decisionSupport)
-# School gardens in Hanoi ####
-# primary and secondary school
+# School gardens in urban Hanoi ####
+# for teaching STEM at primary and secondary schools
+# 2nd year to start garden running well
+# 3rd to start education running well
 
 make_variables <- function(est,n=1)
 {x <- decisionSupport::random(rho=est,n=n)
@@ -14,33 +16,45 @@ school_garden_function <- function(x, varnames){
   
   # Cost####
   
-  # establishment_cost <- rep(0, number_of_years)
-  # maintenance_cost <- rep(0, number_of_years)
-  # harvest_value <- rep(0, number_of_years)
-  # 
-  
   establishment_cost_year_one <- equipment_cost + #consider to use cut-off value based on land area and number of students
     construction_cost +  # labor cost (2-3 people/day) + machine cost to setup garden system
-    teacher_training_cost # cost for training teacher on gardening
+    teacher_training_cost + # cost for training teacher on gardening
+    # this is low because we see it as a benefit partly because of 
+    # training for the teachers in STEM and other topics like transdiscipinary and other topics
+    # we save time and money on the training, which would otherwise have been spent on other training
+    # teacher's cn also save money on other training courses for these topics 
+    # that they otherwise would have had to take
+    garden_designing_costs + # garden design costs (hiring a planner)
+    school_board_planning + 
+    teaching_equipment + # teaching equipment for sciences (science oriented training)
+    # consider 'if else' for aquatic vs. soil vs. rooftop in available space 
+    # (not all have soil but all have space)
+    compost_starting + # getting started with the compost
+    worm_starting + # maintaining the compost and breaking down residue
+    livestock_costs # costs of establishing animals in the garden
+  
+  maintenance_cost_annual <- maintaining_labor + # technical staff etc
+    seed_costs + # seeds and seedlings each year
+    fertilizer + # EM and other helpers for compost
+    plant_protection + # IPM for plant protection
+    teacher_salary_cost +  # extra costs for teachers to work on the garden
+    teaching_equipment_annual + # reagents, colors, paper, apps
+    teaching_tools + # children's garden tools, gloves, hoes, basket etc.
+   livestock_maint # costs of maintaining animals in the garden
   
   
-  maintenance_cost_annual <- input_cost + #fertilizer, irrigation, electricity
-    maintaining_labor + # technical staff etc
-    teacher_salary_cost # extra costs for teachers to work on the garden
-  
+  # Add up all annual costs
   total_cost <- vv(maintenance_cost_annual, 
                          var_CV = CV_value, 
                          n = number_of_years, 
                          relative_trend = inflation_rate) #percentage of increase each year
   
-  # Add up all costs ####
-  # management plus establishment costs in the first year
-
+  # Calculate management plus establishment costs in the first year
   total_cost[1] <- establishment_cost_year_one + maintenance_cost_annual #make sure the first is establishment_cost_year_one
-  
   
   # Benefits and Risks ####
   canteen_yes_no <- chance_event(if_school_has_canteen, 
+                                 # private schools have but others not so much
                                  value_if = 1, 
                                  value_if_not = 0)
   
@@ -66,44 +80,95 @@ school_garden_function <- function(x, varnames){
   # and increased enrollment by 
   # creating a good impression and gaining reputation
   
+  # The savings are also in formal education 
+  # the school meets some of the KPI for education with the garden
+  # such as local enterprise and local economics 
+  # Ministry decree to edu. to benefit local economy (35 sessions of 45 min./yr)
+  # private school has more time than this 
+  education_savings <- formal_edu_savings + extra_cirricular_savings
+  
   #savings on learning
-  learning_value <- vv(extra_cirricular_savings, 
+  learning_value <- vv(education_savings, 
                        CV_value, 
                        number_of_years, 
                        relative_trend = inflation_rate) * if_quality_education
   
+  # Reputation goes up ####
+  # through community building, green running award, planting trees, environment ecology groups
+  # school events in garden connect community, leads to
+  
   #investments from outside
+  # i.e. sponsors from local business 
   outside_investment <- vv(outside_investment_value, 
                            CV_value, 
                            number_of_years, 
                            relative_trend = inflation_rate) * if_quality_education
   
-  #earnings from increased enrollment
-  increased_enrollment <-  vv(increased_enrollment_value, 
-                              CV_value, 
-                              number_of_years, 
-                              relative_trend = inflation_rate) * if_quality_education
+  community_value <-  vv(school_event_value, # i.e. seedlings for sale
+                         CV_value, 
+                         number_of_years, 
+                         relative_trend = inflation_rate)
   
+  # earnings from increased enrollment
+  tuition_raise_yes_no <- chance_event(if_increase_tuition, 
+                                 value_if = 1, 
+                                 value_if_not = 0)
+  
+  increased_enrollment <- if (tuition_raise_yes_no == 1) {
+    increased_enrollment <-  vv(tuition_increase + increased_enrollment_value, #tuition increase 
+                                # this is a contentious issue with a lot of discussion
+                                # keeping a low value and low chance for now
+                                CV_value, 
+                                number_of_years, 
+                                relative_trend = inflation_rate) * if_quality_education 
+  } else {
+    increased_enrollment <-  vv(increased_enrollment_value,
+                                CV_value, 
+                                number_of_years, 
+                                relative_trend = inflation_rate) * if_quality_education
+  }
   
   #It takes time to get a good reputation
   # make year 1 a zero
   increased_enrollment[1] <- 0 
   
+  #health benefits from gardens
+  health_value <- child_veg_access + child_healthier_choices 
+  
+  health_related_value <-  vv(health_value, 
+                              CV_value, 
+                              number_of_years, 
+                              relative_trend = inflation_rate) * if_quality_education
+  
+  # green space environment
+  environmental_value <- green_space_value + reduce_polution_value 
+  
+  # some discussion of carbon credit values (not included)
+  environment_related_value <-  vv(environmental_value, 
+                              CV_value, 
+                              number_of_years, 
+                              relative_trend = inflation_rate)
+  
+  
   # Add up all benefits ####
-  total_benefit <- harvest_value + learning_value + outside_investment + increased_enrollment
+  total_benefit <- harvest_value + learning_value + 
+                    outside_investment + increased_enrollment + 
+                    health_related_value + environment_related_value + community_value
     
   # Final result of the costs and benefits
   garden_intervention_result <- total_benefit - total_cost
   
   ## Alternative land-use result / costs and benefits
-  total_benefit_no <- vv(value_of_non_garden_land_use, 
-                         var_CV = CV_Value, 
+  
+  total_benefit_no <- vv(value_of_non_garden_land_use + school_board_planning, # loss of playground etc.
+                         var_CV = CV_value, 
                          n = number_of_years)
   
   total_cost_no <- vv(costs_of_non_garden_land_use, 
-                         var_CV = CV_Value, 
+                         var_CV = CV_value, 
                          n = number_of_years)
   
+  # subtract 
   
   no_intervention_result <- total_benefit_no - total_cost_no
   
@@ -116,7 +181,6 @@ school_garden_function <- function(x, varnames){
              calculate_NPV = TRUE)
   
   # NPV no intervention ####
-  
   NPV_no_interv <-
     discount(x = no_intervention_result, 
              discount_rate = discount_rate, 
@@ -124,8 +188,9 @@ school_garden_function <- function(x, varnames){
   
   # Beware, if you do not name your outputs (left-hand side of the equal sign) in the return section, 
   # the variables will be called output_1, _2, etc.
-  
   return(list(NPV_garden = NPV_interv,
+              NPV_no_garden = NPV_no_interv,
+              decision = NPV_interv - NPV_no_interv,
               Cashflow_garden = garden_intervention_result))
 }
 
@@ -136,29 +201,20 @@ garden_simulation_results <- decisionSupport::mcSimulation(
   functionSyntax = "plainNames"
 )
 
+# plot distributions for the two options
 decisionSupport::plot_distributions(mcSimulation_object = garden_simulation_results, 
-                                    vars = "NPV_garden",
+                                    vars = c("NPV_garden", "NPV_no_garden"),
                                     method = 'hist_simple_overlay', 
                                     base_size = 7)
 
+# plot distribution for the decision
 decisionSupport::plot_distributions(mcSimulation_object = garden_simulation_results, 
-                                    vars = "NPV_garden",
-                                    method = 'boxplot')
+                                    vars = "decision",
+                                    method = 'hist_simple_overlay')
 
-# Cashflow 
-
+# Cashflow of the garden option
 plot_cashflow(mcSimulation_object = garden_simulation_results, 
               cashflow_var_name = "Cashflow_garden")
-
-# PLS
-
-pls_result <- plsr.mcSimulation(object = garden_simulation_results,
-                                resultName = names(garden_simulation_results$y)[1], 
-                                ncomp = 1)
-
-input_table <- read.csv("inputs_school_garden.csv")
-
-plot_pls(pls_result, input_table = input_table, threshold = 0)
 
 # EVPI 
 
@@ -171,3 +227,14 @@ mcSimulation_table <- data.frame(garden_simulation_results$x,
 evpi <- multi_EVPI(mc = mcSimulation_table, first_out_var = "NPV_garden")
 
 plot_evpi(evpi, decision_vars = "NPV_garden")
+
+# PLS
+
+pls_result <- plsr.mcSimulation(object = garden_simulation_results,
+                                resultName = names(garden_simulation_results$y)[1], 
+                                ncomp = 1)
+
+input_table <- read.csv("inputs_school_garden.csv")
+
+plot_pls(pls_result, input_table = input_table, threshold = 0)
+
