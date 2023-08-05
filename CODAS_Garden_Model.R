@@ -17,18 +17,21 @@ school_garden_function <- function(x, varnames){
   # Cost####
   
   establishment_cost_year_one <- equipment_cost + #consider to use cut-off value based on land area and number of students
+    # this is a high value because we may need a lot of equipment, netting, trellis for plants to climb
+    # could be a smart system (full automation)... 
     construction_cost +  # labor cost (2-3 people/day) + machine cost to setup garden system
     teacher_training_cost + # cost for training teacher on gardening
-    # this is low because we see it as a benefit partly because of 
+      # this is low because we see it as a benefit partly because of 
     # training for the teachers in STEM and other topics like transdiscipinary and other topics
     # we save time and money on the training, which would otherwise have been spent on other training
     # teacher's cn also save money on other training courses for these topics 
     # that they otherwise would have had to take
-    garden_designing_costs + # garden design costs (hiring a planner)
+    # requires training on 5 or 7 subjects (biology etc.) for 12 days
+    garden_designing_costs + # garden design costs (hiring a planner) 
     school_board_planning + 
     teaching_equipment + # teaching equipment for sciences (science oriented training)
-    # consider 'if else' for aquatic vs. soil vs. rooftop in available space 
-    # (not all have soil but all have space)
+      # consider 'if else' for aquatic vs. soil vs. rooftop in available space 
+      # (not all have soil but all have space)
     compost_starting + # getting started with the compost
     worm_starting + # maintaining the compost and breaking down residue
     livestock_costs # costs of establishing animals in the garden
@@ -38,6 +41,8 @@ school_garden_function <- function(x, varnames){
     fertilizer + # EM and other helpers for compost
     plant_protection + # IPM for plant protection
     teacher_salary_cost +  # extra costs for teachers to work on the garden
+    annual_teacher_training + # annual teacher training 12 days on 6 subjects
+      # low because it is run by the teachers who have already been trained
     teaching_equipment_annual + # reagents, colors, paper, apps
     teaching_tools + # children's garden tools, gloves, hoes, basket etc.
    livestock_maint # costs of maintaining animals in the garden
@@ -58,6 +63,8 @@ school_garden_function <- function(x, varnames){
                                  value_if = 1, 
                                  value_if_not = 0)
   
+  # parents pay for the canteen food / the school will sell to parents
+  # never eat in the canteen
   harvest_value <- if (canteen_yes_no == 1) {
     harvest_value = vv(canteen_savings, CV_value, 
                        number_of_years,
