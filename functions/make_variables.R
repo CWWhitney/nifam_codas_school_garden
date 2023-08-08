@@ -1,6 +1,6 @@
 # function to make variables and test the model
 # used only in model construction
-
+library(decisionSupport)
 # use random function from another script
 # figure out random functions (a family in decisionSupport)
 # source("functions/random.default.r")
