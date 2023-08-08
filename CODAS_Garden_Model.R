@@ -296,3 +296,6 @@ input_table <- read.csv("inputs_school_garden.csv")
 source("functions/plot_pls.R")
 plot_pls(pls_result, input_table = input_table, threshold = 0)
 
+# Summary stats ####
+summary(garden_simulation_results$y$decision)
+
