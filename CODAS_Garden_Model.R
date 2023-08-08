@@ -10,9 +10,11 @@ make_variables(decisionSupport::estimate_read_csv(paste("inputs_school_garden.cs
 
 # value varier function to add variability to values
 source("functions/vv.R")
+
 # chance event function to assess the chances 
 # mostly for risks
 source("functions/chance_event.R")
+
 # discount values for NPV (time value for money)
 source("functions/discount.R")
 
@@ -20,7 +22,8 @@ source("functions/discount.R")
 
 school_garden_function <- function(x, varnames){
   
-  # Cost####
+  
+  # Costs####
   
   establishment_cost_year_one <- equipment_cost + #consider to use cut-off value based on land area and number of students
     # this is a high value because we may need a lot of equipment, netting, trellis for plants to climb
@@ -63,7 +66,39 @@ school_garden_function <- function(x, varnames){
   # Calculate management plus establishment costs in the first year
   total_cost[1] <- establishment_cost_year_one + maintenance_cost_annual #make sure the first is establishment_cost_year_one
   
+  # Risks ####
+  # These are 'ex-ante' risks, or risks understood when making a decision
+  # we use these to multiply the values for the relevant benefits
+  # the minimum values are effectively a reduction in the benefits
+  # used to multiply benefits
+  garden_function_risk <-  min(if_students_like, # damage garden
+                               if_parents_like, #  support
+                               if_community_likes, #damage garden
+                               if_effective_manage) # well managed garden
+  
+  garden_nutrition_risk <- min(if_students_like, # eat veg/change behavior
+                               if_garden_yield_enough, # goes to hh and school canteen
+                               if_parents_like, #  support and buy garden product
+                               if_garden_healthy, # good food from the garden
+                               if_effective_manage) # well managed garden
+  # ex-ante education risks
+  education_risk <- min(if_students_like, # pay attention
+                        if_teachers_like,# teach effectively
+                        if_parents_like,# Allow students to attend
+                        if_effective_teaching, # closely related to the next
+                        if_effective_training) # but possibly non-correlary
+  
+  # ex-ante community risks
+  community_risk <- min(if_parents_like, #  support and promote
+                        if_community_likes, # support and promote
+                        if_effective_manage) # well managed garden makes good impression
+  
+  # ex-ante ecological risks
+  ecological_risk <- min(if_offer_green_space, # offer green space
+                        if_reduce_polution) # offer habitat
+  
   # Benefits and Risks ####
+  
   canteen_yes_no <- chance_event(if_school_has_canteen, 
                                  # private schools have but others not so much
                                  value_if = 1, 
@@ -74,11 +109,14 @@ school_garden_function <- function(x, varnames){
   harvest_value <- if (canteen_yes_no == 1) {
     harvest_value = vv(canteen_savings, CV_value, 
                        number_of_years,
-                       relative_trend = inflation_rate) #percentage of increase each year
+                       #inflation -> percentage of increase each year
+                       relative_trend = inflation_rate) * garden_function_risk 
+                           # account for risk that the garden is not fully functional
   } else {
     harvest_value = vv(sale_of_yield, CV_value, 
                        number_of_years, 
-                       relative_trend = inflation_rate) #percentage of increase each year
+                       relative_trend = inflation_rate) * garden_function_risk 
+                                          
   }
   
   # here we get a bit abstract but we do not want to leave this out
@@ -104,7 +142,7 @@ school_garden_function <- function(x, varnames){
   learning_value <- vv(education_savings, 
                        CV_value, 
                        number_of_years, 
-                       relative_trend = inflation_rate) * if_quality_education
+                       relative_trend = inflation_rate) * education_risk
   
   # Reputation goes up ####
   # through community building, green running award, planting trees, environment ecology groups
@@ -115,12 +153,12 @@ school_garden_function <- function(x, varnames){
   outside_investment <- vv(outside_investment_value, 
                            CV_value, 
                            number_of_years, 
-                           relative_trend = inflation_rate) * if_quality_education
+                           relative_trend = inflation_rate) * community_risk
   
   community_value <-  vv(school_event_value, # i.e. seedlings for sale
                          CV_value, 
                          number_of_years, 
-                         relative_trend = inflation_rate)
+                         relative_trend = inflation_rate) * community_risk
   
   # earnings from increased enrollment
   tuition_raise_yes_no <- chance_event(if_increase_tuition, 
@@ -133,12 +171,12 @@ school_garden_function <- function(x, varnames){
                                 # keeping a low value and low chance for now
                                 CV_value, 
                                 number_of_years, 
-                                relative_trend = inflation_rate) * if_quality_education 
+                                relative_trend = inflation_rate) * education_risk 
   } else {
     increased_enrollment <-  vv(increased_enrollment_value,
                                 CV_value, 
                                 number_of_years, 
-                                relative_trend = inflation_rate) * if_quality_education
+                                relative_trend = inflation_rate) * education_risk
   }
   
   #It takes time to get a good reputation
@@ -151,7 +189,7 @@ school_garden_function <- function(x, varnames){
   health_related_value <-  vv(health_value, 
                               CV_value, 
                               number_of_years, 
-                              relative_trend = inflation_rate) * if_quality_education
+                              relative_trend = inflation_rate) * garden_nutrition_risk
   
   # green space environment
   environmental_value <- green_space_value + reduce_polution_value 
@@ -160,7 +198,7 @@ school_garden_function <- function(x, varnames){
   environment_related_value <-  vv(environmental_value, 
                               CV_value, 
                               number_of_years, 
-                              relative_trend = inflation_rate)
+                              relative_trend = inflation_rate) * ecological_risk
   
   
   # Add up all benefits ####
