@@ -1,4 +1,4 @@
-library(decisionSupport)
+
 # School gardens in urban Hanoi ####
 # for teaching STEM at primary and secondary schools
 # 2nd year to start garden running well
@@ -6,6 +6,7 @@ library(decisionSupport)
 
 # make variables for testing our model (only for construction)
 source("functions/make_variables.R")
+source("functions/estimate_read_csv.R")
 make_variables(decisionSupport::estimate_read_csv(paste("inputs_school_garden.csv",sep="")))
 
 # value varier function to add variability to values
