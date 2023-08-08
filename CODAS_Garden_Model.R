@@ -67,10 +67,11 @@ school_garden_function <- function(x, varnames){
   total_cost[1] <- establishment_cost_year_one + maintenance_cost_annual #make sure the first is establishment_cost_year_one
   
   # Risks ####
+  
   # These are 'ex-ante' risks, or risks understood when making a decision
   # we use these to multiply the values for the relevant benefits
   # the minimum values are effectively a reduction in the benefits
-  # used to multiply benefits
+  # used to multiply benefits (by a number between 5% and 95% likely)
   garden_function_risk <-  min(if_students_like, # damage garden
                                if_parents_like, #  support
                                if_community_likes, #damage garden
