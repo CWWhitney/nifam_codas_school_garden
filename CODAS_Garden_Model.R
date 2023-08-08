@@ -2,13 +2,19 @@ library(decisionSupport)
 # School gardens in urban Hanoi ####
 # for teaching STEM at primary and secondary schools
 # 2nd year to start garden running well
-# 3rd to start education running well
+# 3rd year before education plan fully running well
 
-make_variables <- function(est,n=1)
-{x <- decisionSupport::random(rho=est,n=n)
-for(i in colnames(x))assign(i, as.numeric(x[1,i]),envir=.GlobalEnv)}
-
+# make variables for testing our model (only for construction)
+source("functions/make_variables.R")
 make_variables(decisionSupport::estimate_read_csv(paste("inputs_school_garden.csv",sep="")))
+
+# value varier function to add variability to values
+source("functions/vv.R")
+# chance event function to assess the chances 
+# mostly for risks
+source("functions/chance_event.R")
+# discount values for NPV (time value for money)
+source("functions/discount.R")
 
 # Model ####
 
@@ -201,25 +207,29 @@ school_garden_function <- function(x, varnames){
               Cashflow_garden = garden_intervention_result))
 }
 
-garden_simulation_results <- decisionSupport::mcSimulation(
-  estimate = decisionSupport::estimate_read_csv("inputs_school_garden.csv"),
+# Monte Carlo simulation 
+source("functions/mcSimulation.R")
+garden_simulation_results <- mcSimulation(
+  estimate = estimate_read_csv("inputs_school_garden.csv"),
   model_function = school_garden_function,
-  numberOfModelRuns = 1000, #run 1000 times
+  numberOfModelRuns = 100, #run 100 times
   functionSyntax = "plainNames"
 )
 
 # plot distributions for the two options
-decisionSupport::plot_distributions(mcSimulation_object = garden_simulation_results, 
+source("functions/plot_distributions.R")
+plot_distributions(mcSimulation_object = garden_simulation_results, 
                                     vars = c("NPV_garden", "NPV_no_garden"),
                                     method = 'hist_simple_overlay', 
                                     base_size = 7)
 
 # plot distribution for the decision
-decisionSupport::plot_distributions(mcSimulation_object = garden_simulation_results, 
+plot_distributions(mcSimulation_object = garden_simulation_results, 
                                     vars = "decision",
                                     method = 'hist_simple_overlay')
 
 # Cashflow of the garden option
+source("functions/plot_cashflow.R")
 plot_cashflow(mcSimulation_object = garden_simulation_results, 
               cashflow_var_name = "Cashflow_garden")
 
@@ -230,18 +240,19 @@ plot_cashflow(mcSimulation_object = garden_simulation_results,
 # be sure to run the multi_EVPI only on the variables that the we want
 mcSimulation_table <- data.frame(garden_simulation_results$x, 
                                  garden_simulation_results$y[1:3])
-
+source("functions/multi_EVPI.R")
 evpi <- multi_EVPI(mc = mcSimulation_table, first_out_var = "NPV_garden")
 
+source("functions/plot_evpi.R")
 plot_evpi(evpi, decision_vars = "decision")
 
 # PLS
-
-pls_result <- plsr.mcSimulation(object = garden_simulation_results,
+source("functions/pls_model.R")
+pls_result <- pls_model(object = garden_simulation_results,
                                 resultName = names(garden_simulation_results$y)[1], 
                                 ncomp = 1)
 
 input_table <- read.csv("inputs_school_garden.csv")
-
+source("functions/plot_pls.R")
 plot_pls(pls_result, input_table = input_table, threshold = 0)
 
