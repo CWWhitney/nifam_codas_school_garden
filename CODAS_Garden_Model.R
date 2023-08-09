@@ -23,40 +23,67 @@ source("functions/discount.R")
 
 school_garden_function <- function(x, varnames){
   
-  
   # Costs####
   
-  establishment_cost_year_one <- equipment_cost + #consider to use cut-off value based on land area and number of students
-    # this is a high value because we may need a lot of equipment, netting, trellis for plants to climb
+  # Establishment costs 
+  
+  # possible chance_event options: 
+      # family contribution? Will they pay a bit? 
+  family_pays_establishment_yes_no <- chance_event(if_family_pays_establishment, # some above the table (mostly under the table)
+                                                   value_if = 1, 
+                                                   value_if_not = 0)
+  
+  garden_construction_cost <- if (family_pays_establishment_yes_no == 1) {
+    vv(construction_cost * establishment_family_portion_paid, 
+       CV_value, 
+       number_of_years, 
+       relative_trend = inflation_rate) 
+  } else {
+    vv(construction_cost, # labor cost (2-3 people/day) + machine cost to setup garden system
+       CV_value, 
+       number_of_years, 
+       relative_trend = inflation_rate)
+  }
+  
+  # consider to use cut-off values based on land area and number of students
+  garden_establishment_costs <- compost_starting + # getting started with the compost
+    worm_starting + # maintaining the compost and breaking down residue
+    livestock_costs +  # costs of establishing animals in the garden (small birds, rabbits, fish)
+    garden_designing_costs + # garden design costs (hiring a planner) 
+    equipment_cost + # this is a high value because we may need a lot of equipment, netting, trellis for plants to climb
     # could be a smart system (full automation)... 
-    construction_cost +  # labor cost (2-3 people/day) + machine cost to setup garden system
-    teacher_training_cost + # cost for training teacher on gardening
-      # this is low because we see it as a benefit partly because of 
+    garden_construction_cost  
+    
+  STEM_establishment_costs <-   teaching_equipment + # teaching equipment for sciences (science oriented training)
+    # consider 'if else' for aquatic vs. soil vs. rooftop in available space 
+    # (not all have soil but all have space)
+    teacher_training_cost  # cost for training teacher on gardening
+    # this is low because we see it as a benefit partly because of 
     # training for the teachers in STEM and other topics like transdiscipinary and other topics
     # we save time and money on the training, which would otherwise have been spent on other training
     # teacher's cn also save money on other training courses for these topics 
     # that they otherwise would have had to take
     # requires training on 5 or 7 subjects (biology etc.) for 12 days
-    garden_designing_costs + # garden design costs (hiring a planner) 
-    school_board_planning + 
-    teaching_equipment + # teaching equipment for sciences (science oriented training)
-      # consider 'if else' for aquatic vs. soil vs. rooftop in available space 
-      # (not all have soil but all have space)
-    compost_starting + # getting started with the compost
-    worm_starting + # maintaining the compost and breaking down residue
-    livestock_costs # costs of establishing animals in the garden
+    
+  establishment_cost_year_one <- school_board_planning + 
+    garden_establishment_costs + 
+    STEM_establishment_costs 
   
-  maintenance_cost_annual <- maintaining_labor + # technical staff etc
+  garden_maintenance_cost <- maintaining_labor + # technical staff etc
+            # 2-3 hours per day to manage a garden of this rough size
     seed_costs + # seeds and seedlings each year
     fertilizer + # EM and other helpers for compost
     plant_protection + # IPM for plant protection
-    teacher_salary_cost +  # extra costs for teachers to work on the garden
-    annual_teacher_training + # annual teacher training 12 days on 6 subjects
-      # low because it is run by the teachers who have already been trained
-    teaching_equipment_annual + # reagents, colors, paper, apps
-    teaching_tools + # children's garden tools, gloves, hoes, basket etc.
+    # Circular garden with animals, trees, plants, fish
    livestock_maint # costs of maintaining animals in the garden
   
+  STEM_maintenance_cost <- teacher_salary_cost +  # extra costs for teachers to work on the garden
+    annual_teacher_training + # annual teacher training 12 days on 6 subjects
+    # low because it is run by the teachers who have already been trained
+    teaching_equipment_annual + # reagents, colors, paper, apps
+    teaching_tools # children's garden tools, gloves, hoes, basket etc.
+    
+  maintenance_cost_annual <- garden_maintenance_cost + STEM_maintenance_cost
   
   # Add up all annual costs
   total_cost <- vv(maintenance_cost_annual, 
@@ -72,7 +99,7 @@ school_garden_function <- function(x, varnames){
   # These are 'ex-ante' risks, or risks understood when making a decision
   # we use these to multiply the values for the relevant benefits
   # the minimum values are effectively a reduction in the benefits
-  # used to multiply benefits (by a number between 5% and 95% likely)
+  # used to multiply benefits (by a number 90% likely)
   garden_function_risk <-  min(if_students_like, # damage garden
                                if_parents_like, #  support
                                if_community_likes, #damage garden
@@ -152,7 +179,7 @@ school_garden_function <- function(x, varnames){
   
   #investments from outside
   # i.e. sponsors from local business 
-  outside_investment <- vv(outside_investment_value, 
+  outside_investment <- vv(outside_investment_value, # related to networking
                            CV_value, 
                            number_of_years, 
                            relative_trend = inflation_rate) * community_risk
@@ -206,20 +233,44 @@ school_garden_function <- function(x, varnames){
   # Add up all benefits ####
   total_benefit <- harvest_value + learning_value + 
                     outside_investment + increased_enrollment + 
-                    health_related_value + environment_related_value + community_value
+                    health_related_value + environment_related_value + 
+                    community_value
     
   # Final result of the costs and benefits
   garden_intervention_result <- total_benefit - total_cost
   
   ## Alternative land-use result / costs and benefits
   
-  total_benefit_no <- vv(value_of_non_garden_land_use + school_board_planning, # loss of playground etc.
+  # the above-board earnings from parking (much will be under the table)
+  parking_yes_no <- chance_event(if_parking, # some above the table (mostly under the table)
+                                 value_if = 1, 
+                                 value_if_not = 0)
+  
+  non_garden_value <- if (parking_yes_no == 1) {
+     vv(value_of_non_garden_land_use + parking_value, #tuition increase 
+                            # this is a contentious issue with a lot of discussion
+                            # keeping a low value and low chance for now
+                            CV_value, 
+                            number_of_years, 
+                            relative_trend = inflation_rate) 
+  } else {
+     vv(value_of_non_garden_land_use,
+                            CV_value, 
+                            number_of_years, 
+                            relative_trend = inflation_rate)
+  }
+  
+  
+  total_benefit_no <- vv(non_garden_value + 
+                           school_board_planning, # loss of playground etc.
                          var_CV = CV_value, 
-                         n = number_of_years)
+                         n = number_of_years, 
+                         relative_trend = inflation_rate)
   
   total_cost_no <- vv(costs_of_non_garden_land_use, 
                          var_CV = CV_value, 
-                         n = number_of_years)
+                         n = number_of_years, 
+                      relative_trend = inflation_rate)
   
   # subtract 
   
@@ -244,6 +295,7 @@ school_garden_function <- function(x, varnames){
   return(list(NPV_garden = NPV_interv,
               NPV_no_garden = NPV_no_interv,
               decision = NPV_interv - NPV_no_interv,
+              total_costs = sum(total_cost),
               Cashflow_garden = garden_intervention_result))
 }
 
@@ -252,7 +304,7 @@ source("functions/mcSimulation.R")
 garden_simulation_results <- mcSimulation(
   estimate = estimate_read_csv("inputs_school_garden.csv"),
   model_function = school_garden_function,
-  numberOfModelRuns = 100, #run 100 times
+  numberOfModelRuns = 1000, #run 1000 times
   functionSyntax = "plainNames"
 )
 
@@ -298,4 +350,4 @@ plot_pls(pls_result, input_table = input_table, threshold = 0)
 
 # Summary stats ####
 summary(garden_simulation_results$y$decision)
-
+summary(garden_simulation_results$y$total_costs)
