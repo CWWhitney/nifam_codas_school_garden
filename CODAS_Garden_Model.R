@@ -1,6 +1,7 @@
 
 # School gardens in urban Hanoi ####
-# for teaching STEM at primary and secondary schools
+# for teaching nutrition 
+# and STEM at primary and secondary schools
 # 2nd year to start garden running well
 # 3rd year before education plan fully running well
 
@@ -100,7 +101,9 @@ school_garden_function <- function(x, varnames){
   # we use these to multiply the values for the relevant benefits
   # the minimum values are effectively a reduction in the benefits
   # used to multiply benefits (by a number 90% likely)
-  garden_function_risk <-  min(if_students_like, # damage garden
+  
+  garden_function_risk <-  min(if_biophysical_good, 
+                               if_students_like, # damage garden
                                if_parents_like, #  support
                                if_community_likes, #damage garden
                                if_effective_manage) # well managed garden

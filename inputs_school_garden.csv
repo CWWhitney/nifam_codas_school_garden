@@ -16,6 +16,7 @@ if_effective_teaching,0.2,,0.9,tnorm_0_1,Chance of high education quality / effe
 if_effective_training,0.2,,0.8,tnorm_0_1,Chance of effective training for teachers (%)
 if_offer_green_space,0.5,,0.9,tnorm_0_1,Chance of garden having ecologically valuable green space (%)
 if_reduce_polution,0.2,,0.5,tnorm_0_1,Chance of garden reducing polution (%)
+if_biophysical_good,0.2,,0.5,tnorm_0_1,Chance of biophysical not damaging (i.e. weather) (%)
 ,,,,,
 equipment_cost,50,,100,posnorm,Costs of equipment for setting up garden (million VND)
 construction_cost,15,,30,posnorm,Costs of construction for setting up garden (million VND)
