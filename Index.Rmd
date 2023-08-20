@@ -199,6 +199,7 @@ summary(garden_simulation_results$y$total_costs)
 ```
 
 # Cashflow of the garden option
+
 ```{r}
 source("functions/plot_cashflow.R")
 plot_cashflow(mcSimulation_object = garden_simulation_results, 
@@ -220,7 +221,7 @@ plot_evpi(evpi, decision_vars = "decision")
 
 # PLS
 
-Projection to Latent Structures model can give us some sense of the correlation strength and direction for model variable and our outcome variables.
+Projection to Latent Structures model can give us some sense of the correlation strength and direction for model variables and our outcome variables.
 
 ```{r}
 source("functions/pls_model.R")

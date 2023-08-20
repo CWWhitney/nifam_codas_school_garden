@@ -1,7 +1,7 @@
 # Model of the school garden (see Index.RMD for the explaination and posthoc)
 
-# We need these fucntions to run our model ####
-# value varier function to add variability to values
+# We need these functions to run our model ####
+# value_varrier function to add variability to values
 source("functions/vv.R")
 
 # chance event function to assess the chances 
@@ -294,3 +294,4 @@ school_garden_function <- function(x, varnames){
               total_costs = sum(total_cost),
               Cashflow_garden = garden_intervention_result))
 }
+
