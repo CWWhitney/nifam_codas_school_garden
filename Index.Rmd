@@ -133,5 +133,109 @@ The Monte Carlo simulation process generates a set of estimated model outputs ba
 
 
 
+# Monte Carlo simulation 
+
+```{r mcsimulation}
+# Source our model
+source("CODAS_Garden_Model.R")
+# Source the simulation function
+source("functions/mcSimulation.R")
+
+garden_simulation_results <- mcSimulation(
+  estimate = estimate_read_csv("inputs_school_garden.csv"),
+  model_function = school_garden_function,
+  numberOfModelRuns = 1000, #run 1000 times
+  functionSyntax = "plainNames"
+)
+```
+
+The way we present NPV values can influence decision makers. The same information presented in different ways can even lead to different decisions. Here we derive a plot that compares the decision options as pure NPV values. 
+
+```{r}
+source("functions/plot_distributions.R")
+plot_distributions(mcSimulation_object = garden_simulation_results, 
+                                    vars = c("NPV_garden", "NPV_no_garden"),
+                                    method = 'hist_simple_overlay', 
+                                    base_size = 7, 
+                                    x_axis_name = "Comparative NPV outcomes")
+```
+
+## Framing the outcomes 
+
+Under Prospect Theory the way we present NPV values can influence decision makers - the same information presented in different ways can lead to different decisions. For example, framing a projected NPV gain as a "reduction in potential loss" might make it more attractive to decision makers due to loss aversion. 
+
+Here we plot the distribution for the decision and frame the projected NPV gain for the 'decision' (distributions for the two options with the NPV values of the `no garden` option subtracted from those for the `garden`). If we display this as a "Reduction in potential loss" it might be more attractive to decision makers due to loss aversion, i.e. school boards might put more emphasis on avoiding potential losses than on seeking gains. We can frame our results as a strategy that minimizes losses rather than one that maximizes gains.
+
+```{r framing_NPV_results}
+plot_distributions(mcSimulation_object = garden_simulation_results, 
+                                    vars = "decision",
+                                    method = 'hist_simple_overlay', 
+                                    base_size = 7,  
+                                    x_axis_name = "Reduction in potential loss")
+
+```
+
+
+## Summary of results for the decision
+
+Summary of the savings 
+
+```{r summary_decision}
+summary(garden_simulation_results$y$decision)
+```
+
+Summary of costs 
+
+```{r summary_costs}
+summary(garden_simulation_results$y$total_costs)
+```
+
+# Cashflow of the garden option
+```{r}
+source("functions/plot_cashflow.R")
+plot_cashflow(mcSimulation_object = garden_simulation_results, 
+              cashflow_var_name = "Cashflow_garden")
+```
+# EVPI 
+
+
+```{r}
+# Subset the outputs from the mcSimulation function (y) by selecting the correct variables be sure to run the multi_EVPI only on the variables that the we want.
+mcSimulation_table <- data.frame(garden_simulation_results$x, 
+                                 garden_simulation_results$y[1:3])
+source("functions/multi_EVPI.R")
+evpi <- multi_EVPI(mc = mcSimulation_table, first_out_var = "NPV_garden")
+
+source("functions/plot_evpi.R")
+plot_evpi(evpi, decision_vars = "decision")
+```
+
+# PLS
+
+Projection to Latent Structures model can give us some sense of the correlation strength and direction for model variable and our outcome variables.
+
+
+```{r}
+source("functions/pls_model.R")
+pls_result <- pls_model(object = garden_simulation_results,
+                                resultName = names(garden_simulation_results$y)[1], 
+                                ncomp = 1)
+
+input_table <- read.csv("inputs_school_garden.csv")
+source("functions/plot_pls.R")
+plot_pls(pls_result, input_table = input_table, threshold = 0)
+```
+
+# More of Prospect Theory
+
+We should consider these for our presentations for decisoon makers. 
+
+Impact of Reference Points: The choice of reference point against which the forecast NPV values are evaluated can significantly influence decisions. Prospect Theory suggests that if the reference point is set at a higher NPV (e.g., a best-case scenario), decision makers might take more risks to achieve gains above that reference point.
+
+Nonlinear Evaluation of Outcomes: Prospect Theory's value function implies that the perceived value of NPV gains diminishes as they get larger, and losses are more severely felt than gains. This could lead decision makers to prioritize actions that protect against losses and ensure stability even if those actions don't maximize the overall NPV.
+
+
+
+
 
 
