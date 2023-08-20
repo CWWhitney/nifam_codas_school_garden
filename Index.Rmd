@@ -230,8 +230,4 @@ source("functions/plot_pls.R")
 plot_pls(pls_result, input_table = input_table, threshold = 0)
 ```
 
-# More on Prospect Theory
 
-## Nonlinear Evaluation of Outcomes in Prospect Theory
-
-This is a bit abstract, but the perceived value of NPV gains diminishes as those gains get larger. Losses are more severely felt than gains. This could lead decision makers to prioritize actions that protect against losses and ensure stability even if those actions don't maximize the overall NPV.
