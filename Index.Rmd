@@ -138,8 +138,9 @@ The Monte Carlo simulation process generates a set of estimated model outputs ba
 ```{r mcsimulation}
 # Source our model
 source("CODAS_Garden_Model.R")
-# Source the simulation function
-source("functions/mcSimulation.R")
+
+# Ensure consistent results each time we run the MC
+set.seed(1234) 
 
 garden_simulation_results <- mcSimulation(
   estimate = estimate_read_csv("inputs_school_garden.csv"),
@@ -226,9 +227,9 @@ source("functions/plot_pls.R")
 plot_pls(pls_result, input_table = input_table, threshold = 0)
 ```
 
-# More of Prospect Theory
+# More on Prospect Theory
 
-We should consider these for our presentations for decisoon makers. 
+We should consider these for our presentations for decison makers. 
 
 Impact of Reference Points: The choice of reference point against which the forecast NPV values are evaluated can significantly influence decisions. Prospect Theory suggests that if the reference point is set at a higher NPV (e.g., a best-case scenario), decision makers might take more risks to achieve gains above that reference point.
 
