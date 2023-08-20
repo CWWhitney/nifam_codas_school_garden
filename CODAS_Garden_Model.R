@@ -1,15 +1,6 @@
+# Model of the school garden (see Index.RMD for the explaination and posthoc)
 
-# School gardens in urban Hanoi ####
-# for teaching nutrition 
-# and STEM at primary and secondary schools
-# 2nd year to start garden running well
-# 3rd year before education plan fully running well
-
-# make variables for testing our model (only for construction)
-source("functions/make_variables.R")
-source("functions/estimate_read_csv.R")
-make_variables(decisionSupport::estimate_read_csv(paste("inputs_school_garden.csv",sep="")))
-
+# We need these fucntions to run our model ####
 # value varier function to add variability to values
 source("functions/vv.R")
 
@@ -20,7 +11,14 @@ source("functions/chance_event.R")
 # discount values for NPV (time value for money)
 source("functions/discount.R")
 
-# Model ####
+# Model testing ####
+
+# make variables for testing our model (only for construction)
+source("functions/make_variables.R")
+source("functions/estimate_read_csv.R")
+make_variables(decisionSupport::estimate_read_csv(paste("inputs_school_garden.csv",sep="")))
+
+# The model ####
 
 school_garden_function <- function(x, varnames){
   
@@ -288,7 +286,7 @@ school_garden_function <- function(x, varnames){
              discount_rate = discount_rate, 
              calculate_NPV = TRUE)
   
-  # Beware, if you do not name your outputs (left-hand side of the equal sign) in the return section, 
+  # Beware, if we do not name our outputs (left-hand side of the equal sign) in the return section, 
   # the variables will be called output_1, _2, etc.
   return(list(NPV_garden = NPV_interv,
               NPV_no_garden = NPV_no_interv,

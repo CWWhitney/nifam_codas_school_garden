@@ -1,11 +1,15 @@
 ---
-title: "Index"
+title: "Should urban Hanoi school boards invest time and money in creating school gardens?"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+# School gardens in urban Hanoi ####
+
+The gardens will be designed for teaching about nutrition and STEM at primary and secondary schools. In the 2nd year to start garden running well. The 3rd year is when the education plan will be fully running.
 
 ## Methods 
 
@@ -176,6 +180,9 @@ plot_distributions(mcSimulation_object = garden_simulation_results,
 
 ```
 
+### Impact of Reference Points in Prospect Theory
+
+We should consider a reference point for forecasting NPV values. This can also influence decisions. If we choose a reference point at a higher NPV (like a best-case scenario), decision makers might take more risks to achieve gains above that reference point. This might be possible with a line on the plot to represent some reference.  
 
 ## Summary of results for the decision
 
@@ -197,8 +204,8 @@ source("functions/plot_cashflow.R")
 plot_cashflow(mcSimulation_object = garden_simulation_results, 
               cashflow_var_name = "Cashflow_garden")
 ```
-# EVPI 
 
+# EVPI 
 
 ```{r}
 # Subset the outputs from the mcSimulation function (y) by selecting the correct variables be sure to run the multi_EVPI only on the variables that the we want.
@@ -215,7 +222,6 @@ plot_evpi(evpi, decision_vars = "decision")
 
 Projection to Latent Structures model can give us some sense of the correlation strength and direction for model variable and our outcome variables.
 
-
 ```{r}
 source("functions/pls_model.R")
 pls_result <- pls_model(object = garden_simulation_results,
@@ -229,14 +235,6 @@ plot_pls(pls_result, input_table = input_table, threshold = 0)
 
 # More on Prospect Theory
 
-We should consider these for our presentations for decison makers. 
+## Nonlinear Evaluation of Outcomes in Prospect Theory
 
-Impact of Reference Points: The choice of reference point against which the forecast NPV values are evaluated can significantly influence decisions. Prospect Theory suggests that if the reference point is set at a higher NPV (e.g., a best-case scenario), decision makers might take more risks to achieve gains above that reference point.
-
-Nonlinear Evaluation of Outcomes: Prospect Theory's value function implies that the perceived value of NPV gains diminishes as they get larger, and losses are more severely felt than gains. This could lead decision makers to prioritize actions that protect against losses and ensure stability even if those actions don't maximize the overall NPV.
-
-
-
-
-
-
+This is a bit abstract, but the perceived value of NPV gains diminishes as those gains get larger. Losses are more severely felt than gains. This could lead decision makers to prioritize actions that protect against losses and ensure stability even if those actions don't maximize the overall NPV.

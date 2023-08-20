@@ -1,8 +1,0 @@
----
-title: "School gardens in Hanoi"
-output: html_document
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
