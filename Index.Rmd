@@ -1,5 +1,5 @@
 ---
-title: "Should urban Hanoi school boards invest time and money in creating school gardens?"
+title: "School gardens in urban Hanoi"
 output: html_document
 ---
 
@@ -7,9 +7,9 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# School gardens in urban Hanoi ####
+# Should urban Hanoi school boards invest time and money in creating school gardens?
 
-The gardens will be designed for teaching about nutrition and STEM at primary and secondary schools. In the 2nd year to start garden running well. The 3rd year is when the education plan will be fully running.
+The gardens will be designed for teaching about nutrition and STEM at primary and secondary schools. In the 2nd year the garden is expected to start running well. The 3rd year is when the education plan will be fully running.
 
 ## Methods 
 
@@ -135,15 +135,15 @@ The Monte Carlo simulation process generates a set of estimated model outputs ba
    \hat{y}_i = f(x_i), \quad i = 1, 2, \ldots, n
    \]
 
-
-
-# Monte Carlo simulation 
+# Urban Hanoi school garden simulation 
 
 ```{r mcsimulation}
 # Source our model
 source("CODAS_Garden_Model.R")
 
-# Ensure consistent results each time we run the MC
+# Ensure consistent results with the random number generator
+# not for each 'run' of the MC simulation but for 
+# consistency each time we call on the simulation 
 set.seed(1234) 
 
 garden_simulation_results <- mcSimulation(

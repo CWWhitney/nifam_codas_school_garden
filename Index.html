@@ -11,7 +11,7 @@
 
 
 
-<title>Should urban Hanoi school boards invest time and money in creating school gardens?</title>
+<title>School gardens in urban Hanoi</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -348,14 +348,14 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">Should urban Hanoi school boards invest
-time and money in creating school gardens?</h1>
+<h1 class="title toc-ignore">School gardens in urban Hanoi</h1>
 
 </div>
 
 
-<div id="school-gardens-in-urban-hanoi" class="section level1">
-<h1>School gardens in urban Hanoi</h1>
+<div id="should-urban-hanoi-school-boards-invest-time-and-money-in-creating-school-gardens" class="section level1">
+<h1>Should urban Hanoi school boards invest time and money in creating
+school gardens?</h1>
 <p>The gardens will be designed for teaching about nutrition and STEM at
 primary and secondary schools. In the 2nd year to start garden running
 well. The 3rd year is when the education plan will be fully running.</p>
@@ -509,12 +509,14 @@ function to the random input samples:</p>
 </ul>
 </div>
 </div>
-<div id="monte-carlo-simulation" class="section level1">
-<h1>Monte Carlo simulation</h1>
+<div id="urban-hanoi-school-garden-simulation" class="section level1">
+<h1>Urban Hanoi school garden simulation</h1>
 <pre class="r"><code># Source our model
 source(&quot;CODAS_Garden_Model.R&quot;)
 
-# Ensure consistent results each time we run the MC
+# Ensure consistent results with the random number generator
+# not for each &#39;run&#39; of the MC simulation but for 
+# consistency each time we call on the simulation 
 set.seed(1234) 
 
 garden_simulation_results &lt;- mcSimulation(
