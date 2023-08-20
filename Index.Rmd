@@ -180,10 +180,6 @@ plot_distributions(mcSimulation_object = garden_simulation_results,
 
 ```
 
-### Impact of Reference Points in Prospect Theory
-
-We should consider a reference point for forecasting NPV values. This can also influence decisions. If we choose a reference point at a higher NPV (like a best-case scenario), decision makers might take more risks to achieve gains above that reference point. This might be possible with a line on the plot to represent some reference.  
-
 ## Summary of results for the decision
 
 Summary of the savings 
