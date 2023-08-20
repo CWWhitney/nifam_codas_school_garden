@@ -35,18 +35,13 @@ school_garden_function <- function(x, varnames){
                                                    value_if_not = 0)
   
   garden_construction_cost <- if (family_pays_establishment_yes_no == 1) {
-    vv(construction_cost * establishment_family_portion_paid, 
-       CV_value, 
-       number_of_years, 
-       relative_trend = inflation_rate) 
+    construction_cost * # labor cost (2-3 people/day) + machine cost to setup garden system
+         establishment_family_portion_paid # the family pays a bit
   } else {
-    vv(construction_cost, # labor cost (2-3 people/day) + machine cost to setup garden system
-       CV_value, 
-       number_of_years, 
-       relative_trend = inflation_rate)
+    construction_cost
   }
   
-  # consider to use cut-off values based on land area and number of students
+  # Could be subject to cut-off values based on land area and number of students
   garden_establishment_costs <- compost_starting + # getting started with the compost
     worm_starting + # maintaining the compost and breaking down residue
     livestock_costs +  # costs of establishing animals in the garden (small birds, rabbits, fish)
@@ -55,7 +50,7 @@ school_garden_function <- function(x, varnames){
     # could be a smart system (full automation)... 
     garden_construction_cost  
     
-  STEM_establishment_costs <-   teaching_equipment + # teaching equipment for sciences (science oriented training)
+  STEM_establishment_costs <- teaching_equipment + # teaching equipment for sciences (science oriented training)
     # consider 'if else' for aquatic vs. soil vs. rooftop in available space 
     # (not all have soil but all have space)
     teacher_training_cost  # cost for training teacher on gardening
@@ -301,56 +296,3 @@ school_garden_function <- function(x, varnames){
               total_costs = sum(total_cost),
               Cashflow_garden = garden_intervention_result))
 }
-
-# Monte Carlo simulation 
-source("functions/mcSimulation.R")
-garden_simulation_results <- mcSimulation(
-  estimate = estimate_read_csv("inputs_school_garden.csv"),
-  model_function = school_garden_function,
-  numberOfModelRuns = 1000, #run 1000 times
-  functionSyntax = "plainNames"
-)
-
-# plot distributions for the two options
-source("functions/plot_distributions.R")
-plot_distributions(mcSimulation_object = garden_simulation_results, 
-                                    vars = c("NPV_garden", "NPV_no_garden"),
-                                    method = 'hist_simple_overlay', 
-                                    base_size = 7)
-
-# plot distribution for the decision
-plot_distributions(mcSimulation_object = garden_simulation_results, 
-                                    vars = "decision",
-                                    method = 'hist_simple_overlay')
-
-# Cashflow of the garden option
-source("functions/plot_cashflow.R")
-plot_cashflow(mcSimulation_object = garden_simulation_results, 
-              cashflow_var_name = "Cashflow_garden")
-
-# EVPI 
-
-#here we subset the outputs from the mcSimulation function (y) 
-# by selecting the correct variables
-# be sure to run the multi_EVPI only on the variables that the we want
-mcSimulation_table <- data.frame(garden_simulation_results$x, 
-                                 garden_simulation_results$y[1:3])
-source("functions/multi_EVPI.R")
-evpi <- multi_EVPI(mc = mcSimulation_table, first_out_var = "NPV_garden")
-
-source("functions/plot_evpi.R")
-plot_evpi(evpi, decision_vars = "decision")
-
-# PLS
-source("functions/pls_model.R")
-pls_result <- pls_model(object = garden_simulation_results,
-                                resultName = names(garden_simulation_results$y)[1], 
-                                ncomp = 1)
-
-input_table <- read.csv("inputs_school_garden.csv")
-source("functions/plot_pls.R")
-plot_pls(pls_result, input_table = input_table, threshold = 0)
-
-# Summary stats ####
-summary(garden_simulation_results$y$decision)
-summary(garden_simulation_results$y$total_costs)
