@@ -182,6 +182,20 @@ plot_distributions(mcSimulation_object = garden_simulation_results,
 
 ## Summary of results for the decision
 
+## Summary 
+
+Use gt_plt_summary() from {gtExtras}
+
+```{r gtExtras_summary}
+library(gtExtras)
+library(svglite)
+# Subset the outputs from the mcSimulation function (y) to summarize only on the variables that we want.
+mcSimulation_summary <- data.frame(garden_simulation_results$x[2:55], 
+                                 garden_simulation_results$y[1:3])
+
+gt_plt_summary(mcSimulation_summary) 
+```
+
 Summary of the savings 
 
 ```{r summary_decision}
@@ -229,5 +243,4 @@ input_table <- read.csv("inputs_school_garden.csv")
 source("functions/plot_pls.R")
 plot_pls(pls_result, input_table = input_table, threshold = 0)
 ```
-
 
