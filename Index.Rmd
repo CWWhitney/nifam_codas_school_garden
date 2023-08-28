@@ -11,25 +11,25 @@ knitr::opts_chunk$set(echo = TRUE)
 
 The gardens will be designed for teaching about nutrition and STEM at primary and secondary schools. In the 2nd year the garden is expected to start running well. The 3rd year is when the education plan will be fully running.
 
-## Methods 
+## Methods
 
 ### Chance Event Function: Generating Conditional Values
 
-The `chance_event` function generates conditional values with: 
+The `chance_event` function generates conditional values with:
 
-   \[
+$$
    occurrence =
    \begin{cases}
    rbinom(length(value\_if), 1, chance) & if  !one\_draw \\
    rbinom(1, 1, chance) & if  one\_draw
    \end{cases}
-   \]
-   
-and final values with: 
+   $$
 
-   \[
+and final values with:
+
+$$
    chance\_event = occurrence \cdot value\_if + (1 - occurrence) \cdot value\_if\_not
-   \]
+   $$
 
 ### Value Varier Function: Generating Synthetic Data
 
@@ -37,48 +37,48 @@ and final values with:
 source("functions/vv.R")
 ```
 
-The `vv` function generates synthetic data with varying means and coefficients of variation with: 
+The `vv` function generates synthetic data with varying means and coefficients of variation with:
 
-- \( n \): Number of data points to generate.
-- \( var\_mean \): Mean value for the data.
-- \( var\_CV \): Coefficient of Variation (CV) for the data.
-- \( distribution \): Distribution of the data (e.g., normal distribution).
-- \( absolute\_trend \): Absolute trend to add to the data.
-- \( relative\_trend \): Relative trend to apply to the data.
-- \( lower\_limit \): Lower limit for generated data.
-- \( upper\_limit \): Upper limit for generated data.
+-   $n$: Number of data points to generate.
+-   $var\_mean$: Mean value for the data.
+-   $var\_CV$: Coefficient of Variation (CV) for the data.
+-   $distribution$: Distribution of the data (e.g., normal distribution).
+-   $absolute\_trend$: Absolute trend to add to the data.
+-   $relative\_trend$: Relative trend to apply to the data.
+-   $lower\_limit$: Lower limit for generated data.
+-   $upper\_limit$: Upper limit for generated data.
 
-These are used to calculate annual means: 
+These are used to calculate annual means:
 
-   - If both absolute and relative trends are absent, the annual means remain constant:
+-   If both absolute and relative trends are absent, the annual means remain constant:
 
-     \[
-     annual\_means = var\_mean
-     \]
+    $$
+    annual\_means = var\_mean
+    $$
 
-   - If an absolute trend is present, annual means are adjusted linearly:
+-   If an absolute trend is present, annual means are adjusted linearly:
 
-     \[
-     annual\_means = var\_mean + absolute\_trend \cdot (0, 1, \ldots, n-1)
-     \]
+    $$
+    annual\_means = var\_mean + absolute\_trend \cdot (0, 1, \ldots, n-1)
+    $$
 
-   - If only a relative trend is present, annual means change multiplicatively:
+-   If only a relative trend is present, annual means change multiplicatively:
 
-     \[
-     annual\_means = var\_mean \cdot (1 + relative\_trend / 100)^{(0, 1, \ldots, n-1)}
-     \]
+    $$
+    annual\_means = var\_mean \cdot (1 + relative\_trend / 100)^{(0, 1, \ldots, n-1)}
+    $$
 
-   - Generate random data points based on the specified distribution using calculated annual means:
+-   Generate random data points based on the specified distribution using calculated annual means:
 
-     \[
-     out \sim \mathcal{N}(annual\_means, \lvert annual\_means \rvert \cdot \frac{var\_CV}{100})
-     \]
+    $$
+    out \sim \mathcal{N}(annual\_means, \lvert annual\_means \rvert \cdot \frac{var\_CV}{100})
+    $$
 
-   - If specified, limit data points to the defined lower and upper limits:
+-   If specified, limit data points to the defined lower and upper limits:
 
-     \[
-     out = \max(out, lower\_limit), \quad out = \min(out, upper\_limit)
-     \]
+    $$
+    out = \max(out, lower\_limit), \quad out = \min(out, upper\_limit)
+    $$
 
 ### Net Present Value (NPV)
 
@@ -86,28 +86,27 @@ These are used to calculate annual means:
 source("functions/discount.R")
 ```
 
-The discounted value of a time series value \(x_t\) at time \(t\) can be calculated using the formula:
+The discounted value of a time series value $x_t$ at time $t$ can be calculated using the formula:
 
-   \[
+$$
    \text{Discounted Value}_t = \frac{x_t}{\left(1 + \frac{\text{Discount Rate}}{100}\right)^{t-1}}
-   \]
+   $$
 
-   Where:
-   
-   - \(x_t\) is the value at time \(t\),
-   
-   - \(\text{Discount Rate}\) is the discount rate provided to the function,
-   
-   - \(t\) is the time period (starting from 1).
+Where:
 
-2. **Net Present Value (NPV)** (if `calculate_NPV` is set to `TRUE`):
-   The Net Present Value of a time series with discounted values can be calculated as the sum of all discounted values:
+-   $x_t$ is the value at time $t$,
 
-   \[
-   \text{NPV} = \sum_{t=1}^{n} \frac{x_t}{\left(1 + \frac{\text{Discount Rate}}{100}\right)^{t-1}}
-   \]
+-   $\text{Discount Rate}$ is the discount rate provided to the function,
 
-   Where \(n\) is the number of time periods in the time series.
+-   $t$ is the time period (starting from 1).
+
+2.  **Net Present Value (NPV)** (if `calculate_NPV` is set to `TRUE`): The Net Present Value of a time series with discounted values can be calculated as the sum of all discounted values:
+
+    $$
+    \text{NPV} = \sum_{t=1}^{n} \frac{x_t}{\left(1 + \frac{\text{Discount Rate}}{100}\right)^{t-1}}
+    $$
+
+    Where $n$ is the number of time periods in the time series.
 
 ## Monte Carlo Simulation Function
 
@@ -121,21 +120,21 @@ The `mcSimulation` function performs Monte Carlo simulations to estimate model o
 
 The Monte Carlo simulation process generates a set of estimated model outputs based on random input samples, providing a distribution of potential outcomes including:
 
-- random input generation with \( x_1, x_2, \ldots, x_n \) as a set of \( n \) random input samples drawn from a given distribution, representing the input parameters of the model.
+-   random input generation with $x_1, x_2, \ldots, x_n$ as a set of $n$ random input samples drawn from a given distribution, representing the input parameters of the model.
 
-- a model function \( f(x) \) that maps the input data \( x \) to the corresponding model output \( y \). This can be expressed as:
-   
-   \[
-   y_i = f(x_i), \quad i = 1, 2, \ldots, n
-   \]
+-   a model function $f(x)$ that maps the input data $x$ to the corresponding model output $y$. This can be expressed as:
 
-- Estimated model outputs \( \hat{y}_1, \hat{y}_2, \ldots, \hat{y}_n \) obtained by applying the model function to the random input samples:
-   
-   \[
-   \hat{y}_i = f(x_i), \quad i = 1, 2, \ldots, n
-   \]
+    $$
+     y_i = f(x_i), \quad i = 1, 2, \ldots, n
+     $$
 
-# Urban Hanoi school garden simulation 
+-   Estimated model outputs $\hat{y}_1, \hat{y}_2, \ldots, \hat{y}_n$ obtained by applying the model function to the random input samples:
+
+    $$
+     \hat{y}_i = f(x_i), \quad i = 1, 2, \ldots, n
+     $$
+
+# Urban Hanoi school garden simulation
 
 ```{r mcsimulation}
 # Source our model
@@ -154,7 +153,7 @@ garden_simulation_results <- mcSimulation(
 )
 ```
 
-The way we present NPV values can influence decision makers. The same information presented in different ways can even lead to different decisions. Here we derive a plot that compares the decision options as pure NPV values. 
+The way we present NPV values can influence decision makers. The same information presented in different ways can even lead to different decisions. Here we derive a plot that compares the decision options as pure NPV values.
 
 ```{r}
 source("functions/plot_distributions.R")
@@ -165,9 +164,9 @@ plot_distributions(mcSimulation_object = garden_simulation_results,
                                     x_axis_name = "Comparative NPV outcomes")
 ```
 
-## Framing the outcomes 
+## Framing the outcomes
 
-Under Prospect Theory the way we present NPV values can influence decision makers - the same information presented in different ways can lead to different decisions. For example, framing a projected NPV gain as a "reduction in potential loss" might make it more attractive to decision makers due to loss aversion. 
+Under Prospect Theory the way we present NPV values can influence decision makers - the same information presented in different ways can lead to different decisions. For example, framing a projected NPV gain as a "reduction in potential loss" might make it more attractive to decision makers due to loss aversion.
 
 Here we plot the distribution for the decision and frame the projected NPV gain for the 'decision' (distributions for the two options with the NPV values of the `no garden` option subtracted from those for the `garden`). If we display this as a "Reduction in potential loss" it might be more attractive to decision makers due to loss aversion, i.e. school boards might put more emphasis on avoiding potential losses than on seeking gains. We can frame our results as a strategy that minimizes losses rather than one that maximizes gains.
 
@@ -182,7 +181,7 @@ plot_distributions(mcSimulation_object = garden_simulation_results,
 
 ## Summary of results for the decision
 
-## Summary 
+## Summary
 
 Use gt_plt_summary() from {gtExtras}
 
@@ -196,16 +195,22 @@ mcSimulation_summary <- data.frame(garden_simulation_results$x[2:55],
 gt_plt_summary(mcSimulation_summary) 
 ```
 
-Summary of the savings 
+Summary of the savings
 
 ```{r summary_decision}
 summary(garden_simulation_results$y$decision)
 ```
 
-Summary of costs 
+Summary of costs
 
 ```{r summary_costs}
 summary(garden_simulation_results$y$total_costs)
+```
+
+# First year
+
+```{r summary_first_year_costs}
+summary(garden_simulation_results$y$Cashflow_garden1)
 ```
 
 # Cashflow of the garden option
@@ -216,7 +221,7 @@ plot_cashflow(mcSimulation_object = garden_simulation_results,
               cashflow_var_name = "Cashflow_garden")
 ```
 
-# EVPI 
+# EVPI
 
 ```{r}
 # Subset the outputs from the mcSimulation function (y) by selecting the correct variables be sure to run the multi_EVPI only on the variables that the we want.
@@ -243,4 +248,3 @@ input_table <- read.csv("inputs_school_garden.csv")
 source("functions/plot_pls.R")
 plot_pls(pls_result, input_table = input_table, threshold = 0)
 ```
-
