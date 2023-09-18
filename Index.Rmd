@@ -7,11 +7,17 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+The following is a draft outline of an intervention to address malnutrition among school-aged children in urban Hanoi. It  follows the outline developed in a workshop in July 2023. A test run of the intervention will be carried out by the Center for the Development of Organic Agriculture (CODAS) under the Association of Organic Agriculture of Vietnam.
+
+![](figures/outline.png)
+
 # Should urban Hanoi school boards invest time and money in creating school gardens?
 
-The gardens will be designed for teaching about nutrition and STEM at primary and secondary schools. In the 2nd year the garden is expected to start running well. The 3rd year is when the education plan will be fully running.
+The gardens will be designed for teaching about nutrition and STEM (an approach to learning and development that integrates science, technology, engineering and maths) at primary and secondary schools. In the 2nd year the garden is expected to start running well. The 3rd year is when the education plan will be fully running.
 
 ## Methods
+
+We use several different functions to create a working model of the garden intervention.
 
 ### Chance Event Function: Generating Conditional Values
 
@@ -248,3 +254,7 @@ input_table <- read.csv("inputs_school_garden.csv")
 source("functions/plot_pls.R")
 plot_pls(pls_result, input_table = input_table, threshold = 0)
 ```
+
+The full repository can be accessed with the following QR code.
+
+![](figures/CODAS_School_garden_git.png)
