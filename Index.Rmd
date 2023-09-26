@@ -7,7 +7,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-The following is a draft outline of an intervention to address malnutrition among school-aged children in urban Hanoi. It  follows the outline developed in a workshop in July 2023. A test run of the intervention will be carried out by the Center for the Development of Organic Agriculture (CODAS) under the Association of Organic Agriculture of Vietnam.
+Here we model an intervention to address malnutrition among school-aged children in urban Hanoi. The model  follows the outline developed in a workshop in July 2023. A test run of the intervention will be carried out by the Center for the Development of Organic Agriculture (CODAS) under the Association of Organic Agriculture of Vietnam.
 
 ![](figures/outline.png)
 
