@@ -252,7 +252,7 @@ pls_result <- pls_model(object = garden_simulation_results,
 
 input_table <- read.csv("inputs_school_garden.csv")
 source("functions/plot_pls.R")
-plot_pls(pls_result, input_table = input_table, threshold = 0)
+plot_pls(pls_result, input_table = input_table, threshold = 0.9)
 ```
 
 The full repository can be accessed with the following QR code.
