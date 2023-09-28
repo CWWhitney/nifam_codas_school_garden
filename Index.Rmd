@@ -255,6 +255,10 @@ source("functions/plot_pls.R")
 plot_pls(pls_result, input_table = input_table, threshold = 0.9)
 ```
 
-The full repository can be accessed with the following QR code.
+The full repository can be accessed at https://github.com/CWWhitney/kon_tum_homegardens with the following QR code.
+
+<!-- The git create a qr -->
+<!-- library(qrcode) -->
+<!-- qrcode_gen('https://github.com/CWWhitney/kon_tum_homegardens') -->
 
 ![](figures/CODAS_School_garden_git.png)
