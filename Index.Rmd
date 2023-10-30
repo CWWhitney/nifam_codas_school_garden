@@ -40,7 +40,7 @@ garden_simulation_results <- mcSimulation(
 
 ```
 
-Here is a plot of the Net Present Value (i.e. current value of the future benefits) of the three options. `"NPV_garden"` is the value of the 5 years of the garden intervention.`"NPV_garden_STEM"` is the same garden but with the additional costs and benefits of a full STEM education program, `"NPV_no_garden"` is the result of 5 years of using the land for something that is not related to the garden, i.e. as a playgorund or for parking: 
+Here is a plot of the Net Present Value (i.e. current value of the future benefits) of the three options. `"NPV_garden"` is the value of the 5 years of the garden intervention.`"NPV_garden_STEM"` is the same garden but with the additional costs and benefits of a full STEM education program, `"NPV_no_garden"` is the result of 5 years of using the land for something that is not related to the garden, i.e. as a playground or for parking: 
 
 ```{r}
 source("functions/plot_distributions.R")
