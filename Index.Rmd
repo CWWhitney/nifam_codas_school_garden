@@ -7,13 +7,13 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Here we model an intervention to address malnutrition among school-aged children in urban Hanoi. The model  follows the outline developed in a workshop in July 2023. A test run of the intervention will be carried out by the Center for the Development of Organic Agriculture (CODAS) under the Association of Organic Agriculture of Vietnam.
+Here we model an intervention to address malnutrition among school-aged children in urban Hanoi. The model was developed across several iterative workshops in July 2023. These included decision definition, conceptual model development of the selected decision and an initial programming session with preliminary model results. The resulting model was further developed through August to November 2023. A test run of the intervention will be carried out by the Center for the Development of Organic Agriculture (CODAS) under the Association of Organic Agriculture of Vietnam.
 
 ![](figures/outline.png)
 
-# Should urban Hanoi school boards invest time and money in creating school gardens?
+# Should urban Hanoi school boards invest time and money in creating school gardens? Should they invest in formal STEM education as part of these gardens?
 
-The gardens will be designed for teaching about nutrition and STEM (an approach to learning and development that integrates science, technology, engineering and maths) at primary and secondary schools. In the 2nd year the garden is expected to start running well. The 3rd year is when the education plan will be fully running.
+The gardens will be existing areas on school grounds. The STEM option gardens will be designed to for teaching about nutrition and STEM (an approach to learning and development that integrates science, technology, engineering and maths) at primary and secondary schools. In the 2nd year the garden is expected to start running well. The 3rd year is when the STEM education plan will be fully running.
 
 ## Methods
 
@@ -120,7 +120,7 @@ Where:
 source("functions/mcSimulation.R")
 ```
 
-The `mcSimulation` function performs Monte Carlo simulations to estimate model outputs based on provided parameters and a model function.
+We use the `mcSimulation` function to perform Monte Carlo simulations to estimate model outputs based on provided parameters and a model function.
 
 ## Monte Carlo Simulation Process
 
@@ -157,6 +157,7 @@ garden_simulation_results <- mcSimulation(
   numberOfModelRuns = 1000, #run 1000 times
   functionSyntax = "plainNames"
 )
+
 ```
 
 The way we present NPV values can influence decision makers. The same information presented in different ways can even lead to different decisions. Here we derive a plot that compares the decision options as pure NPV values.
@@ -164,7 +165,7 @@ The way we present NPV values can influence decision makers. The same informatio
 ```{r}
 source("functions/plot_distributions.R")
 plot_distributions(mcSimulation_object = garden_simulation_results, 
-                                    vars = c("NPV_garden", "NPV_no_garden"),
+                                    vars = c("NPV_garden","NPV_garden_STEM", "NPV_no_garden"),
                                     method = 'hist_simple_overlay', 
                                     base_size = 7, 
                                     x_axis_name = "Comparative NPV outcomes")
@@ -178,7 +179,7 @@ Here we plot the distribution for the decision and frame the projected NPV gain 
 
 ```{r framing_NPV_results}
 plot_distributions(mcSimulation_object = garden_simulation_results, 
-                                    vars = "decision",
+                                    vars = c("decision", "decision_STEM",
                                     method = 'hist_simple_overlay', 
                                     base_size = 7,  
                                     x_axis_name = "Reduction in potential loss")
@@ -191,6 +192,8 @@ plot_distributions(mcSimulation_object = garden_simulation_results,
 
 Use gt_plt_summary() from {gtExtras}
 
+Summary of the garden intervention options
+
 ```{r gtExtras_summary}
 library(gtExtras)
 library(svglite)
@@ -201,11 +204,18 @@ mcSimulation_summary <- data.frame(garden_simulation_results$x[2:55],
 gt_plt_summary(mcSimulation_summary) 
 ```
 
-Summary of the savings
+Summary of the savings for the passive education garden option
 
 ```{r summary_decision}
 summary(garden_simulation_results$y$decision)
 ```
+
+Summary of the savings for the formal STEM education garden option
+
+```{r summary_decision}
+summary(garden_simulation_results$y$decision_STEM)
+```
+
 
 Summary of costs
 
