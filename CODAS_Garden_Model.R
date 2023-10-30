@@ -48,6 +48,7 @@ school_garden_function <- function(x, varnames){
     # could be a smart system (full automation)... 
     garden_construction_cost  
     
+  #costs if with STEM education
   STEM_establishment_costs <- teaching_equipment + # teaching equipment for sciences (science oriented training)
     # consider 'if else' for aquatic vs. soil vs. rooftop in available space 
     # (not all have soil but all have space)
@@ -59,9 +60,13 @@ school_garden_function <- function(x, varnames){
     # that they otherwise would have had to take
     # requires training on 5 or 7 subjects (biology etc.) for 12 days
     
-  establishment_cost_year_one <- school_board_planning + 
+  #establishment costs if with STEM education ####
+  establishment_cost_year_one_STEM <- school_board_planning + 
     garden_establishment_costs + 
     STEM_establishment_costs 
+  #establishment costs if passive (no STEM) education ####
+  establishment_cost_year_one <- school_board_planning + 
+    garden_establishment_costs
   
   garden_maintenance_cost <- maintaining_labor + # technical staff etc
             # 2-3 hours per day to manage a garden of this rough size
@@ -71,14 +76,20 @@ school_garden_function <- function(x, varnames){
     # Circular garden with animals, trees, plants, fish
    livestock_maint # costs of maintaining animals in the garden
   
+  #maintain costs if with STEM education
   STEM_maintenance_cost <- teacher_salary_cost +  # extra costs for teachers to work on the garden
     annual_teacher_training + # annual teacher training 12 days on 6 subjects
     # low because it is run by the teachers who have already been trained
     teaching_equipment_annual + # reagents, colors, paper, apps
     teaching_tools # children's garden tools, gloves, hoes, basket etc.
-    
-  maintenance_cost_annual <- garden_maintenance_cost + STEM_maintenance_cost
   
+  #maintain costs if with STEM education
+  maintenance_cost_annual_STEM <- garden_maintenance_cost + 
+                              STEM_maintenance_cost
+  #maintain costs if with STEM education
+  maintenance_cost_annual <- garden_maintenance_cost + 
+    # still need children's garden tools, gloves, hoes, basket etc.
+                              teaching_tools 
   # Add up all annual costs
   total_cost <- vv(maintenance_cost_annual, 
                          var_CV = CV_value, 
