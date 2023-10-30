@@ -73,7 +73,7 @@ school_garden_function <- function(x, varnames){
     seed_costs + # seeds and seedlings each year
     fertilizer + # EM and other helpers for compost
     plant_protection + # IPM for plant protection
-    # Circular garden with animals, trees, plants, fish
+    # Circular garden with animals, trees, plants, fish (Bac Tom option)
    livestock_maint # costs of maintaining animals in the garden
   
   #maintain costs if with STEM education
