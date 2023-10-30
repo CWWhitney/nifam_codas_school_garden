@@ -46,7 +46,9 @@ canteen_savings,5,,10,posnorm,Canteen savings (million VND/yr)
 sale_of_yield,10,,30,posnorm,Sales of garden products (million VND/yr)
 ,,,,,
 extra_cirricular_savings,20,,100,posnorm,Savings from extra-cirriclar activities (million VND/year)
-formal_edu_savings,20,,100,posnorm,Savings on formal education costs (million VND/year)
+formal_edu_savings,1,,20,posnorm,Savings on formal education costs (no STEM garden) (million VND/year)
+formal_edu_savings_STEM,20,,100,posnorm,Savings on STEM formal education costs (million VND/year)
+,,,,,
 outside_investment_value,10,,500,posnorm,Value of outside investment due to improved reputation (million VND/year)
 increased_enrollment_value,10,,100,posnorm,Increased enrollment due to improved reputation (million VND/year)
 if_increase_tuition,0.1,,0.3,tnorm_0_1,Chance of increasing tuition due to intervention (%)
