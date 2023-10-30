@@ -380,6 +380,8 @@ school_garden_function <- function(x, varnames){
              discount_rate = discount_rate, 
              calculate_NPV = TRUE)
   
+  ### END of garden model script ###
+  
   # Beware, if we do not name our outputs (left-hand side of the equal sign) in the return section, 
   # the variables will be called output_1, _2, etc.
   return(list(NPV_garden = NPV_interv,
@@ -389,6 +391,7 @@ school_garden_function <- function(x, varnames){
               decision_STEM = NPV_interv_STEM - NPV_no_interv,
               total_costs = sum(total_cost),
               total_costs_STEM = sum(total_cost_STEM),
-              Cashflow_garden = garden_intervention_result))
+              Cashflow_garden = garden_intervention_result, 
+              Cashflow_garden_STEM = garden_intervention_result_STEM))
 }
 
