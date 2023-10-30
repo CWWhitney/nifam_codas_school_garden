@@ -45,7 +45,7 @@ school_garden_function <- function(x, varnames){
     livestock_costs +  # costs of establishing animals in the garden (small birds, rabbits, fish)
     garden_designing_costs + # garden design costs (hiring a planner) 
     equipment_cost + # this is a high value because we may need a lot of equipment, netting, trellis for plants to climb
-    # could be a smart system (full automation)... 
+    # considering the range, this could be simple or a smart system (full automation)... 
     garden_construction_cost  
     
   #costs if with STEM education
@@ -53,51 +53,67 @@ school_garden_function <- function(x, varnames){
     # consider 'if else' for aquatic vs. soil vs. rooftop in available space 
     # (not all have soil but all have space)
     teacher_training_cost  # cost for training teacher on gardening
-    # this is low because we see it as a benefit partly because of 
-    # training for the teachers in STEM and other topics like transdiscipinary and other topics
-    # we save time and money on the training, which would otherwise have been spent on other training
-    # teacher's cn also save money on other training courses for these topics 
-    # that they otherwise would have had to take
-    # requires training on 5 or 7 subjects (biology etc.) for 12 days
-    
+        # this is low because we see it as a benefit partly because of 
+        # training for the teachers in STEM and other topics like transdiscipinary and other topics
+        # we save time and money on the training, which would otherwise have been spent on other training
+        # teacher's cn also save money on other training courses for these topics 
+        # that they otherwise would have had to take
+        # requires training on 5 or 7 subjects (biology etc.) for 12 days
+        
+  #establishment costs if passive (no STEM) education ####
+  establishment_cost_year_one <- school_board_planning + 
+    garden_establishment_costs
   #establishment costs if with STEM education ####
   establishment_cost_year_one_STEM <- school_board_planning + 
     garden_establishment_costs + 
     STEM_establishment_costs 
-  #establishment costs if passive (no STEM) education ####
-  establishment_cost_year_one <- school_board_planning + 
-    garden_establishment_costs
   
-  garden_maintenance_cost <- maintaining_labor + # technical staff etc
-            # 2-3 hours per day to manage a garden of this rough size
+  # Maintenance costs ####
+  
+  # maintenance costs for the garden (with or without STEM)
+  garden_maintenance_cost <-
+    maintaining_labor + # technical staff etc
+    # 2-3 hours per day to manage a garden of this rough size
     seed_costs + # seeds and seedlings each year
     fertilizer + # EM and other helpers for compost
     plant_protection + # IPM for plant protection
     # Circular garden with animals, trees, plants, fish (Bac Tom option)
-   livestock_maint # costs of maintaining animals in the garden
+    livestock_maint # costs of maintaining animals in the garden
   
-  #maintain costs if with STEM education
-  STEM_maintenance_cost <- teacher_salary_cost +  # extra costs for teachers to work on the garden
+  ## maintenance costs if with STEM education
+  STEM_maintenance_cost <-
+    teacher_salary_cost +  # extra costs for teachers to work on the garden
     annual_teacher_training + # annual teacher training 12 days on 6 subjects
     # low because it is run by the teachers who have already been trained
     teaching_equipment_annual + # reagents, colors, paper, apps
     teaching_tools # children's garden tools, gloves, hoes, basket etc.
   
-  #maintain costs if with STEM education
-  maintenance_cost_annual_STEM <- garden_maintenance_cost + 
-                              STEM_maintenance_cost
-  #maintain costs if with STEM education
-  maintenance_cost_annual <- garden_maintenance_cost + 
+  # maintenance costs if passive (no STEM) education
+  maintenance_cost_annual <- garden_maintenance_cost +
     # still need children's garden tools, gloves, hoes, basket etc.
-                              teaching_tools 
-  # Add up all annual costs
+    teaching_tools +
+    # annual teacher training just for passive garden activity
+    annual_teacher_training * .1
+  ## maintenance costs if with STEM education
+  maintenance_cost_annual_STEM <- garden_maintenance_cost +
+    STEM_maintenance_cost
+  
+   # Add up all annual maintenance costs garden (no STEM)
   total_cost <- vv(maintenance_cost_annual, 
                          var_CV = CV_value, 
                          n = number_of_years, 
                          relative_trend = inflation_rate) #percentage of increase each year
+  # Add up all annual maintenance costs garden with STEM
+  total_cost_STEM <- vv(maintenance_cost_annual_STEM, 
+                   var_CV = CV_value, 
+                   n = number_of_years, 
+                   relative_trend = inflation_rate) #percentage of increase each year
   
   # Calculate management plus establishment costs in the first year
   total_cost[1] <- establishment_cost_year_one + maintenance_cost_annual #make sure the first is establishment_cost_year_one
+  # Calculate management plus establishment costs in the first year with STEM
+  total_cost_STEM[1] <- establishment_cost_year_one_STEM + maintenance_cost_annual_STEM
+  
   
   # Risks ####
   
@@ -106,6 +122,7 @@ school_garden_function <- function(x, varnames){
   # the minimum values are effectively a reduction in the benefits
   # used to multiply benefits (by a number 90% likely)
   
+  # not differentiated by passive and STEM education
   garden_function_risk <-  min(if_biophysical_good, 
                                if_students_like, # damage garden
                                if_parents_like, #  support
