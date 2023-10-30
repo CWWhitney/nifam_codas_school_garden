@@ -162,6 +162,7 @@ school_garden_function <- function(x, varnames){
   
   # parents pay for the canteen food / the school will sell to parents
   # never eat in the canteen
+  # same for no STEM and STEM
   harvest_value <- if (canteen_yes_no == 1) {
     harvest_value = vv(canteen_savings, CV_value, 
                        number_of_years,
@@ -314,7 +315,7 @@ school_garden_function <- function(x, varnames){
                     health_related_value + environment_related_value + 
                     community_value
   # Add up all benefits with STEM ####
-  total_benefit_STEM <- harvest_value_STEM + learning_value_STEM + 
+  total_benefit_STEM <- harvest_value + learning_value_STEM + 
     outside_investment_STEM + increased_enrollment_STEM + 
     health_related_value_STEM + environment_related_value + 
     community_value
