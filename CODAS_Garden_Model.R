@@ -205,17 +205,22 @@ school_garden_function <- function(x, varnames){
                        CV_value, 
                        number_of_years, 
                        relative_trend = inflation_rate) * education_risk
+  # In the 2nd year the garden is expected to start running well.
+  learning_value[1] <- 0
   #savings on learning with STEM education
   learning_value_STEM <- vv(education_savings_STEM, 
                        CV_value, 
                        number_of_years, 
                        relative_trend = inflation_rate) * education_risk
   
+  # The 3rd year is when the STEM education plan will be fully running.
+  learning_value_STEM[1:2] <- 0
   
   # Reputation goes up ####
   # through community building, green running award, 
   # planting trees, environment ecology groups
   # school events in garden connect community, leads to
+  # greater access and awareness, positive change in choices around food
   
   #investments from outside
   # i.e. sponsors from local business 
