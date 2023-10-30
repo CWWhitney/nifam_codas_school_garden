@@ -8,4 +8,5 @@ Decision model for a school garden nutrition intervention in urban Hanoi. There 
 3. maintain the existing uses of the space that would otherwise be used for the garden, play space etc. 
 
 
-![CODAS_Garden_Impact pathway copy](https://github.com/CWWhitney/nifam_codas_school_garden/assets/19190662/1e070ccd-2812-40de-a1d8-c0412775da61)
+![outline](https://github.com/CWWhitney/nifam_codas_school_garden/assets/19190662/068f03e4-5293-454d-9326-a12b063a18a0)
+
