@@ -7,4 +7,5 @@ Decision model for a school garden nutrition intervention in urban Hanoi. There 
 2. the same garden as a formal part of the STEM education program, actively used for education, with incurred training and other costs but also offsetting education and extracurricular costs,
 3. maintain the existing uses of the space that would otherwise be used for the garden, play space etc. 
 
-<img width="978" alt="Screenshot 2023-08-09 at 5 47 59 PM" src="https://github.com/CWWhitney/nifam_codas_school_garden/assets/19190662/cf56959f-50d2-42c3-ab90-edeed53e2341">
+
+![CODAS_Garden_Impact pathway copy](https://github.com/CWWhitney/nifam_codas_school_garden/assets/19190662/1e070ccd-2812-40de-a1d8-c0412775da61)
