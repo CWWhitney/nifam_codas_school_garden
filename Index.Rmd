@@ -5,6 +5,9 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
+library(gtExtras)
+library(svglite)
 ```
 
 Here we model an intervention to address malnutrition among school-aged children in urban Hanoi. The model was developed across several iterative workshops in July 2023. These included decision definition, conceptual model development of the selected decision and an initial programming session with preliminary model results. The resulting model was further developed through August to November 2023. A test run of the intervention will be carried out by the Center for the Development of Organic Agriculture (CODAS) under the Association of Organic Agriculture of Vietnam.
@@ -179,7 +182,7 @@ Here we plot the distribution for the decision and frame the projected NPV gain 
 
 ```{r framing_NPV_results}
 plot_distributions(mcSimulation_object = garden_simulation_results, 
-                                    vars = c("decision", "decision_STEM",
+                                    vars = c("decision", "decision_STEM"),
                                     method = 'hist_simple_overlay', 
                                     base_size = 7,  
                                     x_axis_name = "Reduction in potential loss")
@@ -190,16 +193,14 @@ plot_distributions(mcSimulation_object = garden_simulation_results,
 
 ## Summary
 
-Use gt_plt_summary() from {gtExtras}
-
-Summary of the garden intervention options
+Summary of the garden intervention options with gt_plt_summary() from {gtExtras} and with options from {svglite}. 
 
 ```{r gtExtras_summary}
-library(gtExtras)
-library(svglite)
 # Subset the outputs from the mcSimulation function (y) to summarize only on the variables that we want.
-mcSimulation_summary <- data.frame(garden_simulation_results$x[2:55], 
-                                 garden_simulation_results$y[1:3])
+# names(garden_simulation_results$x)
+mcSimulation_summary <- data.frame(garden_simulation_results$x[2:61],
+ # names(garden_simulation_results$x)
+                                 garden_simulation_results$y[1:7])
 
 gt_plt_summary(mcSimulation_summary) 
 ```
@@ -212,7 +213,7 @@ summary(garden_simulation_results$y$decision)
 
 Summary of the savings for the formal STEM education garden option
 
-```{r summary_decision}
+```{r summary_decision_stem}
 summary(garden_simulation_results$y$decision_STEM)
 ```
 
@@ -223,47 +224,90 @@ Summary of costs
 summary(garden_simulation_results$y$total_costs)
 ```
 
+```{r summary_costs_stem}
+summary(garden_simulation_results$y$total_costs_STEM)
+```
+
 # First year
 
 ```{r summary_first_year_costs}
 summary(garden_simulation_results$y$Cashflow_garden1)
 ```
 
-# Cashflow of the garden option
+```{r summary_first_year_costs_stem}
+summary(garden_simulation_results$y$Cashflow_garden_STEM1)
+```
+# Cashflow of the garden option without formal STEM education
 
 ```{r}
 source("functions/plot_cashflow.R")
 plot_cashflow(mcSimulation_object = garden_simulation_results, 
               cashflow_var_name = "Cashflow_garden")
-```
 
-# EVPI
+```
+Cashflow of the garden option with formal STEM education
 
 ```{r}
-# Subset the outputs from the mcSimulation function (y) by selecting the correct variables be sure to run the multi_EVPI only on the variables that the we want.
+source("functions/plot_cashflow.R")
+plot_cashflow(mcSimulation_object = garden_simulation_results, 
+              cashflow_var_name = "Cashflow_garden_STEM")
+```
+
+# Expected Value of Perfect Information (EVPI)
+
+Here we assess value of information with the `multi_EVPI` function.
+
+```{r}
+# Subset the outputs from the mcSimulation function (y) by selecting the correct variables be sure to run the multi_EVPI only on the variables that we want. Find them with names(garden_simulation_results$y)
 mcSimulation_table <- data.frame(garden_simulation_results$x, 
-                                 garden_simulation_results$y[1:3])
+                                 garden_simulation_results$y[1:5])
+```
+
+Value of information for the garden option (no STEM).
+
+```{r evpi-assess-garden}
 source("functions/multi_EVPI.R")
+# first_out_var is the first result variable in the table, "NPV_garden" in our case.
 evpi <- multi_EVPI(mc = mcSimulation_table, first_out_var = "NPV_garden")
 
 source("functions/plot_evpi.R")
 plot_evpi(evpi, decision_vars = "decision")
 ```
+Value of information for the garden option with formal STEM education.
+
+```{r evpi-assess-garden-stem}
+# using the results of the same multi_EVPI
+plot_evpi(evpi, decision_vars = "decision_STEM")
+```
 
 # PLS
 
-Projection to Latent Structures model can give us some sense of the correlation strength and direction for model variables and our outcome variables.
+We use Projection to Latent Structures model to get some sense of the correlation strength and direction for model variables and our outcome variables.
+
+For passive education garden option
 
 ```{r}
 source("functions/pls_model.R")
 pls_result <- pls_model(object = garden_simulation_results,
-                                resultName = names(garden_simulation_results$y)[1], 
+                                resultName = names(garden_simulation_results$y)[1], # the "NPV_garden" 
                                 ncomp = 1)
-
+# read in the common input table
 input_table <- read.csv("inputs_school_garden.csv")
+# source the plot function
 source("functions/plot_pls.R")
 plot_pls(pls_result, input_table = input_table, threshold = 0.9)
 ```
+
+For school garden with formal STEM education
+
+```{r}
+pls_result_STEM <- pls_model(object = garden_simulation_results,
+                                resultName = names(garden_simulation_results$y)[2], # the "NPV_garden_STEM" 
+                                ncomp = 1)
+
+plot_pls(pls_result_STEM, input_table = input_table, threshold = 0.9)
+```
+
 
 The full repository can be accessed at https://github.com/CWWhitney/nifam_codas_school_garden with the following QR code.
 
