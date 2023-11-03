@@ -28,11 +28,9 @@ The model was developed across several iterative workshops in July 2023. These i
 
 A test run of the intervention will be carried out by the Center for the Development of Organic Agriculture (CODAS) under the Association of Organic Agriculture of Vietnam. In the 2nd year the garden is expected to start running well. The 3rd year is when the STEM education plan will be fully running.
 
-
-
 # Urban Hanoi school garden 
 
-This is the link to our simulation of the school garden intervemntion options.
+Here is our simulation of the school garden intervention options.
 
 ```{r mcsimulation, warning=FALSE, message=FALSE}
 # Source our model
@@ -67,7 +65,7 @@ plot_distributions(mcSimulation_object = garden_simulation_results,
 
 Under Prospect Theory the way we present NPV values can influence decision makers - the same information presented in different ways can lead to different decisions. For example, framing a projected NPV gain as a "reduction in potential loss" might make it more attractive to decision makers due to loss aversion.
 
-Here we plot the distribution for the decision and frame the projected NPV gain for the 'decision'. These are distributions for the options, with the NPV values of the no garden option subtracted from those for the garden, the `decision` and garden with STEM, the `decision_STEM`. We display this as a "Reduction in potential loss" as it is expected to be more attractive to decision makers due to loss aversion, i.e. school boards might put more emphasis on avoiding potential losses than on seeking gains. We can frame our results as a strategy that minimizes losses rather than one that maximizes gains.
+Here we plot the distribution for the decision and frame the projected NPV gain for the `decision`. These are distributions for the options, with the NPV values of the no garden option subtracted from those for the garden, the `decision` and garden with STEM, the `decision_STEM`. We display this as a "Reduction in potential loss" as it is expected to be more attractive to decision makers due to loss aversion, i.e. school boards might put more emphasis on avoiding potential losses than on seeking gains. We can frame our results as a strategy that minimizes losses rather than one that maximizes gains.
 
 ```{r framing_NPV_results, warning=FALSE, message=FALSE}
 plot_distributions(mcSimulation_object = garden_simulation_results, 

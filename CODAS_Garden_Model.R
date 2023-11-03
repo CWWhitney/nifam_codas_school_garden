@@ -374,6 +374,7 @@ school_garden_function <- function(x, varnames){
     discount(x = garden_intervention_result, 
              discount_rate = discount_rate, 
              calculate_NPV = TRUE)
+  
   NPV_interv_STEM <-
     discount(x = garden_intervention_result_STEM, 
              discount_rate = discount_rate, 
