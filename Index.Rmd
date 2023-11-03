@@ -14,7 +14,7 @@ Here we model an intervention to improve food environments and address malnutrit
 
 ![](figures/outline_food_env_general.png)
 
-The general concept of the food environment is expressed differently in the context of an intervention. In this figure we show that garden products and the education program of a shool garden are expected to influence the food environment and how this is expected to happen. 
+The general concept of the food environment is expressed differently in the context of an intervention. In this figure we show that garden products and the education program of a shool garden are expected to influence the food environment and how this is expected to happen.    
 
 ![](figures/outline_food_env_garden.png)
 **Conceptual model of how school gardens in urban Hanoi schools could influence the food environments of children.**
@@ -34,7 +34,7 @@ A test run of the intervention will be carried out by the Center for the Develop
 
 This is the link to our simulation of the school garden intervemntion options.
 
-```{r mcsimulation}
+```{r mcsimulation, warning=FALSE, message=FALSE}
 # Source our model
 source("CODAS_Garden_Model.R")
 
@@ -54,7 +54,7 @@ garden_simulation_results <- mcSimulation(
 
 Here is a plot of the Net Present Value (i.e. current value of the future benefits) of the three options. `"NPV_garden"` is the value of the 5 years of the garden intervention.`"NPV_garden_STEM"` is the same garden but with the additional costs and benefits of a full STEM education program, `"NPV_no_garden"` is the result of 5 years of using the land for something that is not related to the garden, i.e. as a playground or for parking: 
 
-```{r}
+```{r plot_dist, warning=FALSE, message=FALSE}
 source("functions/plot_distributions.R")
 plot_distributions(mcSimulation_object = garden_simulation_results, 
                                     vars = c("NPV_garden","NPV_garden_STEM", "NPV_no_garden"),
@@ -69,7 +69,7 @@ Under Prospect Theory the way we present NPV values can influence decision maker
 
 Here we plot the distribution for the decision and frame the projected NPV gain for the 'decision'. These are distributions for the options, with the NPV values of the no garden option subtracted from those for the garden, the `decision` and garden with STEM, the `decision_STEM`. We display this as a "Reduction in potential loss" as it is expected to be more attractive to decision makers due to loss aversion, i.e. school boards might put more emphasis on avoiding potential losses than on seeking gains. We can frame our results as a strategy that minimizes losses rather than one that maximizes gains.
 
-```{r framing_NPV_results}
+```{r framing_NPV_results, warning=FALSE, message=FALSE}
 plot_distributions(mcSimulation_object = garden_simulation_results, 
                                     vars = c("decision", "decision_STEM"),
                                     method = 'hist_simple_overlay', 
@@ -84,7 +84,7 @@ plot_distributions(mcSimulation_object = garden_simulation_results,
 
 Here we provide a summary of the garden intervention options with `gt_plt_summary()` from {gtExtras} and with options from {svglite}. 
 
-```{r gtExtras_summary}
+```{r gtExtras_summary, warning=FALSE, message=FALSE}
 # Subset the outputs from the mcSimulation function (y) to summarize only on the variables that we want.
 # names(garden_simulation_results$x)
 mcSimulation_summary <- data.frame(garden_simulation_results$x[2:61],
@@ -96,39 +96,39 @@ gt_plt_summary(mcSimulation_summary)
 
 Summary of the savings for the passive education garden option
 
-```{r summary_decision}
+```{r summary_decision, warning=FALSE, message=FALSE}
 summary(garden_simulation_results$y$decision)
 ```
 
 Summary of the savings for the formal STEM education garden option
 
-```{r summary_decision_stem}
+```{r summary_decision_stem, warning=FALSE, message=FALSE}
 summary(garden_simulation_results$y$decision_STEM)
 ```
 
 
 Summary of costs
 
-```{r summary_costs}
+```{r summary_costs, warning=FALSE, message=FALSE}
 summary(garden_simulation_results$y$total_costs)
 ```
 
-```{r summary_costs_stem}
+```{r summary_costs_stem, warning=FALSE}
 summary(garden_simulation_results$y$total_costs_STEM)
 ```
 
 # First year
 
-```{r summary_first_year_costs}
+```{r summary_first_year_costs, warning=FALSE, message=FALSE}
 summary(garden_simulation_results$y$Cashflow_garden1)
 ```
 
-```{r summary_first_year_costs_stem}
+```{r summary_first_year_costs_stem, warning=FALSE, message=FALSE}
 summary(garden_simulation_results$y$Cashflow_garden_STEM1)
 ```
 # Cashflow of the garden option without formal STEM education
 
-```{r}
+```{r plot_cashflow, warning=FALSE, message=FALSE}
 source("functions/plot_cashflow.R")
 plot_cashflow(mcSimulation_object = garden_simulation_results, 
               cashflow_var_name = "Cashflow_garden")
@@ -137,7 +137,7 @@ plot_cashflow(mcSimulation_object = garden_simulation_results,
 
 Cashflow of the garden option with formal STEM education
 
-```{r}
+```{r plot_cashflow_STEM, warning=FALSE, message=FALSE}
 source("functions/plot_cashflow.R")
 plot_cashflow(mcSimulation_object = garden_simulation_results, 
               cashflow_var_name = "Cashflow_garden_STEM")
@@ -147,7 +147,7 @@ plot_cashflow(mcSimulation_object = garden_simulation_results,
 
 Here we assess value of information with the `multi_EVPI` function.
 
-```{r}
+```{r mc_table, warning=FALSE, message=FALSE}
 # Subset the outputs from the mcSimulation function (y) by selecting the correct variables be sure to run the multi_EVPI only on the variables that we want. Find them with names(garden_simulation_results$y)
 mcSimulation_table <- data.frame(garden_simulation_results$x, 
                                  garden_simulation_results$y[1:5])
@@ -170,13 +170,15 @@ Value of information for the garden option with formal STEM education.
 plot_evpi(evpi, decision_vars = "decision_STEM")
 ```
 
+In this case there were no high value variables. We can be onfident in supporting the decision, even with our imperfect current understanding. 
+
 # PLS
 
 We use Projection to Latent Structures model to get some sense of the correlation strength and direction for model variables and our outcome variables.
 
 For passive education garden option
 
-```{r}
+```{r pls_and_plot, warning=FALSE, message=FALSE}
 source("functions/pls_model.R")
 pls_result <- pls_model(object = garden_simulation_results,
                                 resultName = names(garden_simulation_results$y)[1], # the "NPV_garden" 
@@ -190,7 +192,7 @@ plot_pls(pls_result, input_table = input_table, threshold = 0.9)
 
 For school garden with formal STEM education
 
-```{r}
+```{r pls_plot_stem, warning=FALSE, message=FALSE}
 pls_result_STEM <- pls_model(object = garden_simulation_results,
                                 resultName = names(garden_simulation_results$y)[2], # the "NPV_garden_STEM" 
                                 ncomp = 1)
