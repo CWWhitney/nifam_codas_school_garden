@@ -7,11 +7,13 @@ Decision model for a school garden nutrition intervention in urban Hanoi. There 
 2. the same garden as a formal part of the STEM education program, actively used for education, with incurred training and other costs but also offsetting education and extracurricular costs,
 3. maintain the existing uses of the space that would otherwise be used for the garden, play space etc. 
 
+Working backward in complexity these three models describe the impact of the school garden intervention 1. as a decision for school boards, 2. for food environment outcomes and 3. interventions to the food environment.
+
 **General school garden model illustration**
+![outline](https://github.com/CWWhitney/nifam_codas_school_garden/assets/19190662/eb7faee2-0a15-4d2b-ae7a-17e644e9e93f)
 
+**School garden and food environment overview**
+![outline_food_env_garden](https://github.com/CWWhitney/nifam_codas_school_garden/assets/19190662/782db5d2-b48f-453b-a99f-e026da7c20ba)
 
-<img width="696" alt="Screenshot 2023-11-03 at 12 35 53 PM" src="https://github.com/CWWhitney/nifam_codas_school_garden/assets/19190662/ccec7600-bf7a-487e-ac56-5292d4a2dd72">
-
-**The School Garden Food Environment Overview**
-
-<img width="690" alt="Screenshot 2023-11-03 at 12 44 17 PM" src="https://github.com/CWWhitney/nifam_codas_school_garden/assets/19190662/be67172a-5203-4dbc-9a06-e9225db72668">
+**Food environments overview**
+![outline_food_env_general](https://github.com/CWWhitney/nifam_codas_school_garden/assets/19190662/6275853f-beb2-4cf6-9772-24137fd27b6d)
