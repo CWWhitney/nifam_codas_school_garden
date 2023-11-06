@@ -39,6 +39,8 @@ school_garden_function <- function(x, varnames){
     construction_cost
   }
   
+  ## Garden establishment ####
+  
   # Could be subject to cut-off values based on land area and number of students
   garden_establishment_costs <- compost_starting + # getting started with the compost
     worm_starting + # maintaining the compost and breaking down residue
@@ -47,7 +49,9 @@ school_garden_function <- function(x, varnames){
     equipment_cost + # this is a high value because we may need a lot of equipment, netting, trellis for plants to climb
     # considering the range, this could be simple or a smart system (full automation)... 
     garden_construction_cost  
-    
+  
+  ## STEM Garden establishment ####
+  
   #costs if with STEM education
   STEM_establishment_costs <- teaching_equipment + # teaching equipment for sciences (science oriented training)
     # includes microscopes and other highly technical education equipment
