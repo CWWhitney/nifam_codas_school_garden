@@ -50,6 +50,7 @@ school_garden_function <- function(x, varnames){
     
   #costs if with STEM education
   STEM_establishment_costs <- teaching_equipment + # teaching equipment for sciences (science oriented training)
+    # includes microscopes and other highly technical education equipment
     # consider 'if else' for aquatic vs. soil vs. rooftop in available space 
     # (not all have soil but all have space)
     teacher_training_cost  # cost for training teacher on gardening
