@@ -14,17 +14,31 @@ Here we model an intervention to improve food environments and address malnutrit
 
 ![](figures/outline_food_env_general.png)
 
-The general concept of the food environment is expressed differently in the context of an intervention. In this figure we show that garden products and the education program of a shool garden are expected to influence the food environment and how this is expected to happen.    
+We express the general concept of the food environment is slightly differently when we describe it in the context of an intervention. In this figure we show that both the garden products and the education program of a school garden are expected to influence the food environment and how this is expected to happen. The garden itself may have a direct effect if it produces fruits and vegetables that are consumed by students. The garden may also effect the food environments of children by influencing their knowledge about and desire for healthy foods, including fruits and vegetables. The education that students receive may change their perception, make them willing to pay, and also increase their access to fresh fruits and vegetables. Several other expected effects are also included in the figure. 
 
 ![](figures/outline_food_env_garden.png)
 **Conceptual model of how school gardens in urban Hanoi schools could influence the food environments of children.**
 
-The gardens will be existing areas on school grounds. The STEM option gardens will be designed to for teaching about nutrition and STEM (an approach to learning and development that integrates science, technology, engineering and maths) at primary and secondary schools.
+## Garden model
+
+The gardens will be created in existing land that is available on school grounds. The STEM option gardens will be designed to for teaching about nutrition and STEM (an approach to learning and development that integrates science, technology, engineering and maths) at primary and secondary schools.
 
 The model was developed across several iterative workshops in July 2023. These included decision definition, conceptual model development of the selected decision and an initial programming session with preliminary model results. The resulting model was further developed through August to November 2023. 
 
 ![](figures/outline.png)
 **Conceptual model of school gardens as an intervention. Should urban Hanoi school boards invest time and money in creating school gardens? Should they invest in formal STEM education as part of these gardens?**
+
+**No garden**
+
+Here we model the baseline of not having a garden. There are some advantages to this including additional play area for kids and the possibilility of other uses for the space such as parking when school is not in session. 
+
+**School garden**
+
+This intervention involves establishing a garden with a dual focus on gardening education. The initiative encompasses the financial aspects of compost, livestock, garden design, equipment, and construction costs. Establishment costs are allocated for compost initiation, worm maintenance, introducing small animals, hiring a planner for garden design, and acquiring necessary equipment, including potential smart systems. The focus extends from enriching soil quality to creating an aesthetically pleasing and functionally equipped garden
+
+**School garden designed to contribute to teaching Science Technology Education and Maths (STEM)**
+
+In this option we integrate a focus on sciences and STEM education into the garden. Integrating STEM education through the provision of specialized teaching equipment and training for teachers. Establishment costs include  science-oriented teaching equipment, with a focus on practical tools like microscopes. Teachers need training for gardening and STEM topics spanning 5 to 7 subjects over 12 days. The intervention aims to not only create a sustainable and interactive garden space but also to enhance educational experiences by incorporating science-oriented learning.
 
 A test run of the intervention will be carried out by the Center for the Development of Organic Agriculture (CODAS) under the Association of Organic Agriculture of Vietnam. In the 2nd year the garden is expected to start running well. The 3rd year is when the STEM education plan will be fully running.
 
@@ -78,9 +92,9 @@ plot_distributions(mcSimulation_object = garden_simulation_results,
 
 ## Summary
 
-Here we provide a summary of the garden intervention options with `gt_plt_summary()` from {gtExtras} and with options from {svglite}. 
+Here we provide a summary of the garden intervention options. We do this with a summary table of the simulation results. We show the percentage of missing values as well as the mean, median and standard deviation (SD) for each output of our model simulations. We use the `gt_plt_summary()` from {gtExtras} and with options from {svglite}. 
 
-Here we plot a summary table of the simulation results. We show the percentage of missing values as well as the mean, median and standard deviation (SD) for each output of our model simulations. 
+ 
 
 ```{r gtExtras_summary, warning=FALSE, message=FALSE}
 # Subset the outputs from the mcSimulation function (y) to summarize only on the variables that we want.
