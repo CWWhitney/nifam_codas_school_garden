@@ -14,7 +14,7 @@ Here we model an intervention to improve food environments and address malnutrit
 
 ![](figures/outline_food_env_general.png)
 
-The general concept of the food environment is expressed differently in the context of an intervention. In this figure we show that garden products and the education program of a shool garden are expected to influence the food environment and how this is expected to happen.    
+We express the general concept of the food environment is slightly differently when we describe it in the context of an intervention. In this figure we show that garden products and the education program of a school garden are expected to influence the food environment and how this is expected to happen.    
 
 ![](figures/outline_food_env_garden.png)
 **Conceptual model of how school gardens in urban Hanoi schools could influence the food environments of children.**
