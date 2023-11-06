@@ -63,16 +63,14 @@ plot_distributions(mcSimulation_object = garden_simulation_results,
 
 ## Framing the outcomes
 
-Under Prospect Theory the way we present NPV values can influence decision makers - the same information presented in different ways can lead to different decisions. For example, framing a projected NPV gain as a "reduction in potential loss" might make it more attractive to decision makers due to loss aversion.
-
-Here we plot the distribution for the decision and frame the projected NPV gain for the `decision`. These are distributions for the options, with the NPV values of the no garden option subtracted from those for the garden, the `decision` and garden with STEM, the `decision_STEM`. We display this as a "Reduction in potential loss" as it is expected to be more attractive to decision makers due to loss aversion, i.e. school boards might put more emphasis on avoiding potential losses than on seeking gains. We can frame our results as a strategy that minimizes losses rather than one that maximizes gains.
+The way we present NPV values can influence decision makers - the same information presented in different ways can lead to different decisions. Here we plot the distribution for the decision and frame the projected NPV gain for the `decision`. These are distributions for the options, with the NPV values of the no garden option subtracted from those for the garden, the `decision` and garden with STEM, the `decision_STEM`. We display this as a "Reduction in potential loss" as it is expected to be more attractive to decision makers due to loss aversion, i.e. school boards might put more emphasis on avoiding potential losses than on seeking gains. We can frame our results as a strategy that minimizes losses rather than one that maximizes gains.
 
 ```{r framing_NPV_results, warning=FALSE, message=FALSE}
 plot_distributions(mcSimulation_object = garden_simulation_results, 
                                     vars = c("decision", "decision_STEM"),
                                     method = 'hist_simple_overlay', 
                                     base_size = 7,  
-                                    x_axis_name = "Reduction in potential loss")
+                                    x_axis_name = "Expected gains with schoolgardens (intervention - no garden)")
 
 ```
 
@@ -82,6 +80,8 @@ plot_distributions(mcSimulation_object = garden_simulation_results,
 
 Here we provide a summary of the garden intervention options with `gt_plt_summary()` from {gtExtras} and with options from {svglite}. 
 
+Here we plot a summary table of the simulation results. We show the percentage of missing values as well as the mean, median and standard deviation (SD) for each output of our model simulations. 
+
 ```{r gtExtras_summary, warning=FALSE, message=FALSE}
 # Subset the outputs from the mcSimulation function (y) to summarize only on the variables that we want.
 # names(garden_simulation_results$x)
@@ -90,6 +90,7 @@ mcSimulation_summary <- data.frame(garden_simulation_results$x[2:61],
                                  garden_simulation_results$y[1:7])
 
 gt_plt_summary(mcSimulation_summary) 
+# a summary table with missing, mean, median and sd
 ```
 
 Summary of the savings for the passive education garden option
