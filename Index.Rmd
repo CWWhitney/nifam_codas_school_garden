@@ -19,7 +19,14 @@ We express the general concept of the food environment is slightly differently w
 ![](figures/outline_food_env_garden.png)
 **Conceptual model of how school gardens in urban Hanoi schools could influence the food environments of children.**
 
-## Intervention options
+## Garden model
+
+The gardens will be created in existing land that is available on school grounds. The STEM option gardens will be designed to for teaching about nutrition and STEM (an approach to learning and development that integrates science, technology, engineering and maths) at primary and secondary schools.
+
+The model was developed across several iterative workshops in July 2023. These included decision definition, conceptual model development of the selected decision and an initial programming session with preliminary model results. The resulting model was further developed through August to November 2023. 
+
+![](figures/outline.png)
+**Conceptual model of school gardens as an intervention. Should urban Hanoi school boards invest time and money in creating school gardens? Should they invest in formal STEM education as part of these gardens?**
 
 **No garden**
 
@@ -32,15 +39,6 @@ This intervention involves establishing a garden with a dual focus on gardening 
 **School garden designed to contribute to teaching Science Technology Education and Maths (STEM)**
 
 In this option we integrate a focus on sciences and STEM education into the garden. Integrating STEM education through the provision of specialized teaching equipment and training for teachers. Establishment costs include  science-oriented teaching equipment, with a focus on practical tools like microscopes. Teachers need training for gardening and STEM topics spanning 5 to 7 subjects over 12 days. The intervention aims to not only create a sustainable and interactive garden space but also to enhance educational experiences by incorporating science-oriented learning.
-
-
-
-The gardens will be created in existing land that is available on school grounds. The STEM option gardens will be designed to for teaching about nutrition and STEM (an approach to learning and development that integrates science, technology, engineering and maths) at primary and secondary schools.
-
-The model was developed across several iterative workshops in July 2023. These included decision definition, conceptual model development of the selected decision and an initial programming session with preliminary model results. The resulting model was further developed through August to November 2023. 
-
-![](figures/outline.png)
-**Conceptual model of school gardens as an intervention. Should urban Hanoi school boards invest time and money in creating school gardens? Should they invest in formal STEM education as part of these gardens?**
 
 A test run of the intervention will be carried out by the Center for the Development of Organic Agriculture (CODAS) under the Association of Organic Agriculture of Vietnam. In the 2nd year the garden is expected to start running well. The 3rd year is when the STEM education plan will be fully running.
 
