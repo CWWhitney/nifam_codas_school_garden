@@ -5,8 +5,8 @@ CV_value,0.1,,0.4,tnorm_0_1,Coefficient of variation for our school garden inter
 inflation_rate,5,,10,posnorm,Inflation rate (%)
 ,,,,,
 size_of_garden,50,,100,posnorm,Size of school garden in (m2)
-expensive_garden_size,75,,90,posnorm,Cut off value for where the garden becomes more expensive
-cost_increase_expensive_garden_size,1.01,,1.5,posnorm,Percentage more expensive we expect the garden to be if it is beyond the expensive_garden_size
+expensive_garden_size,85,,90,posnorm,Cut off value for where the garden becomes more expensive
+cost_increase_expensive_garden_size,1.01,,1.1,posnorm,Percentage more expensive we expect the garden to be if it is beyond the expensive_garden_size
 ,,,,,
 if_students_like,0.5,,0.8,tnorm_0_1,Chance of student engagement (%)
 if_parents_like,0.5,,0.9,tnorm_0_1,Chance of parents support / effectiveness (%)
