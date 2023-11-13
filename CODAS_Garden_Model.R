@@ -41,7 +41,6 @@ school_garden_function <- function(x, varnames){
   
   ## Garden establishment ####
   
-  # Could be subject to cut-off values based on land area and number of students
   garden_establishment_costs <- compost_starting + # getting started with the compost
     worm_starting + # maintaining the compost and breaking down residue
     livestock_costs +  # costs of establishing animals in the garden (small birds, rabbits, fish)
@@ -50,8 +49,16 @@ school_garden_function <- function(x, varnames){
     # considering the range, this could be simple or a smart system (full automation)... 
     garden_construction_cost  
   
-  ## STEM Garden establishment ####
+  # garden establishment cost values based on garden land area 
+  garden_establishment_costs <- if (size_of_garden > expensive_garden_size) {
+    # of the garden size is large then increase the establishment costs
+    # increase by 
+    garden_establishment_costs = garden_establishment_costs * cost_increase_expensive_garden_size
+  } else {
+    garden_establishment_costs = garden_establishment_costs 
+  }
   
+  ## STEM Garden establishment ####
   #costs if with STEM education
   STEM_establishment_costs <- teaching_equipment + # teaching equipment for sciences (science oriented training)
     # includes microscopes and other highly technical education equipment
@@ -64,6 +71,8 @@ school_garden_function <- function(x, varnames){
         # teacher's cn also save money on other training courses for these topics 
         # that they otherwise would have had to take
         # requires training on 5 or 7 subjects (biology etc.) for 12 days
+  
+  # cut-off values for number of students
         
   #establishment costs if passive (no STEM) education ####
   establishment_cost_year_one <- school_board_planning + 
@@ -85,6 +94,16 @@ school_garden_function <- function(x, varnames){
     # Circular garden with animals, trees, plants, fish (Bac Tom option)
     livestock_maint # costs of maintaining animals in the garden
   
+  # garden maint. cost values based on garden land area 
+  garden_maintenance_cost <- if (size_of_garden > expensive_garden_size) {
+    # of the garden size is large then increase the establishment costs
+    # increase by 
+    garden_maintenance_cost = garden_establishment_costs * cost_increase_expensive_garden_size
+  } else {
+    garden_maintenance_cost = garden_establishment_costs 
+  }
+  
+
   ## maintenance costs if with STEM education
   STEM_maintenance_cost <-
     teacher_salary_cost +  # extra costs for teachers to work on the garden
