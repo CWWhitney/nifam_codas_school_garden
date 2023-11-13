@@ -258,51 +258,29 @@ school_garden_function <- function(x, varnames){
                            relative_trend = inflation_rate) * community_risk
   
   # Same for STEM and no STEM
+  # the community appreciates the garden 
+  # they come to the school and take part in school events
+  # the school benefits from the event by selling products
+  # maybe products from the garden or increased sales of other school products
   community_value <-  vv(school_event_value*school_event_freq, # i.e. seedlings for sale
                          CV_value, 
                          number_of_years, 
                          relative_trend = inflation_rate) * community_risk
   
   # Increased enrollment ####
-  # Contentious becuase this is not really the purpose of the intervention 
-  # Certainly intereting to our decision maker (school board)
   # earnings from increased enrollment without STEM
-  tuition_raise_yes_no <- chance_event(if_increase_tuition, 
-                                 value_if = 1, 
-                                 value_if_not = 0)
-  
-  increased_enrollment <- if (tuition_raise_yes_no == 1) {
-    increased_enrollment <-  vv(tuition_increase + increased_enrollment_value, #tuition increase 
-                                # this is a contentious issue with a lot of discussion
-                                # keeping a low value and low chance for now
-                                CV_value, 
-                                number_of_years, 
-                                relative_trend = inflation_rate) * education_risk 
-  } else {
     increased_enrollment <-  vv(increased_enrollment_value,
                                 CV_value, 
                                 number_of_years, 
                                 relative_trend = inflation_rate) * education_risk
-  }
-  
+
   # Increased enrollment with STEM
-  tuition_raise_yes_no_STEM <- chance_event(if_increase_tuition_STEM, 
-                                            value_if = 1, 
-                                            value_if_not = 0)
-  
-  increased_enrollment_STEM <- if (tuition_raise_yes_no == 1) {
-    increased_enrollment_STEM <-  vv(tuition_increase + increased_enrollment_value, 
-                                CV_value, 
-                                number_of_years, 
-                                relative_trend = inflation_rate) * education_risk 
-  } else {
     increased_enrollment_STEM <-  vv(increased_enrollment_value,
                                 CV_value, 
                                 number_of_years, 
                                 relative_trend = inflation_rate) * education_risk
-  }
   
-  #It takes time to get a good reputation
+  # It takes time to get a good reputation
   # make year 1 a zero
   increased_enrollment[1] <- 0 
   increased_enrollment_STEM[1] <- 0 
@@ -362,7 +340,7 @@ school_garden_function <- function(x, varnames){
                                  value_if_not = 0)
   
   non_garden_value <- if (parking_yes_no == 1) {
-     vv(value_of_non_garden_land_use + parking_value, #tuition increase 
+     vv(value_of_non_garden_land_use + parking_value, 
                             # this is a contentious issue with a lot of discussion
                             # keeping a low value and low chance for now
                             CV_value, 
