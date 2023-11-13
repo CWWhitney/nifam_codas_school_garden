@@ -58,10 +58,6 @@ outside_investment_value_STEM,10,,500,posnorm,Value of outside investment due to
 increased_enrollment_value,1,,20,posnorm,Increased enrollment due to improved reputation no STEM (million VND/year)
 increased_enrollment_value_STEM,10,,100,posnorm,Increased enrollment due to improved reputation with STEM (million VND/year)
 ,,,,,
-if_increase_tuition,0.01,,0.03,tnorm_0_1,Chance of increasing tuition due to garden intervention (%)
-if_increase_tuition_STEM,0.1,,0.3,tnorm_0_1,Chance of increasing tuition due to garden with STEM intervention (%)
-,,,,,
-tuition_increase,5,,10,posnorm,Increased tuition due to the improved reputation (million VND/year)
 child_veg_access,5,,10,posnorm,Value of children having more access to safe vegetables (million VND/year)
 child_healthier_choices,20,,100,posnorm,Value of children making better choices about food without STEM (million VND/year)
 child_healthier_choices_STEM,100,,500,posnorm,Value of children making better choices about food with STEM (million VND/year)
