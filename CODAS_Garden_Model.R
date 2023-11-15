@@ -287,6 +287,16 @@ school_garden_function <- function(x, varnames){
   
   # Health related values ####
   # These are critical and extremely important but also somewhat intangible
+  # here we determine the value of vegetable access with some proxy values
+  child_veg_access <- child_veg_health_care_savings + 
+    child_veg_school_performance_value + 
+    child_veg_community_engagement_value  
+    
+  # here we determine the value of healthier choices with some proxy values
+  child_healthier_choices <- child_garden_health_care_savings + 
+    child_garden_school_performance_value + 
+    child_garden_community_engagement_value  
+  
   # Need to consider these values carefully as they differ between options
   # health benefits from gardens no STEM
   health_value <- child_veg_access + child_healthier_choices 
@@ -298,11 +308,7 @@ school_garden_function <- function(x, varnames){
   # health benefits from gardens with STEM
   # Assuming more formal STEM education time in the garden leads to 
   # better health choices but does not change access (same garden)
-  child_veg_access <- child_veg_health_care_savings + 
-    child_veg_school_performance_value + 
-    child_veg_community_engagement_value  
       
-   
   health_value_STEM <- child_veg_access + child_healthier_choices_STEM 
   
   health_related_value_STEM <-  vv(health_value_STEM, 
