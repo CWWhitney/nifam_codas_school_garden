@@ -92,18 +92,16 @@ plot_distributions(mcSimulation_object = garden_simulation_results,
 
 ## Summary
 
-Here we provide a summary of the garden intervention options. We do this with a summary table of the simulation results. We show the percentage of missing values as well as the mean, median and standard deviation (SD) for each output of our model simulations. We use the `gt_plt_summary()` from {gtExtras} and with options from {svglite}. 
-
- 
+Here we provide a summary of the garden intervention options. We do this with a summary table of the simulation results. We show the percentage of missing values as well as the mean, median and standard deviation (SD) for each output of our model simulations. We use the `gt_plt_summary()` from {gtExtras} and with options from {svglite}. The table shows the variable name, the plot overview as well as the number of missing values, the mean, median and the standard deviation of the distribution. 
 
 ```{r gtExtras_summary, warning=FALSE, message=FALSE}
 # Subset the outputs from the mcSimulation function (y) to summarize only on the variables that we want.
 # names(garden_simulation_results$x)
-mcSimulation_summary <- data.frame(garden_simulation_results$x[2:61],
+mcSimulation_summary <- data.frame(garden_simulation_results$x[2:60],
  # names(garden_simulation_results$x)
                                  garden_simulation_results$y[1:7])
 
-gt_plt_summary(mcSimulation_summary) 
+gtExtras::gt_plt_summary(mcSimulation_summary) 
 # a summary table with missing, mean, median and sd
 ```
 
