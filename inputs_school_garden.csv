@@ -62,15 +62,15 @@ child_veg_health_care_savings,0.1,,0.5,posnorm,Healthcare savings for children h
 child_veg_school_performance_value,0.01,,0.2,posnorm,School performance value for children having more access to safe vegetables from the garden (million VND/year)
 child_veg_community_engagement_value,0.01,,0.1,posnorm,Community engagement value for children having more access to safe vegetables from the garden (million VND/year)
 ,,,,,
-garden_mental_health_value,0.01,,0.1,posnorm,Mental health value of children having a garden at school (million VND/year)
+garden_mental_health_value,1,,10,posnorm,Mental health value of children having a garden at school (million VND/year)
 ,,,,,
 child_garden_health_care_savings,10,,50,posnorm,Healthcare savings from children making better choices about food with a passive (no STEM) garden (million VND/year)
 child_garden_school_performance_value,30,,60,posnorm,School performance value for children making better choices about food with a passive (no STEM) garden (million VND/year)
 child_garden_community_engagement_value,3,,7,posnorm,Community engagement value for children making better choices about food with a passive (no STEM) garden (million VND/year)
 ,,,,,
-child_STEM_health_care_savings,10,,50,posnorm,Healthcare savings from children making better choices about food with STEM garden (million VND/year)
-child_STEM_school_performance_value,30,,60,posnorm,School performance value for children making better choices about food with a STEM garden (million VND/year)
-child_STEM_community_engagement_value,3,,7,posnorm,Community engagement value for children making better choices about food with a STEM garden (million VND/year)
+child_STEM_health_care_savings,20,,80,posnorm,Healthcare savings from children making better choices about food with STEM garden (million VND/year)
+child_STEM_school_performance_value,60,,100,posnorm,School performance value for children making better choices about food with a STEM garden (million VND/year)
+child_STEM_community_engagement_value,10,,25,posnorm,Community engagement value for children making better choices about food with a STEM garden (million VND/year)
 ,,,,,
 green_space_value,100,,200,posnorm,Value of green space (million VND/year)
 reduce_polution_value,10,,20,posnorm,Value of reduced polution on school garden (million VND/year)
