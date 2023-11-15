@@ -10,7 +10,8 @@ Decision model for a school garden nutrition intervention in urban Hanoi. There 
 Working backward in complexity these three models describe the impact of the school garden intervention 1. as a decision for school boards, 2. for food environment outcomes and 3. interventions to the food environment.
 
 **General school garden model illustration**
-![outline](https://github.com/CWWhitney/nifam_codas_school_garden/assets/19190662/eb7faee2-0a15-4d2b-ae7a-17e644e9e93f)
+![outline](https://github.com/CWWhitney/nifam_codas_school_garden/assets/19190662/faf15546-2445-4962-84da-97dcd7af0ad6)
+
 
 **School garden and food environment overview**
 ![outline_food_env_garden](https://github.com/CWWhitney/nifam_codas_school_garden/assets/19190662/782db5d2-b48f-453b-a99f-e026da7c20ba)
