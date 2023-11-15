@@ -338,6 +338,7 @@ school_garden_function <- function(x, varnames){
                     outside_investment + increased_enrollment + 
                     health_related_value + environment_related_value + 
                     community_value
+  
   # Add up all benefits with STEM ####
   total_benefit_STEM <- harvest_value + learning_value_STEM + 
     outside_investment_STEM + increased_enrollment_STEM + 
@@ -346,6 +347,7 @@ school_garden_function <- function(x, varnames){
     
   # Final result of the costs and benefits no STEM
   garden_intervention_result <- total_benefit - total_cost
+  
   # Final result of the costs and benefits STEM
   garden_intervention_result_STEM <- total_benefit_STEM - total_cost_STEM
   
