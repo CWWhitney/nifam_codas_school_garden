@@ -307,9 +307,9 @@ school_garden_function <- function(x, varnames){
                               relative_trend = inflation_rate) * garden_nutrition_risk
   # health benefits from gardens with STEM
   # here we determine the value of healthier choices with some proxy values
-  child_healthier_choices_STEM <- child_garden_health_care_savings + 
-    child_garden_school_performance_value + 
-    child_garden_community_engagement_value  
+  child_healthier_choices_STEM <- child_STEM_health_care_savings + 
+    child_STEM_school_performance_value + 
+    child_STEM_community_engagement_value  
   # Assuming more formal STEM education time in the garden leads to 
   # better health choices but does not change access (same garden)
       
