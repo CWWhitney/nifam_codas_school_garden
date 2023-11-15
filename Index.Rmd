@@ -17,15 +17,17 @@ Here we model an intervention to improve food environments and address malnutrit
 We express the general concept of the food environment is slightly differently when we describe it in the context of an intervention. In this figure we show that both the garden products and the education program of a school garden are expected to influence the food environment and how this is expected to happen. The garden itself may have a direct effect if it produces fruits and vegetables that are consumed by students. The garden may also effect the food environments of children by influencing their knowledge about and desire for healthy foods, including fruits and vegetables. The education that students receive may change their perception, make them willing to pay, and also increase their access to fresh fruits and vegetables. Several other expected effects are also included in the figure. 
 
 ![](figures/outline_food_env_garden.png)
+
 **Conceptual model of how school gardens in urban Hanoi schools could influence the food environments of children.**
 
 ## Garden model
 
-The gardens will be created in existing land that is available on school grounds. The STEM option gardens will be designed to for teaching about nutrition and STEM (an approach to learning and development that integrates science, technology, engineering and maths) at primary and secondary schools.
+The gardens will be created in existing land that is available on school grounds. In the the STEM (Science Technology Education and Math) alternative, the gardens will be designed for teaching about nutrition and STEM (an approach to learning and development that integrates science, technology, engineering and maths) at primary and secondary schools.
 
 The model was developed across several iterative workshops in July 2023. These included decision definition, conceptual model development of the selected decision and an initial programming session with preliminary model results. The resulting model was further developed through August to November 2023. 
 
 ![](figures/outline.png)
+
 **Conceptual model of school gardens as an intervention. Should urban Hanoi school boards invest time and money in creating school gardens? Should they invest in formal STEM education as part of these gardens?**
 
 **No garden**
@@ -40,7 +42,9 @@ This intervention involves establishing a garden with a dual focus on gardening 
 
 In this option we integrate a focus on sciences and STEM education into the garden. Integrating STEM education through the provision of specialized teaching equipment and training for teachers. Establishment costs include  science-oriented teaching equipment, with a focus on practical tools like microscopes. Teachers need training for gardening and STEM topics spanning 5 to 7 subjects over 12 days. The intervention aims to not only create a sustainable and interactive garden space but also to enhance educational experiences by incorporating science-oriented learning.
 
-A test run of the intervention will be carried out by the Center for the Development of Organic Agriculture (CODAS) under the Association of Organic Agriculture of Vietnam. In the 2nd year the garden is expected to start running well. The 3rd year is when the STEM education plan will be fully running.
+**School garden implementation and monitoring**
+
+We want to test our uncertainty here and get as much additional information as we can to better understand the complexity of effects of school gardens on the food environments children. A test run of the intervention, in the form of an actual school garden on school property, will be carried out by the Center for the Development of Organic Agriculture (CODAS) under the Association of Organic Agriculture of Vietnam. In the 2nd year the garden is expected to start running well. The 3rd year is when the STEM education plan will be fully running.
 
 # Urban Hanoi school garden 
 
@@ -64,7 +68,7 @@ garden_simulation_results <- mcSimulation(
 
 ```
 
-Here is a plot of the Net Present Value (i.e. current value of the future benefits) of the three options. `"NPV_garden"` is the value of the 5 years of the garden intervention.`"NPV_garden_STEM"` is the same garden but with the additional costs and benefits of a full STEM education program, `"NPV_no_garden"` is the result of 5 years of using the land for something that is not related to the garden, i.e. as a playground or for parking: 
+Here is a plot of the Net Present Value (i.e. current value of the future benefits) of the three options. `"NPV_garden"` is the value of the `r garden_simulation_results$x$number_of_years[1]` years of the garden intervention.`"NPV_garden_STEM"` is the same garden but with the additional costs and benefits of a full STEM education program, `"NPV_no_garden"` is the result of `r garden_simulation_results$x$number_of_years[1]` years of using the land for something that is not related to the garden, i.e. as a playground or for parking: 
 
 ```{r plot_dist, warning=FALSE, message=FALSE}
 source("functions/plot_distributions.R")
@@ -77,7 +81,7 @@ plot_distributions(mcSimulation_object = garden_simulation_results,
 
 ## Framing the outcomes
 
-The way we present NPV values can influence decision makers - the same information presented in different ways can lead to different decisions. Here we plot the distribution for the decision and frame the projected NPV gain for the `decision`. These are distributions for the options, with the NPV values of the no garden option subtracted from those for the garden, the `decision` and garden with STEM, the `decision_STEM`. We display this as a "Reduction in potential loss" as it is expected to be more attractive to decision makers due to loss aversion, i.e. school boards might put more emphasis on avoiding potential losses than on seeking gains. We can frame our results as a strategy that minimizes losses rather than one that maximizes gains.
+The way we present NPV values can influence decision makers - the same information presented in different ways can lead to different decisions. Here we plot the distribution for the decision and frame the projected NPV gain for the `decision`. These are distributions for the options, with the NPV values of the no garden option subtracted from those for the garden, the `decision` and garden with STEM, the `decision_STEM`. 
 
 ```{r framing_NPV_results, warning=FALSE, message=FALSE}
 plot_distributions(mcSimulation_object = garden_simulation_results, 
@@ -92,18 +96,16 @@ plot_distributions(mcSimulation_object = garden_simulation_results,
 
 ## Summary
 
-Here we provide a summary of the garden intervention options. We do this with a summary table of the simulation results. We show the percentage of missing values as well as the mean, median and standard deviation (SD) for each output of our model simulations. We use the `gt_plt_summary()` from {gtExtras} and with options from {svglite}. 
-
- 
+Here we provide a summary of the garden intervention options. We do this with a summary table of the simulation results. We show the percentage of missing values as well as the mean, median and standard deviation (SD) for each output of our model simulations. We use the `gt_plt_summary()` from {gtExtras} and with options from {svglite}. The table shows the variable name, the plot overview as well as the number of missing values, the mean, median and the standard deviation of the distribution. 
 
 ```{r gtExtras_summary, warning=FALSE, message=FALSE}
 # Subset the outputs from the mcSimulation function (y) to summarize only on the variables that we want.
 # names(garden_simulation_results$x)
-mcSimulation_summary <- data.frame(garden_simulation_results$x[2:61],
+mcSimulation_summary <- data.frame(garden_simulation_results$x[2:60],
  # names(garden_simulation_results$x)
                                  garden_simulation_results$y[1:7])
 
-gt_plt_summary(mcSimulation_summary) 
+gtExtras::gt_plt_summary(mcSimulation_summary) 
 # a summary table with missing, mean, median and sd
 ```
 

@@ -55,22 +55,28 @@ formal_edu_savings_STEM,20,,100,posnorm,Savings on STEM formal education costs (
 outside_investment_value,1,,100,posnorm,Value of outside investment due to improved reputation no formal STEM (million VND/year)
 outside_investment_value_STEM,10,,500,posnorm,Value of outside investment due to improved reputation with STEM (million VND/year)
 ,,,,,
-increased_enrollment_value,1,,20,posnorm,Increased enrollment due to improved reputation no STEM (million VND/year)
-increased_enrollment_value_STEM,10,,100,posnorm,Increased enrollment due to improved reputation with STEM (million VND/year)
+increased_enrollment_value,1,,20,posnorm,Income from increased enrollment or tuition due to improved reputation no STEM (million VND/year)
+increased_enrollment_value_STEM,10,,100,posnorm,Income from increased enrollment or tuition due to improved reputation with STEM (million VND/year)
 ,,,,,
-if_increase_tuition,0.01,,0.03,tnorm_0_1,Chance of increasing tuition due to garden intervention (%)
-if_increase_tuition_STEM,0.1,,0.3,tnorm_0_1,Chance of increasing tuition due to garden with STEM intervention (%)
+child_veg_health_care_savings,0.1,,0.5,posnorm,Healthcare savings for children having more access to safe vegetables from the garden (million VND/year)
+child_veg_school_performance_value,0.01,,0.2,posnorm,School performance value for children having more access to safe vegetables from the garden (million VND/year)
+child_veg_community_engagement_value,0.01,,0.1,posnorm,Community engagement value for children having more access to safe vegetables from the garden (million VND/year)
 ,,,,,
-tuition_increase,5,,10,posnorm,Increased tuition due to the improved reputation (million VND/year)
-child_veg_access,5,,10,posnorm,Value of children having more access to safe vegetables (million VND/year)
-child_healthier_choices,20,,100,posnorm,Value of children making better choices about food without STEM (million VND/year)
-child_healthier_choices_STEM,100,,500,posnorm,Value of children making better choices about food with STEM (million VND/year)
+garden_mental_health_value,0.01,,0.1,posnorm,Mental health value of children having a garden at school (million VND/year)
+,,,,,
+child_garden_health_care_savings,10,,50,posnorm,Healthcare savings from children making better choices about food with a passive (no STEM) garden (million VND/year)
+child_garden_school_performance_value,30,,60,posnorm,School performance value for children making better choices about food with a passive (no STEM) garden (million VND/year)
+child_garden_community_engagement_value,3,,7,posnorm,Community engagement value for children making better choices about food with a passive (no STEM) garden (million VND/year)
+,,,,,
+child_STEM_health_care_savings,10,,50,posnorm,Healthcare savings from children making better choices about food with STEM garden (million VND/year)
+child_STEM_school_performance_value,30,,60,posnorm,School performance value for children making better choices about food with a STEM garden (million VND/year)
+child_STEM_community_engagement_value,3,,7,posnorm,Community engagement value for children making better choices about food with a STEM garden (million VND/year)
 ,,,,,
 green_space_value,100,,200,posnorm,Value of green space (million VND/year)
 reduce_polution_value,10,,20,posnorm,Value of reduced polution on school garden (million VND/year)
 ,,,,,
-school_event_value,10,,50,posnorm,Value of garden related school events (million VND/year)
-school_event_freq,2,,10,posnorm,Number of school events per year (days per year)
+school_event_value,10,,50,posnorm,Value of garden related school events (million VND/event)
+school_event_freq,2,,10,posnorm,Number of school events per year (days/year)
 ,,,,,
 value_of_non_garden_land_use,20,,50,posnorm,"Value of non garden land use, playground etc. (million VND/yr)"
 if_parking,0.05,,0.15,tnorm_0_1,Chance of including parking on the plot without a garden (%)

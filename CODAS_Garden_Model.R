@@ -258,69 +258,64 @@ school_garden_function <- function(x, varnames){
                            relative_trend = inflation_rate) * community_risk
   
   # Same for STEM and no STEM
+  # the community appreciates the garden 
+  # they come to the school and take part in school events
+  # the school benefits from the event by selling products
+  # maybe products from the garden or increased sales of other school products
   community_value <-  vv(school_event_value*school_event_freq, # i.e. seedlings for sale
                          CV_value, 
                          number_of_years, 
                          relative_trend = inflation_rate) * community_risk
   
   # Increased enrollment ####
-  # Contentious becuase this is not really the purpose of the intervention 
-  # Certainly intereting to our decision maker (school board)
   # earnings from increased enrollment without STEM
-  tuition_raise_yes_no <- chance_event(if_increase_tuition, 
-                                 value_if = 1, 
-                                 value_if_not = 0)
-  
-  increased_enrollment <- if (tuition_raise_yes_no == 1) {
-    increased_enrollment <-  vv(tuition_increase + increased_enrollment_value, #tuition increase 
-                                # this is a contentious issue with a lot of discussion
-                                # keeping a low value and low chance for now
-                                CV_value, 
-                                number_of_years, 
-                                relative_trend = inflation_rate) * education_risk 
-  } else {
     increased_enrollment <-  vv(increased_enrollment_value,
                                 CV_value, 
                                 number_of_years, 
                                 relative_trend = inflation_rate) * education_risk
-  }
-  
+
   # Increased enrollment with STEM
-  tuition_raise_yes_no_STEM <- chance_event(if_increase_tuition_STEM, 
-                                            value_if = 1, 
-                                            value_if_not = 0)
-  
-  increased_enrollment_STEM <- if (tuition_raise_yes_no == 1) {
-    increased_enrollment_STEM <-  vv(tuition_increase + increased_enrollment_value, 
-                                CV_value, 
-                                number_of_years, 
-                                relative_trend = inflation_rate) * education_risk 
-  } else {
     increased_enrollment_STEM <-  vv(increased_enrollment_value,
                                 CV_value, 
                                 number_of_years, 
                                 relative_trend = inflation_rate) * education_risk
-  }
   
-  #It takes time to get a good reputation
+  # It takes time to get a good reputation
   # make year 1 a zero
   increased_enrollment[1] <- 0 
   increased_enrollment_STEM[1] <- 0 
   
   # Health related values ####
   # These are critical and extremely important but also somewhat intangible
+  # here we determine the value of vegetable access with some proxy values
+  child_veg_access <- child_veg_health_care_savings + 
+    child_veg_school_performance_value + 
+    child_veg_community_engagement_value 
+    
+  # here we determine the value of healthier choices with some proxy values
+  child_healthier_choices <- child_garden_health_care_savings + 
+    child_garden_school_performance_value + 
+    child_garden_community_engagement_value  
+  
   # Need to consider these values carefully as they differ between options
   # health benefits from gardens no STEM
-  health_value <- child_veg_access + child_healthier_choices 
+  health_value <- child_veg_access + child_healthier_choices  + 
+    garden_mental_health_value
   
   health_related_value <-  vv(health_value, 
                               CV_value, 
                               number_of_years, 
                               relative_trend = inflation_rate) * garden_nutrition_risk
   # health benefits from gardens with STEM
+  # here we determine the value of healthier choices with some proxy values
+  child_healthier_choices_STEM <- child_STEM_health_care_savings + 
+    child_STEM_school_performance_value + 
+    child_STEM_community_engagement_value  
   # Assuming more formal STEM education time in the garden leads to 
   # better health choices but does not change access (same garden)
-  health_value_STEM <- child_veg_access + child_healthier_choices_STEM 
+      
+  health_value_STEM <- child_veg_access + child_healthier_choices_STEM  + 
+    garden_mental_health_value
   
   health_related_value_STEM <-  vv(health_value_STEM, 
                               CV_value, 
@@ -343,6 +338,7 @@ school_garden_function <- function(x, varnames){
                     outside_investment + increased_enrollment + 
                     health_related_value + environment_related_value + 
                     community_value
+  
   # Add up all benefits with STEM ####
   total_benefit_STEM <- harvest_value + learning_value_STEM + 
     outside_investment_STEM + increased_enrollment_STEM + 
@@ -351,6 +347,7 @@ school_garden_function <- function(x, varnames){
     
   # Final result of the costs and benefits no STEM
   garden_intervention_result <- total_benefit - total_cost
+  
   # Final result of the costs and benefits STEM
   garden_intervention_result_STEM <- total_benefit_STEM - total_cost_STEM
   
@@ -362,7 +359,7 @@ school_garden_function <- function(x, varnames){
                                  value_if_not = 0)
   
   non_garden_value <- if (parking_yes_no == 1) {
-     vv(value_of_non_garden_land_use + parking_value, #tuition increase 
+     vv(value_of_non_garden_land_use + parking_value, 
                             # this is a contentious issue with a lot of discussion
                             # keeping a low value and low chance for now
                             CV_value, 
