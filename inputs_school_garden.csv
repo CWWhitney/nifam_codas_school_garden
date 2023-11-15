@@ -55,10 +55,12 @@ formal_edu_savings_STEM,20,,100,posnorm,Savings on STEM formal education costs (
 outside_investment_value,1,,100,posnorm,Value of outside investment due to improved reputation no formal STEM (million VND/year)
 outside_investment_value_STEM,10,,500,posnorm,Value of outside investment due to improved reputation with STEM (million VND/year)
 ,,,,,
-increased_enrollment_value,1,,20,posnorm,Increased enrollment due to improved reputation no STEM (million VND/year)
-increased_enrollment_value_STEM,10,,100,posnorm,Increased enrollment due to improved reputation with STEM (million VND/year)
+increased_enrollment_value,1,,20,posnorm,Income from increased enrollment or tuition due to improved reputation no STEM (million VND/year)
+increased_enrollment_value_STEM,10,,100,posnorm,Income from increased enrollment or tuition due to improved reputation with STEM (million VND/year)
 ,,,,,
-child_veg_access,5,,10,posnorm,Value of children having more access to safe vegetables (million VND/year)
+child_veg_health_care_savings,0.5,,2,posnorm,Healthcare savings for children having more access to safe vegetables (million VND/year)
+,,,,,
+,,,,,
 child_healthier_choices,20,,100,posnorm,Value of children making better choices about food without STEM (million VND/year)
 child_healthier_choices_STEM,100,,500,posnorm,Value of children making better choices about food with STEM (million VND/year)
 ,,,,,
