@@ -298,6 +298,11 @@ school_garden_function <- function(x, varnames){
   # health benefits from gardens with STEM
   # Assuming more formal STEM education time in the garden leads to 
   # better health choices but does not change access (same garden)
+  child_veg_access <- child_veg_health_care_savings + 
+    child_veg_school_performance_value + 
+    child_veg_community_engagement_value  
+      
+   
   health_value_STEM <- child_veg_access + child_healthier_choices_STEM 
   
   health_related_value_STEM <-  vv(health_value_STEM, 
