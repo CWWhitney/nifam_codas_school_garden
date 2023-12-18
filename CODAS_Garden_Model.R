@@ -26,7 +26,7 @@ school_garden_function <- function(x, varnames){
   
   # Establishment costs 
   
-  # possible chance_event options: 
+  # chance_event options: 
       # family contribution? Will they pay a bit? 
   family_pays_establishment_yes_no <- chance_event(if_family_pays_establishment, # some above the table (mostly under the table)
                                                    value_if = 1, 
