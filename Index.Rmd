@@ -10,7 +10,7 @@ library(gtExtras)
 library(svglite)
 ```
 
-Here we model an intervention to improve food environments and address malnutrition among school-aged children in urban Hanoi. Conceptually the food environment is described in the following figure. The circles with the dotted lines are external or underlying factors. 
+Here we model an intervention to improve food environments and address malnutrition among school-aged children in urban Hanoi. The intervention is formulated as a decision model with three options: introduce a garden at the school, introduce the garden and make it a formal part of the education system, do not introduce a garden. Conceptually the food environment is described in the following figure. The circles with the dotted lines are external or underlying factors. 
 
 ![](figures/outline_food_env_general.png)
 
