@@ -215,7 +215,7 @@ school_garden_function <- function(x, varnames){
   # The savings are also in formal education 
   # the school meets some of the KPI for education with the garden
   # such as local enterprise and local economics 
-  # Ministry decree to edu. to benefit local economy (35 sessions of 45 min./yr)
+  # Ministry decree of edu. to benefit local economy (35 sessions of 45 min./yr)
   # private school has more time than this 
   # this will be applied in the STEM case only 
     
@@ -262,7 +262,7 @@ school_garden_function <- function(x, varnames){
   # they come to the school and take part in school events
   # the school benefits from the event by selling products
   # maybe products from the garden or increased sales of other school products
-  community_value <-  vv(school_event_value*school_event_freq, # i.e. seedlings for sale
+  community_value <-  vv(school_event_value * school_event_freq, # i.e. seedlings for sale
                          CV_value, 
                          number_of_years, 
                          relative_trend = inflation_rate) * community_risk
@@ -322,9 +322,15 @@ school_garden_function <- function(x, varnames){
                               number_of_years, 
                               relative_trend = inflation_rate) * garden_nutrition_risk
   
-  # green space environment
-  # Assume same for STEM and no STEM
-  environmental_value <- green_space_value + reduce_polution_value 
+  # Here we also get abstract
+  # we want to value green space and reduced pollution 
+  # i.e. improved air quality/ filter pollutants from the air
+  # improving air quality and reducing the risk of respiratory problems
+  # especially important in urban areas, where air pollution 
+  
+  environmental_value <- 
+    green_space_value + # we care about the green space
+    reduce_polution_value # we care about reducing pollution
   
   # some discussion of carbon credit values (not included)
   environment_related_value <-  vv(environmental_value, 
