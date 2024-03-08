@@ -322,17 +322,27 @@ school_garden_function <- function(x, varnames){
                               number_of_years, 
                               relative_trend = inflation_rate) * garden_nutrition_risk
   
-  # Here we also get abstract
-  # we want to value green space and reduced pollution 
-  # i.e. improved air quality/ filter pollutants from the air
-  # improving air quality and reducing the risk of respiratory problems
-  # especially important in urban areas, where air pollution 
+  # Here we also get abstract, we care about green space and pollution reduction
   
   environmental_value <- 
     green_space_value + # we care about the green space
-    reduce_polution_value # we care about reducing pollution
-  
+    # citizens pay more to live close to green spaces
+    # cities like Hanoi spend money on planting and maintaining parks and trees
+    # - improve mental and physical health
+    # - provide opportunities for physical activity and social interaction
+    # - public green spaces have been linked to lower crime rates
+    
+    reduce_polution_value 
+    # i.e. improved air quality/ filter pollutants from the air
+    # improving air quality and reducing the risk of respiratory problems
+    # especially important in urban areas, where air pollution is high 
+    #   - (March 5th 2024) Hanoi worst air pollution in world
+    # cities are willing to invest in green areas for pollution 
+    #   - (i.e. moss wall in Stuttgart)
+    # Hanoi plants and maintains parks and trees (maybe partly for pollution?)
+    
   # some discussion of carbon credit values (not included)
+  
   environment_related_value <-  vv(environmental_value, 
                               CV_value, 
                               number_of_years, 
