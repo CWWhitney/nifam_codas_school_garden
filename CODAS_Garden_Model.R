@@ -175,7 +175,7 @@ school_garden_function <- function(x, varnames){
   
   # ex-ante ecological risks
   ecological_risk <- min(if_offer_green_space, # offer green space
-                        if_reduce_polution) # offer habitat
+                        if_reduce_pollution) # offer habitat
   
   # Benefits and Risks ####
   
@@ -332,7 +332,7 @@ school_garden_function <- function(x, varnames){
     # - provide opportunities for physical activity and social interaction
     # - public green spaces have been linked to lower crime rates
     
-    reduce_polution_value 
+    reduce_pollution_value 
     # i.e. improved air quality/ filter pollutants from the air
     # improving air quality and reducing the risk of respiratory problems
     # especially important in urban areas, where air pollution is high 
