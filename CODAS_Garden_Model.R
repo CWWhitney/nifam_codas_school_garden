@@ -196,8 +196,7 @@ school_garden_function <- function(x, varnames){
   } else {
     harvest_value = vv(sale_of_yield, CV_value, 
                        number_of_years, 
-                       relative_trend = inflation_rate) * garden_function_risk 
-                                          
+                       relative_trend = inflation_rate) * garden_function_risk
   }
   
   # here we get a bit abstract but we do not want to leave this out
