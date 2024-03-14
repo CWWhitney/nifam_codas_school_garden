@@ -4,7 +4,7 @@ discount_rate,5,,8,posnorm,Discounting factor
 CV_value,0.1,,0.4,tnorm_0_1,Coefficient of variation for our school garden intervention (%)
 inflation_rate,5,,10,posnorm,Inflation rate (%)
 ,,,,,
-size_of_garden,50,,100,posnorm,Size of school garden in (m2)
+size_of_garden,10,,100,posnorm,Size of school garden in (m2)
 expensive_garden_size,90,,95,posnorm,Cut off value for where the garden becomes more expensive (m2)
 cost_increase_expensive_garden_size,1.01,,1.5,posnorm,Percentage more expensive we expect the garden to be if it is beyond the expensive_garden_size
 ,,,,,
