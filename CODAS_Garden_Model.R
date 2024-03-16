@@ -22,18 +22,6 @@ make_variables(decisionSupport::estimate_read_csv(paste("inputs_school_garden.cs
 
 school_garden_function <- function(x, varnames){
   
-  # Access to land ####
-  
-  # unlikely to have access to land
-  # many schools that attended CODAS meetings did not have access to land
-  land_access 
-  
-  # the land they have access to is just cement part of playground
-  suitability_of_land_for_garden 
-  
-  # many of the schools (especially public schools) have issues with bureaucracy
-  beurocratic_barriers
-  
   # Costs####
   
   # Establishment costs 
@@ -153,7 +141,6 @@ school_garden_function <- function(x, varnames){
   total_cost_STEM[1] <- establishment_cost_year_one_STEM + 
       maintenance_cost_annual_STEM
   
-  
   # Risks ####
   
   # These are 'ex-ante' risks, or risks understood when making a decision
@@ -240,7 +227,8 @@ school_garden_function <- function(x, varnames){
                        CV_value, 
                        number_of_years, 
                        relative_trend = inflation_rate) * education_risk
-  # In the 2nd year the garden is expected to start running well.
+  # Not until the 2nd year is the garden expected to start 'running well'
+  # thus providing a learning value
   learning_value[1] <- 0
   #savings on learning with STEM education
   learning_value_STEM <- vv(education_savings_STEM, 
@@ -248,7 +236,7 @@ school_garden_function <- function(x, varnames){
                        number_of_years, 
                        relative_trend = inflation_rate) * education_risk
   
-  # The 3rd year is when the STEM education plan will be fully running.
+  # The 3rd year is when the STEM education plan will be fully running
   learning_value_STEM[1:2] <- 0
   
   # Reputation goes up ####
@@ -292,9 +280,10 @@ school_garden_function <- function(x, varnames){
                                 relative_trend = inflation_rate) * education_risk
   
   # It takes time to get a good reputation
-  # make year 1 a zero
-  increased_enrollment[1] <- 0 
-  increased_enrollment_STEM[1] <- 0 
+  # make the first year (unproductive year) 
+  # and the second year (year of gaining reputation) zero
+  increased_enrollment[1:2] <- 0 
+  increased_enrollment_STEM[1:3] <- 0 
   
   # Health related values ####
   # These are critical and extremely important but also somewhat intangible
@@ -305,12 +294,13 @@ school_garden_function <- function(x, varnames){
     
   # here we determine the value of healthier choices with some proxy values
   child_healthier_choices <- child_garden_health_care_savings + 
-    child_garden_school_performance_value + 
-    child_garden_community_engagement_value  
-  
+                            child_garden_school_performance_value + 
+                            child_garden_community_engagement_value  
+                          
   # Need to consider these values carefully as they differ between options
   # health benefits from gardens no STEM
-  health_value <- child_veg_access + child_healthier_choices  + 
+  health_value <- child_veg_access + 
+    child_healthier_choices  + 
     garden_mental_health_value
   
   health_related_value <-  vv(health_value, 
@@ -320,13 +310,14 @@ school_garden_function <- function(x, varnames){
   # health benefits from gardens with STEM
   # here we determine the value of healthier choices with some proxy values
   child_healthier_choices_STEM <- child_STEM_health_care_savings + 
-    child_STEM_school_performance_value + 
-    child_STEM_community_engagement_value  
+                                child_STEM_school_performance_value + 
+                                child_STEM_community_engagement_value  
   # Assuming more formal STEM education time in the garden leads to 
   # better health choices but does not change access (same garden)
       
-  health_value_STEM <- child_veg_access + child_healthier_choices_STEM  + 
-    garden_mental_health_value
+  health_value_STEM <- child_veg_access + 
+                        child_healthier_choices_STEM  + 
+                        garden_mental_health_value
   
   health_related_value_STEM <-  vv(health_value_STEM, 
                               CV_value, 
@@ -372,6 +363,39 @@ school_garden_function <- function(x, varnames){
     health_related_value_STEM + environment_related_value + 
     community_value
     
+  
+  ## Risks for Public Schools ####
+  # Access to land 
+  # unlikely to have access to land
+  # many schools that attended CODAS meetings (follow up to the first workshop) 
+  # did not have access to land
+  stop_interv_no_land <- chance_event(land_access)
+  # the land they have access to is just cement part of playground
+  stop_interv_unsuitable_land <- chance_event(suitability_of_land_for_garden)
+  # many of the schools (especially public schools) can be overwhelmed with bureaucracy
+  # CODAS was unable to overcome the bureaucracy hurdles 
+  # We (CODAS and NIFAM) were unable to partner with public schools
+  stop_interv_beurocratic_barriers <- chance_event(beurocratic_barriers)
+  
+
+  # no benefits if public schools meet these challenges
+  if(stop_interv_no_land == 1 | 
+     stop_interv_unsuitable_land == 1 | 
+     stop_interv_beurocratic_barriers == 1) {
+    # no benefits from the garden
+    total_benefit_public_school <- 0
+    total_cost <- total_cost[2:number_of_years]<-0
+    # no benefits from STEM
+    total_benefit_STEM <- 0
+    total_cost_STEM <- total_cost_STEM[2:number_of_years]<-0
+  } else {
+    # costs and benefits are the same
+    total_benefit_public_school <- total_benefit
+    total_cost_public_school <- total_cost
+    total_benefit_public_school <- total_benefit_STEM
+    total_cost_STEM_public_school <- total_cost_STEM
+  
+  
   # Final result of the costs and benefits no STEM
   garden_intervention_result <- total_benefit - total_cost
   
