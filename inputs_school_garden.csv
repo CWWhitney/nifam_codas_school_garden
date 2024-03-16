@@ -4,9 +4,9 @@ discount_rate,3,,8,posnorm,Discounting factor
 CV_value,0.1,,0.4,tnorm_0_1,Coefficient of variation for our school garden intervention (%)
 inflation_rate,5,,10,posnorm,Inflation rate (%)
 ,,,,,
-size_of_garden,10,,100,posnorm,Size of school garden in (m2)
-expensive_garden_size,90,,95,posnorm,Cut off value for where the garden becomes more expensive (m2)
-cost_increase_expensive_garden_size,1.01,,1.5,posnorm,Percentage more expensive we expect the garden to be if it is beyond the expensive_garden_size
+size_of_garden,5,,100,posnorm,Size of school garden in (m2)
+expensive_garden_size,80,,95,posnorm,Cut off value for where the garden becomes more expensive (m2)
+cost_increase_expensive_garden_size,1.01,,2.5,posnorm,Percentage more expensive we expect the garden to be if it is beyond the expensive_garden_size
 ,,,,,
 if_students_like,0.5,,0.8,tnorm_0_1,Chance of student engagement (%)
 if_parents_like,0.5,,0.9,tnorm_0_1,Chance of parents support / effectiveness (%)
@@ -21,6 +21,8 @@ if_offer_green_space,0.5,,0.9,tnorm_0_1,Chance of garden having ecologically val
 if_reduce_pollution,0.2,,0.5,tnorm_0_1,Chance of garden reducing polution (%)
 if_biophysical_good,0.2,,0.8,tnorm_0_1,Chance of biophysical not damaging (i.e. weather) (%)
 ,,,,,
+if_animals_in_garden,0.2,,0.8,tnorm_0_1,Chance of school choosing to integrate animals in garden (%)
+,,,,,
 equipment_cost,6,,20,posnorm,Costs of equipment for setting up garden (million VND)
 construction_cost,6.5,,130.5,posnorm,Costs of construction for setting up garden (million VND)
 garden_designing_costs,10,,15,posnorm,Costs of design team consultant (million VND)
@@ -29,7 +31,8 @@ school_board_planning,6,,12,posnorm,Costs of planning meetings (million VND)
 teaching_equipment,5,,10,posnorm,Equipment for teaching (million VND)
 compost_starting,5,,10,posnorm,Starting compost (million VND)
 worm_starting,3,,10,posnorm,Starting worms for compost (million VND)
-livestock_costs,5,,25,posnorm,Starting animals  in the garden (million VND)
+livestock_establishment_costs,5,,25,posnorm,Starting animals  in the garden (million VND)
+fishpond_cost,7,,10,posnorm,Digging a fish pond in the garden (million VND)
 ,,,,,
 if_family_pays_establishment,0.2,,0.5,tnorm_0_1,Chance that families donate to establishment (%)
 establishment_family_portion_paid,0.2,,0.8,tnorm_0_1,Portion of establishment costs donated by families (%)

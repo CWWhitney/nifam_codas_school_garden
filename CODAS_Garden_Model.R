@@ -28,9 +28,8 @@ school_garden_function <- function(x, varnames){
   
   # chance_event options: 
       # family contribution? Will they pay a bit? 
-  family_pays_establishment_yes_no <- chance_event(if_family_pays_establishment, # some above the table (mostly under the table)
-                                                   value_if = 1, 
-                                                   value_if_not = 0)
+  family_pays_establishment_yes_no <- chance_event(if_family_pays_establishment) 
+  # some above the table (mostly under the table)
   
   garden_construction_cost <- if (family_pays_establishment_yes_no == 1) {
     construction_cost * # labor cost (2-3 people/day) + machine cost to setup garden system
@@ -43,19 +42,18 @@ school_garden_function <- function(x, varnames){
   
   garden_establishment_costs <- compost_starting + # getting started with the compost
     worm_starting + # maintaining the compost and breaking down residue
-    livestock_costs +  # costs of establishing animals in the garden (small birds, rabbits, fish)
     garden_designing_costs + # garden design costs (hiring a planner) 
     equipment_cost + # this is a high value because we may need a lot of equipment, netting, trellis for plants to climb
     # considering the range, this could be simple or a smart system (full automation)... 
     garden_construction_cost  
   
   # garden establishment cost values based on garden land area 
-  garden_establishment_costs <- if (size_of_garden > expensive_garden_size) {
+  if (size_of_garden > expensive_garden_size) {
     # of the garden size is large then increase the establishment costs
     # increase by 
     garden_establishment_costs = garden_establishment_costs * cost_increase_expensive_garden_size
   } else {
-    garden_establishment_costs = garden_establishment_costs 
+    garden_establishment_costs 
   }
   
   ## STEM Garden establishment ####
@@ -90,17 +88,15 @@ school_garden_function <- function(x, varnames){
     # 2-3 hours per day to manage a garden of this rough size
     seed_costs + # seeds and seedlings each year
     fertilizer + # EM and other helpers for compost
-    plant_protection + # IPM for plant protection
-    # Circular garden with animals, trees, plants, fish (Bac Tom option)
-    livestock_maint # costs of maintaining animals in the garden
+    plant_protection  # IPM for plant protection
   
   # garden maint. cost values based on garden land area 
-  garden_maintenance_cost <- if (size_of_garden > expensive_garden_size) {
+  if (size_of_garden > expensive_garden_size) {
     # of the garden size is large then increase the establishment costs
     # increase by 
-    garden_maintenance_cost = garden_establishment_costs * cost_increase_expensive_garden_size
+    garden_maintenance_cost <- garden_maintenance_cost * cost_increase_expensive_garden_size
   } else {
-    garden_maintenance_cost = garden_establishment_costs 
+    garden_maintenance_cost  
   }
   
 
@@ -141,6 +137,23 @@ school_garden_function <- function(x, varnames){
   total_cost_STEM[1] <- establishment_cost_year_one_STEM + 
       maintenance_cost_annual_STEM
   
+  # if including animals garden prices change a bit ####
+  # Circular garden with animals, trees, plants, fish (Bac Tom option)
+  annual_livestock_cost  <- vv(livestock_maint, 
+                              var_CV = CV_value, 
+                              n = number_of_years, 
+                              relative_trend = inflation_rate) #percentage of increase each year
+  
+  if_animals_included <- chance_event(if_animals_in_garden)
+  
+  if (if_animals_included == 1){
+    # costs of establishing animals in the garden (small birds, rabbits, fish)
+    total_cost_STEM[1] <- total_cost_STEM[1] + livestock_establishment_costs + fishpond_cost
+    total_cost[1] <- total_cost[1] + livestock_establishment_costs + fishpond_cost
+  }else{
+    total_cost_STEM 
+    total_cost
+  }
   # Risks ####
   
   # These are 'ex-ante' risks, or risks understood when making a decision
@@ -178,10 +191,9 @@ school_garden_function <- function(x, varnames){
   
   # Benefits and Risks ####
   
-  canteen_yes_no <- chance_event(if_school_has_canteen, 
+  canteen_yes_no <- chance_event(if_school_has_canteen) 
                                  # private schools have but others not so much
-                                 value_if = 1, 
-                                 value_if_not = 0)
+                                 # this will change under new decrees and nutrition plans
   
   # parents pay for the canteen food / the school will sell to parents
   # never eat in the canteen
@@ -412,9 +424,7 @@ school_garden_function <- function(x, varnames){
   ## Alternative land-use result / costs and benefits
   
   # the above-board earnings from parking (much will be under the table)
-  parking_yes_no <- chance_event(if_parking, # some above the table (mostly under the table)
-                                 value_if = 1, 
-                                 value_if_not = 0)
+  parking_yes_no <- chance_event(if_parking) # some above the table (mostly under the table)
   
   non_garden_value <- if (parking_yes_no == 1) {
      vv(value_of_non_garden_land_use + parking_value, 
