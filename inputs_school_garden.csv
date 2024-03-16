@@ -42,7 +42,7 @@ seed_costs,5,,20,posnorm,Seeds and seedlings (million VND/yr)
 fertilizer,1,,2,posnorm,Fertilizer i.e. EM to add to compost (million VND/yr)
 plant_protection,2,,5,posnorm,Integrated Pest Managemernt (IPM) (million VND/yr)
 livestock_maint,2,,10,posnorm,Mainitaining animals (million VND/yr)
-annual_teacher_training,1,,276,posnorm,Mainitaining teacher training (million VND/yr)
+annual_teacher_training,20,,276,posnorm,Mainitaining teacher training (million VND/yr)
 ,,,,,
 if_school_has_canteen,0.2,,0.5,tnorm_0_1,Chance that the school has a canteen (%)
 canteen_savings,1,,5,posnorm,Canteen savings (million VND/yr)
