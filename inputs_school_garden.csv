@@ -75,7 +75,7 @@ child_STEM_community_engagement_value,10,,250,posnorm,Community engagement value
 green_space_value,1,,10,posnorm,Value of green space (million VND/year)
 reduce_pollution_value,1,,3,posnorm,Value of reduced polution on school garden (million VND/year)
 ,,,,,
-school_event_value,1,,500,posnorm,Value of garden related school events (million VND/event)
+school_event_value,10,,500,posnorm,Value of garden related school events (million VND/event)
 school_event_freq,3,,20,posnorm,Number of school events per year (days/year)
 ,,,,,
 value_of_non_garden_land_use,20,,50,posnorm,"Value of non garden land use, playground etc. (million VND/yr)"
