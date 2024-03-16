@@ -22,6 +22,18 @@ make_variables(decisionSupport::estimate_read_csv(paste("inputs_school_garden.cs
 
 school_garden_function <- function(x, varnames){
   
+  # Access to land ####
+  
+  # unlikely to have access to land
+  # many schools that attended CODAS meetings did not have access to land
+  land_access 
+  
+  # the land they have access to is just cement part of playground
+  suitability_of_land_for_garden 
+  
+  # many of the schools (especially public schools) have issues with bureaucracy
+  beurocratic_barriers
+  
   # Costs####
   
   # Establishment costs 
