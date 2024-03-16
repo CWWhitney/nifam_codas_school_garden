@@ -369,38 +369,44 @@ school_garden_function <- function(x, varnames){
   # unlikely to have access to land
   # many schools that attended CODAS meetings (follow up to the first workshop) 
   # did not have access to land
-  stop_interv_no_land <- chance_event(land_access)
+  stop_garden_no_land <- chance_event(1-land_access)
   # the land they have access to is just cement part of playground
-  stop_interv_unsuitable_land <- chance_event(suitability_of_land_for_garden)
+  stop_garden_unsuitable_land <- chance_event(1-suitability_of_land_for_garden)
   # many of the schools (especially public schools) can be overwhelmed with bureaucracy
   # CODAS was unable to overcome the bureaucracy hurdles 
   # We (CODAS and NIFAM) were unable to partner with public schools
-  stop_interv_beurocratic_barriers <- chance_event(beurocratic_barriers)
+  stop_garden_beurocratic_barriers <- chance_event(beurocratic_barriers)
   
-
   # no benefits if public schools meet these challenges
-  if(stop_interv_no_land == 1 | 
-     stop_interv_unsuitable_land == 1 | 
-     stop_interv_beurocratic_barriers == 1) {
+  
+  if(stop_garden_no_land == 1 | 
+     stop_garden_unsuitable_land == 1 | 
+     stop_garden_beurocratic_barriers == 1) {
     # no benefits from the garden
-    total_benefit_public_school <- 0
-    total_cost <- total_cost[2:number_of_years]<-0
+    total_benefit_public_school <- rep(0, number_of_years)
+    total_cost_public_school <- total_cost[2:number_of_years]<-0
     # no benefits from STEM
-    total_benefit_STEM <- 0
-    total_cost_STEM <- total_cost_STEM[2:number_of_years]<-0
+    total_benefit_STEM_public_school <- rep(0, number_of_years)
+    total_cost_STEM_public_school <- total_cost_STEM[2:number_of_years]<-0
   } else {
     # costs and benefits are the same
     total_benefit_public_school <- total_benefit
     total_cost_public_school <- total_cost
-    total_benefit_public_school <- total_benefit_STEM
+    total_benefit_STEM_public_school <- total_benefit_STEM
     total_cost_STEM_public_school <- total_cost_STEM
-  
+  }
   
   # Final result of the costs and benefits no STEM
-  garden_intervention_result <- total_benefit - total_cost
+  garden_result <- total_benefit - total_cost
   
   # Final result of the costs and benefits STEM
-  garden_intervention_result_STEM <- total_benefit_STEM - total_cost_STEM
+  garden_result_STEM <- total_benefit_STEM - total_cost_STEM
+  
+  # Final result of the costs and benefits no STEM at public school
+  garden_result_public_school <- total_benefit_public_school - total_cost_public_school
+  
+  # Final result of the costs and benefits STEM at public school
+  garden_result_STEM_public_school <- total_benefit_STEM_public_school - total_cost_STEM_public_school
   
   ## Alternative land-use result / costs and benefits
   
@@ -417,7 +423,7 @@ school_garden_function <- function(x, varnames){
                             number_of_years, 
                             relative_trend = inflation_rate) 
   } else {
-     vv(value_of_non_garden_land_use,
+     vv(value_of_non_garden_land_use, #i.e. playground
                             CV_value, 
                             number_of_years, 
                             relative_trend = inflation_rate)
@@ -437,39 +443,53 @@ school_garden_function <- function(x, varnames){
   
   # subtract 
   
-  no_intervention_result <- total_benefit_no - total_cost_no
+  no_garden_result <- total_benefit_no - total_cost_no
   
-  # The difference is inherent in our calculation so we do not need the 
-  # comparative NPV here, just discount the intervention result
   # calculate the Net Present Value (NPV) with with the specified discount rate
-  NPV_interv <-
-    discount(x = garden_intervention_result, 
+  # the values include expected inflation so the discount already includes this
+  NPV_garden <-
+    discount(x = garden_result, 
              discount_rate = discount_rate, 
              calculate_NPV = TRUE)
   
-  NPV_interv_STEM <-
-    discount(x = garden_intervention_result_STEM, 
+  NPV_garden_STEM <-
+    discount(x = garden_result_STEM, 
+             discount_rate = discount_rate, 
+             calculate_NPV = TRUE)
+  
+  NPV_garden_public_school <-
+    discount(x = garden_result_public_school, 
+             discount_rate = discount_rate, 
+             calculate_NPV = TRUE)
+  
+  NPV_garden_STEM_public_school <-
+    discount(x = garden_result_STEM_public_school, 
              discount_rate = discount_rate, 
              calculate_NPV = TRUE)
   
   # NPV no intervention ####
-  NPV_no_interv <-
-    discount(x = no_intervention_result, 
+  NPV_no_garden <-
+    discount(x = no_garden_result, 
              discount_rate = discount_rate, 
              calculate_NPV = TRUE)
   
   ### END of garden model script ###
   
-  # Beware, if we do not name our outputs (left-hand side of the equal sign) in the return section, 
-  # the variables will be called output_1, _2, etc.
-  return(list(NPV_garden = NPV_interv,
-              NPV_garden_STEM = NPV_interv_STEM,
-              NPV_no_garden = NPV_no_interv,
-              decision = NPV_interv - NPV_no_interv,
-              decision_STEM = NPV_interv_STEM - NPV_no_interv,
+  # Beware, if we do not name our outputs (left-hand side of the equal sign) 
+  # in the return section, the variables will be called output_1, _2, etc.
+  return(list(NPV_garden = NPV_garden,
+              NPV_garden_STEM = NPV_garden_STEM,
+              NPV_no_garden = NPV_no_garden,
+              NPV_garden_public_school = NPV_garden_public_school,
+              NPV_garden_STEM_public_school = NPV_garden_STEM_public_school,
+              # comparative results do - do nothing
+              decision = NPV_garden - NPV_no_garden,
+              decision_STEM = NPV_garden_STEM - NPV_no_garden,
+              decision_garden_public_school = NPV_garden_public_school - NPV_no_garden,
+              decision_garden_STEM_public_school = NPV_garden_STEM_public_school - NPV_no_garden,
               total_costs = sum(total_cost),
               total_costs_STEM = sum(total_cost_STEM),
-              Cashflow_garden = garden_intervention_result, 
-              Cashflow_garden_STEM = garden_intervention_result_STEM))
+              Cashflow_garden = garden_result, 
+              Cashflow_garden_STEM = garden_result_STEM))
 }
 
