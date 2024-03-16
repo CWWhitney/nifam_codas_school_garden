@@ -64,12 +64,12 @@ child_veg_community_engagement_value,0.01,,0.1,posnorm,Community engagement valu
 ,,,,,
 garden_mental_health_value,4,,200,posnorm,Mental health value of children having a garden at school (million VND/year)
 ,,,,,
-child_garden_health_care_savings,0.1,,500,posnorm,Healthcare savings from children making better choices about food with a passive (no STEM) garden (million VND/year)
+child_garden_health_care_savings,9,,500,posnorm,Healthcare savings from children making better choices about food with a passive (no STEM) garden (million VND/year)
 child_garden_school_performance_value,21,,182,posnorm,School performance value for children making better choices about food with a passive (no STEM) garden (million VND/year)
 child_garden_community_engagement_value,3,,7,posnorm,Community engagement value for children making better choices about food with a passive (no STEM) garden (million VND/year)
 ,,,,,
 child_STEM_health_care_savings,20,,80,posnorm,Healthcare savings from children making better choices about food with STEM garden (million VND/year)
-child_STEM_school_performance_value,0.1,,100,posnorm,School performance value for children making better choices about food with a STEM garden (million VND/year)
+child_STEM_school_performance_value,2,,100,posnorm,School performance value for children making better choices about food with a STEM garden (million VND/year)
 child_STEM_community_engagement_value,10,,250,posnorm,Community engagement value for children making better choices about food with a STEM garden (million VND/year)
 ,,,,,
 green_space_value,1,,10,posnorm,Value of green space (million VND/year)
