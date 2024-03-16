@@ -42,7 +42,7 @@ seed_costs,5,,20,posnorm,Seeds and seedlings (million VND/yr)
 fertilizer,1,,2,posnorm,Fertilizer i.e. EM to add to compost (million VND/yr)
 plant_protection,2,,5,posnorm,Integrated Pest Managemernt (IPM) (million VND/yr)
 livestock_maint,2,,10,posnorm,Mainitaining animals (million VND/yr)
-annual_teacher_training,20,,276,posnorm,Mainitaining teacher training (million VND/yr)
+annual_teacher_training,5,,276,posnorm,Mainitaining teacher training (million VND/yr)
 ,,,,,
 if_school_has_canteen,0.2,,0.5,tnorm_0_1,Chance that the school has a canteen (%)
 canteen_savings,1,,5,posnorm,Canteen savings (million VND/yr)
@@ -62,7 +62,7 @@ child_veg_health_care_savings,0.1,,5,posnorm,Healthcare savings for children hav
 child_veg_school_performance_value,0.01,,0.2,posnorm,School performance value for children having more access to safe vegetables from the garden (million VND/year)
 child_veg_community_engagement_value,0.01,,0.1,posnorm,Community engagement value for children having more access to safe vegetables from the garden (million VND/year)
 ,,,,,
-garden_mental_health_value,1,,200,posnorm,Mental health value of children having a garden at school (million VND/year)
+garden_mental_health_value,4,,200,posnorm,Mental health value of children having a garden at school (million VND/year)
 ,,,,,
 child_garden_health_care_savings,0.1,,500,posnorm,Healthcare savings from children making better choices about food with a passive (no STEM) garden (million VND/year)
 child_garden_school_performance_value,21,,182,posnorm,School performance value for children making better choices about food with a passive (no STEM) garden (million VND/year)
