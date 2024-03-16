@@ -82,3 +82,7 @@ value_of_non_garden_land_use,20,,50,posnorm,"Value of non garden land use, playg
 if_parking,0.1,,0.8,tnorm_0_1,Chance of including parking on the plot without a garden (%)
 parking_value,0.1,,3,posnorm,Above table value of parking (million VND/yr)
 costs_of_non_garden_land_use,1,,5,posnorm,Cost of non garden land use (million VND/yr)
+,,,,,
+land_access,0.01,,0.2,tnorm_0_1,Prob. that the school has acess to land (%)
+suitability_of_land_for_garden,0.2,,0.8,tnorm_0_1,Prob. that the land at the school is suitable (%)
+beurocratic_barriers,0.2,,0.8,tnorm_0_1,Prob. that beurocratic barriers will inhibit the process (%)
