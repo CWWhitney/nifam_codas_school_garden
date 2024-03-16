@@ -68,28 +68,27 @@ garden_simulation_results <- mcSimulation(
 
 ```
 
-Here is a plot of the Net Present Value (i.e. current value of the future benefits) of the three options. `"NPV_garden"` is the value of the `r garden_simulation_results$x$number_of_years[1]` years of the garden intervention.`"NPV_garden_STEM"` is the same garden but with the additional costs and benefits of a full STEM education program, `"NPV_no_garden"` is the result of `r garden_simulation_results$x$number_of_years[1]` years of using the land for something that is not related to the garden, i.e. as a playground or for parking: 
+Here is a plot of the Net Present Value (i.e. current value of the future benefits) of the garden decision options over `r garden_simulation_results$x$number_of_years[1]` years of the intervention. For public and private schools the STEM costs are considered to be in the same garden space but with the additional costs and benefits of a full STEM education program. All options are compared to the same years of using the land for something that is not related to the garden, i.e. as a playground or for parking. Here we plot the distribution for the decision and frame the projected NPV. 
+
 
 ```{r plot_dist, warning=FALSE, message=FALSE}
 source("functions/plot_distributions.R")
 plot_distributions(mcSimulation_object = garden_simulation_results, 
-                                    vars = c("NPV_garden","NPV_garden_STEM", "NPV_no_garden"),
-                                    method = 'hist_simple_overlay', 
+                                    vars = c("decision_garden","decision_STEM", "decision_garden_public_school", "decision_garden_STEM_public_school"),
+                                    method = 'smooth_simple_overlay', 
                                     base_size = 7, 
                                     x_axis_name = "Comparative NPV outcomes")
 ```
 
-## Framing the outcomes
+This may be easier to see as a boxplot: 
 
-The way we present NPV values can influence decision makers - the same information presented in different ways can lead to different decisions. Here we plot the distribution for the decision and frame the projected NPV gain for the `decision`. These are distributions for the options, with the NPV values of the no garden option subtracted from those for the garden, the `decision` and garden with STEM, the `decision_STEM`. 
-
-```{r framing_NPV_results, warning=FALSE, message=FALSE}
+```{r plot_boxplot, warning=FALSE, message=FALSE}
+source("functions/plot_distributions.R")
 plot_distributions(mcSimulation_object = garden_simulation_results, 
-                                    vars = c("decision", "decision_STEM"),
-                                    method = 'hist_simple_overlay', 
-                                    base_size = 7,  
-                                    x_axis_name = "Expected gains with schoolgardens (intervention - no garden)")
-
+                                    vars = c("decision_garden","decision_STEM", "decision_garden_public_school", "decision_garden_STEM_public_school"),
+                                    method = "boxplot", 
+                                    base_size = 7, 
+                                    x_axis_name = "Comparative NPV outcomes")
 ```
 
 ## Summary of results for the decision
@@ -101,9 +100,9 @@ Here we provide a summary of the garden intervention options. We do this with a 
 ```{r gtExtras_summary, warning=FALSE, message=FALSE}
 # Subset the outputs from the mcSimulation function (y) to summarize only on the variables that we want.
 # names(garden_simulation_results$x)
-mcSimulation_summary <- data.frame(garden_simulation_results$x[2:60],
- # names(garden_simulation_results$x)
-                                 garden_simulation_results$y[1:7])
+mcSimulation_summary <- data.frame(garden_simulation_results$x[2:70],
+ # names(garden_simulation_results$y)
+                                 garden_simulation_results$y[1:9])
 
 gtExtras::gt_plt_summary(mcSimulation_summary) 
 # a summary table with missing, mean, median and sd
@@ -120,7 +119,6 @@ Summary of the savings for the formal STEM education garden option
 ```{r summary_decision_stem, warning=FALSE, message=FALSE}
 summary(garden_simulation_results$y$decision_STEM)
 ```
-
 
 Summary of costs
 
@@ -141,7 +139,10 @@ summary(garden_simulation_results$y$Cashflow_garden1)
 ```{r summary_first_year_costs_stem, warning=FALSE, message=FALSE}
 summary(garden_simulation_results$y$Cashflow_garden_STEM1)
 ```
+
 # Cashflow of the garden option without formal STEM education
+
+This will be the cost for public and private schools over the intervention. 
 
 ```{r plot_cashflow, warning=FALSE, message=FALSE}
 source("functions/plot_cashflow.R")
@@ -165,27 +166,46 @@ Here we assess value of information with the `multi_EVPI` function.
 ```{r mc_table, warning=FALSE, message=FALSE}
 # Subset the outputs from the mcSimulation function (y) by selecting the correct variables be sure to run the multi_EVPI only on the variables that we want. Find them with names(garden_simulation_results$y)
 mcSimulation_table <- data.frame(garden_simulation_results$x, 
-                                 garden_simulation_results$y[1:5])
+                                 garden_simulation_results$y[1:9])
 ```
 
 Value of information for the garden option (no STEM).
 
-```{r evpi-assess-garden}
+```{r evpi-general_calc}
 source("functions/multi_EVPI.R")
 # first_out_var is the first result variable in the table, "NPV_garden" in our case.
+# names(garden_simulation_results$y)
 evpi <- multi_EVPI(mc = mcSimulation_table, first_out_var = "NPV_garden")
-
-source("functions/plot_evpi.R")
-plot_evpi(evpi, decision_vars = "decision")
 ```
+
+Value of information the garden intervention decision. 
+
+```{r plot-evpi-decision_garden}
+source("functions/plot_evpi.R")
+plot_evpi(evpi, decision_vars = "decision_garden")
+```
+In this case there were no high value variables. We can be confident in supporting the decision, even with our imperfect current understanding. 
+
 Value of information for the garden option with formal STEM education.
 
-```{r evpi-assess-garden-stem}
+```{r evpi-decision_STEM}
 # using the results of the same multi_EVPI
 plot_evpi(evpi, decision_vars = "decision_STEM")
 ```
 
-In this case there were no high value variables. We can be onfident in supporting the decision, even with our imperfect current understanding. 
+Value of information for the public school garden option with no formal STEM education.
+
+```{r evpi-decision_garden_public_school}
+# using the results of the same multi_EVPI
+plot_evpi(evpi, decision_vars = "decision_garden_public_school")
+```
+
+Value of information for the public school garden option with formal STEM education.
+
+```{r evpi-decision_garden_STEM_public_school}
+# using the results of the same multi_EVPI
+plot_evpi(evpi, decision_vars = "decision_garden_STEM_public_school")
+```
 
 # PLS
 

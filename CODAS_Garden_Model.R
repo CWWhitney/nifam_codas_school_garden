@@ -371,6 +371,7 @@ school_garden_function <- function(x, varnames){
   # did not have access to land
   stop_garden_no_land <- chance_event(1-land_access)
   # the land they have access to is just cement part of playground
+  # or otherwise turns out to be unsuitable (rocks, marsh etc.)
   stop_garden_unsuitable_land <- chance_event(1-suitability_of_land_for_garden)
   # many of the schools (especially public schools) can be overwhelmed with bureaucracy
   # CODAS was unable to overcome the bureaucracy hurdles 
@@ -483,7 +484,7 @@ school_garden_function <- function(x, varnames){
               NPV_garden_public_school = NPV_garden_public_school,
               NPV_garden_STEM_public_school = NPV_garden_STEM_public_school,
               # comparative results do - do nothing
-              decision = NPV_garden - NPV_no_garden,
+              decision_garden = NPV_garden - NPV_no_garden,
               decision_STEM = NPV_garden_STEM - NPV_no_garden,
               decision_garden_public_school = NPV_garden_public_school - NPV_no_garden,
               decision_garden_STEM_public_school = NPV_garden_STEM_public_school - NPV_no_garden,
