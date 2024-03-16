@@ -1,6 +1,6 @@
 variable,lower ,median,upper,distribution,label
 number_of_years,5,,5,const,Number of years for garden simulation
-discount_rate,5,,8,posnorm,Discounting factor
+discount_rate,3,,8,posnorm,Discounting factor
 CV_value,0.1,,0.4,tnorm_0_1,Coefficient of variation for our school garden intervention (%)
 inflation_rate,5,,10,posnorm,Inflation rate (%)
 ,,,,,
