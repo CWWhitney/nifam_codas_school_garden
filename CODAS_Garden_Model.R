@@ -367,6 +367,15 @@ school_garden_function <- function(x, varnames){
     # cities are willing to invest in green areas for pollution 
     #   - (i.e. moss wall in Stuttgart)
     # Hanoi plants and maintains parks and trees (maybe partly for pollution?)
+  # attract insects, birds, and other wildlife, contributing to local biodiversity.
+  # beneficial microorganisms, promoting soil fertility and plant health.
+  # attract butterflies and birds, enhancing the ecological value of the garden.
+  # attract pollinators such as bees and butterflies, supporting the pollination of nearby plants 
+  # improved air quality by absorbing pollutants and releasing oxygen.
+  # provides an outdoor classroom for students to learn about ecosystems, plant life cycles, and the interdependence of living organisms.
+  # encourages sustainable practices, such as composting, water conservation, and organic gardening methods.
+  # composting systems, reduce organic waste and promoting the recycling of nutrient-rich materials back into the soil.
+  # raise awareness about waste reduction and resource conservation.
     
   # some discussion of carbon credit values (not included)
   
