@@ -253,11 +253,19 @@ school_garden_function <- function(x, varnames){
   # The 3rd year is when the STEM education plan will be fully running
   learning_value_STEM[1:2] <- 0
   
-  # Reputation goes up ####
+  # Reputation ####
+  # Reputation for schools, teachers, school board, students…
   # through community building, green running award, 
   # planting trees, environment ecology groups
   # school events in garden connect community, leads to
   # greater access and awareness, positive change in choices around food
+  
+  # reputation is not important for any older schools
+  # only new schools will care about reputation
+  # old schools do not need reputation - they already get too many applications they cannot get more students
+  # 
+  # They do not get investment
+  # the school belongs to big companies
   
   #investments from outside
   # i.e. sponsors from local business 
@@ -324,7 +332,9 @@ school_garden_function <- function(x, varnames){
   # health benefits from gardens no STEM
   health_value <- child_veg_access + 
     child_healthier_choices  + 
-    garden_mental_health_value
+    garden_mental_health_value 
+  # can be expanded to include more: children, 
+  # but also community, teachers, school staff and neighbors...
   
   health_related_value <-  vv(health_value, 
                               CV_value, 

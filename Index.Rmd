@@ -93,12 +93,10 @@ plot_distributions(mcSimulation_object = garden_simulation_results,
 
 ## Summary of results for the decision
 
-
-
-## Summary of the savings for the passive education garden option
+### Summary of the savings for the passive education garden option
 
 ```{r summary_decision, warning=FALSE, message=FALSE}
-summary(garden_simulation_results$y$decision)
+summary(garden_simulation_results$y$decision_garden)
 ```
 
 Summary of the savings for the formal STEM education garden option
