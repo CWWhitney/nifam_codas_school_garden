@@ -93,22 +93,9 @@ plot_distributions(mcSimulation_object = garden_simulation_results,
 
 ## Summary of results for the decision
 
-## Summary
 
-Here we provide a summary of the garden intervention options. We do this with a summary table of the simulation results. We show the percentage of missing values as well as the mean, median and standard deviation (SD) for each output of our model simulations. We use the `gt_plt_summary()` from {gtExtras} and with options from {svglite}. The table shows the variable name, the plot overview as well as the number of missing values, the mean, median and the standard deviation of the distribution. 
 
-```{r gtExtras_summary, warning=FALSE, message=FALSE}
-# Subset the outputs from the mcSimulation function (y) to summarize only on the variables that we want.
-# names(garden_simulation_results$x)
-mcSimulation_summary <- data.frame(garden_simulation_results$x[2:70],
- # names(garden_simulation_results$y)
-                                 garden_simulation_results$y[1:9])
-
-gtExtras::gt_plt_summary(mcSimulation_summary) 
-# a summary table with missing, mean, median and sd
-```
-
-Summary of the savings for the passive education garden option
+## Summary of the savings for the passive education garden option
 
 ```{r summary_decision, warning=FALSE, message=FALSE}
 summary(garden_simulation_results$y$decision)
@@ -120,7 +107,7 @@ Summary of the savings for the formal STEM education garden option
 summary(garden_simulation_results$y$decision_STEM)
 ```
 
-Summary of costs
+## Summary of costs
 
 ```{r summary_costs, warning=FALSE, message=FALSE}
 summary(garden_simulation_results$y$total_costs)
@@ -140,24 +127,6 @@ summary(garden_simulation_results$y$Cashflow_garden1)
 summary(garden_simulation_results$y$Cashflow_garden_STEM1)
 ```
 
-# Cashflow of the garden option without formal STEM education
-
-This will be the cost for public and private schools over the intervention. 
-
-```{r plot_cashflow, warning=FALSE, message=FALSE}
-source("functions/plot_cashflow.R")
-plot_cashflow(mcSimulation_object = garden_simulation_results, 
-              cashflow_var_name = "Cashflow_garden")
-
-```
-
-Cashflow of the garden option with formal STEM education
-
-```{r plot_cashflow_STEM, warning=FALSE, message=FALSE}
-source("functions/plot_cashflow.R")
-plot_cashflow(mcSimulation_object = garden_simulation_results, 
-              cashflow_var_name = "Cashflow_garden_STEM")
-```
 
 # Expected Value of Perfect Information (EVPI)
 
@@ -169,7 +138,7 @@ mcSimulation_table <- data.frame(garden_simulation_results$x,
                                  garden_simulation_results$y[1:9])
 ```
 
-Value of information for the garden option (no STEM).
+**Value of information for the garden option (no STEM)**
 
 ```{r evpi-general_calc}
 source("functions/multi_EVPI.R")
@@ -178,7 +147,7 @@ source("functions/multi_EVPI.R")
 evpi <- multi_EVPI(mc = mcSimulation_table, first_out_var = "NPV_garden")
 ```
 
-Value of information the garden intervention decision. 
+**Value of information the garden intervention decision**
 
 ```{r plot-evpi-decision_garden}
 source("functions/plot_evpi.R")
@@ -205,6 +174,26 @@ Value of information for the public school garden option with formal STEM educat
 ```{r evpi-decision_garden_STEM_public_school}
 # using the results of the same multi_EVPI
 plot_evpi(evpi, decision_vars = "decision_garden_STEM_public_school")
+```
+
+
+# Cashflow of the garden option without formal STEM education
+
+This will be the cost for public and private schools over the intervention. 
+
+```{r plot_cashflow, warning=FALSE, message=FALSE}
+source("functions/plot_cashflow.R")
+plot_cashflow(mcSimulation_object = garden_simulation_results, 
+              cashflow_var_name = "Cashflow_garden")
+
+```
+
+Cashflow of the garden option with formal STEM education
+
+```{r plot_cashflow_STEM, warning=FALSE, message=FALSE}
+source("functions/plot_cashflow.R")
+plot_cashflow(mcSimulation_object = garden_simulation_results, 
+              cashflow_var_name = "Cashflow_garden_STEM")
 ```
 
 # PLS
@@ -235,6 +224,22 @@ pls_result_STEM <- pls_model(object = garden_simulation_results,
 plot_pls(pls_result_STEM, input_table = input_table, threshold = 0.9)
 ```
 
+# Input data for the simulations 
+
+## Summary
+
+Here we provide a summary of the garden intervention options. We do this with a summary table of the simulation results. We show the percentage of missing values as well as the mean, median and standard deviation (SD) for each output of our model simulations. We use the `gt_plt_summary()` from {gtExtras} and with options from {svglite}. The table shows the variable name, the plot overview as well as the number of missing values, the mean, median and the standard deviation of the distribution. 
+
+```{r gtExtras_summary, warning=FALSE, message=FALSE}
+# Subset the outputs from the mcSimulation function (y) to summarize only on the variables that we want.
+# names(garden_simulation_results$x)
+mcSimulation_summary <- data.frame(garden_simulation_results$x[2:70],
+ # names(garden_simulation_results$y)
+                                 garden_simulation_results$y[1:9])
+
+gtExtras::gt_plt_summary(mcSimulation_summary) 
+# a summary table with missing, mean, median and sd
+```
 
 The full repository can be accessed at https://github.com/CWWhitney/nifam_codas_school_garden with the following QR code.
 

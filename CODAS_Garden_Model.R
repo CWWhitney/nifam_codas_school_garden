@@ -35,7 +35,7 @@ school_garden_function <- function(x, varnames){
     construction_cost * # labor cost (2-3 people/day) + machine cost to setup garden system
          establishment_family_portion_paid # the family pays a bit
   } else {
-    construction_cost
+    construction_cost = construction_cost
   }
   
   ## Garden establishment ####
@@ -48,12 +48,12 @@ school_garden_function <- function(x, varnames){
     garden_construction_cost  
   
   # garden establishment cost values based on garden land area 
-  if (size_of_garden > expensive_garden_size) {
+ if (size_of_garden > expensive_garden_size) {
     # of the garden size is large then increase the establishment costs
     # increase by 
-    garden_establishment_costs = garden_establishment_costs * cost_increase_expensive_garden_size
+   garden_establishment_costs <- garden_establishment_costs * cost_increase_expensive_garden_size
   } else {
-    garden_establishment_costs 
+    garden_establishment_costs <- garden_establishment_costs 
   }
   
   ## STEM Garden establishment ####
@@ -91,15 +91,14 @@ school_garden_function <- function(x, varnames){
     plant_protection  # IPM for plant protection
   
   # garden maint. cost values based on garden land area 
-  if (size_of_garden > expensive_garden_size) {
+ if (size_of_garden > expensive_garden_size) {
     # of the garden size is large then increase the establishment costs
-    # increase by 
-    garden_maintenance_cost <- garden_maintenance_cost * cost_increase_expensive_garden_size
+    # increase by variable cost_increase_expensive_garden_size
+   garden_maintenance_cost <- garden_maintenance_cost * cost_increase_expensive_garden_size
   } else {
-    garden_maintenance_cost  
+    garden_maintenance_cost <- garden_maintenance_cost  
   }
   
-
   ## maintenance costs if with STEM education
   STEM_maintenance_cost <-
     teacher_salary_cost +  # extra costs for teachers to work on the garden
@@ -124,6 +123,7 @@ school_garden_function <- function(x, varnames){
                          var_CV = CV_value, 
                          n = number_of_years, 
                          relative_trend = inflation_rate) #percentage of increase each year
+  
   # Add up all annual maintenance costs garden with STEM
   total_cost_STEM <- vv(maintenance_cost_annual_STEM, 
                    var_CV = CV_value, 
@@ -133,6 +133,7 @@ school_garden_function <- function(x, varnames){
   # Calculate management plus establishment costs in the first year
   total_cost[1] <- establishment_cost_year_one + 
       maintenance_cost_annual #make sure the first is establishment_cost_year_one
+  
   # Calculate management plus establishment costs in the first year with STEM
   total_cost_STEM[1] <- establishment_cost_year_one_STEM + 
       maintenance_cost_annual_STEM
@@ -150,9 +151,9 @@ school_garden_function <- function(x, varnames){
     # costs of establishing animals in the garden (small birds, rabbits, fish)
     total_cost_STEM[1] <- total_cost_STEM[1] + livestock_establishment_costs + fishpond_cost
     total_cost[1] <- total_cost[1] + livestock_establishment_costs + fishpond_cost
-  }else{
-    total_cost_STEM 
-    total_cost
+  } else {
+    total_cost_STEM = total_cost_STEM
+    total_cost = total_cost
   }
   # Risks ####
   
@@ -196,15 +197,16 @@ school_garden_function <- function(x, varnames){
                                  # this will change under new decrees and nutrition plans
   
   # parents pay for the canteen food / the school will sell to parents
-  # never eat in the canteen
-  # same for no STEM and STEM
-  harvest_value <- if (canteen_yes_no == 1) {
-    harvest_value = vv(canteen_savings, CV_value, 
+   if (canteen_yes_no == 1) {
+    # sell some and eat rest in canteen 
+     harvest_value = vv(canteen_savings + sale_of_yield, CV_value, 
                        number_of_years,
                        #inflation -> percentage of increase each year
                        relative_trend = inflation_rate) * garden_function_risk 
                            # account for risk that the garden is not fully functional
   } else {
+    # just sell, never eat in the canteen
+    # same for no STEM and STEM
     harvest_value = vv(sale_of_yield, CV_value, 
                        number_of_years, 
                        relative_trend = inflation_rate) * garden_function_risk
@@ -263,6 +265,7 @@ school_garden_function <- function(x, varnames){
                            CV_value, 
                            number_of_years, 
                            relative_trend = inflation_rate) * community_risk
+  
   outside_investment_STEM <- vv(outside_investment_value_STEM, # related to networking
                            CV_value, 
                            number_of_years, 
@@ -295,17 +298,25 @@ school_garden_function <- function(x, varnames){
   # make the first year (unproductive year) 
   # and the second year (year of gaining reputation) zero
   increased_enrollment[1:2] <- 0 
+  # with STEM it takes two years to get the fully functioning garden 
+  # and thus to gain reputation
   increased_enrollment_STEM[1:3] <- 0 
   
   # Health related values ####
   # These are critical and extremely important but also somewhat intangible
   # here we determine the value of vegetable access with some proxy values
   child_veg_access <- child_veg_health_care_savings + 
+    # access to and consumption of safe food (i.e. vegetables) from the garden
+    # can lead to better performance
     child_veg_school_performance_value + 
+    # value for children having more access to safe vegetables from the garden
+    # as it relates to their engagement with the community
     child_veg_community_engagement_value 
     
   # here we determine the value of healthier choices with some proxy values
   child_healthier_choices <- child_garden_health_care_savings + 
+    # children with a garden on campus may do better in school
+    # here is the expected efffect
                             child_garden_school_performance_value + 
                             child_garden_community_engagement_value  
                           
@@ -322,7 +333,9 @@ school_garden_function <- function(x, varnames){
   # health benefits from gardens with STEM
   # here we determine the value of healthier choices with some proxy values
   child_healthier_choices_STEM <- child_STEM_health_care_savings + 
+    # making better choices about food leads to lower health care costs
                                 child_STEM_school_performance_value + 
+    # for children making better choices about food 
                                 child_STEM_community_engagement_value  
   # Assuming more formal STEM education time in the garden leads to 
   # better health choices but does not change access (same garden)
@@ -392,15 +405,40 @@ school_garden_function <- function(x, varnames){
   
   # no benefits if public schools meet these challenges
   
-  if(stop_garden_no_land == 1 | 
-     stop_garden_unsuitable_land == 1 | 
+  ## If no land then very little or no costs 
+  ## just meetings and other small things
+  ## also no benefits
+  if (stop_garden_no_land == 1) {
+    # no benefits from the garden
+    total_benefit_public_school <- rep(0, number_of_years)
+    total_cost_public_school <- rep(0, number_of_years)
+    # no benefits from STEM
+    total_benefit_STEM_public_school <- rep(0, number_of_years)
+    total_cost_STEM_public_school <- rep(0, number_of_years)
+  } else {
+    # costs and benefits are the same
+    total_benefit_public_school <- total_benefit
+    total_cost_public_school <- total_cost
+    total_benefit_STEM_public_school <- total_benefit_STEM
+    total_cost_STEM_public_school <- total_cost_STEM
+  }
+  
+  ## if land turns out to be unsuitable after some investment 
+  ## or bureaucratic barriers permit the use of the garden 
+  ## then establishment costs are incurred
+  ## but there are no returns 
+  if (stop_garden_unsuitable_land == 1 | 
      stop_garden_beurocratic_barriers == 1) {
     # no benefits from the garden
     total_benefit_public_school <- rep(0, number_of_years)
-    total_cost_public_school <- total_cost[2:number_of_years]<-0
+    # costs only in year 1
+    total_cost[2:number_of_years]<-0
+    total_cost_public_school <- total_cost
     # no benefits from STEM
     total_benefit_STEM_public_school <- rep(0, number_of_years)
-    total_cost_STEM_public_school <- total_cost_STEM[2:number_of_years]<-0
+    # costs only in year 1
+    total_cost_STEM[2:number_of_years]<-0
+    total_cost_STEM_public_school <- total_cost_STEM
   } else {
     # costs and benefits are the same
     total_benefit_public_school <- total_benefit
@@ -421,20 +459,23 @@ school_garden_function <- function(x, varnames){
   # Final result of the costs and benefits STEM at public school
   garden_result_STEM_public_school <- total_benefit_STEM_public_school - total_cost_STEM_public_school
   
-  ## Alternative land-use result / costs and benefits
+  # Alternative use of garden space ####
+  ## land-use result = all costs and benefits
+  # These are opportunity costs
+  # i.e. the value of the next-highest-valued alternative use of the garden space
   
   # the above-board earnings from parking (much will be under the table)
-  parking_yes_no <- chance_event(if_parking) # some above the table (mostly under the table)
+  parking_on_campus <- chance_event(if_parking) # some above the table (mostly under the table)
   
-  non_garden_value <- if (parking_yes_no == 1) {
-     vv(value_of_non_garden_land_use + parking_value, 
+  if (parking_on_campus == 1) {
+    non_garden_value <- vv(value_of_non_garden_land_use + parking_value, 
                             # this is a contentious issue with a lot of discussion
                             # keeping a low value and low chance for now
                             CV_value, 
                             number_of_years, 
                             relative_trend = inflation_rate) 
   } else {
-     vv(value_of_non_garden_land_use, #i.e. playground
+    non_garden_value <- vv(value_of_non_garden_land_use, #i.e. playground
                             CV_value, 
                             number_of_years, 
                             relative_trend = inflation_rate)
@@ -447,7 +488,7 @@ school_garden_function <- function(x, varnames){
                          n = number_of_years, 
                          relative_trend = inflation_rate)
   
-  total_cost_no <- vv(costs_of_non_garden_land_use, 
+  total_cost_no <- vv(costs_of_non_garden_land_use, # cleaning playground, managing parking etc.
                          var_CV = CV_value, 
                          n = number_of_years, 
                       relative_trend = inflation_rate)
