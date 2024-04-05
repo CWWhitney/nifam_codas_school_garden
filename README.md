@@ -2,6 +2,9 @@
 
 http://htmlpreview.github.io/?https://github.com/CWWhitney/nifam_codas_school_garden/blob/main/Index.html
 
+[![DOI](https://zenodo.org/badge/670414311.svg)](https://zenodo.org/doi/10.5281/zenodo.10931166)
+
+
 Decision model for a school garden nutrition intervention in urban Hanoi. There are three simulated options: 
 1. A school garden on existing school property, as an informal addition to the school and passively used for education, 
 2. the same garden as a formal part of the STEM education program, actively used for education, with incurred training and other costs but also offsetting education and extracurricular costs,
@@ -23,3 +26,5 @@ Working backward in complexity these three models describe the impact of the sch
 The slides: 
 
 https://docs.google.com/presentation/d/1xAoO1iz1OG5Q2X1eYnZ3Juqd2eMp6k3MhLoRCQImdHs/edit#slide=id.g294d9b0dc78_0_0
+
+
