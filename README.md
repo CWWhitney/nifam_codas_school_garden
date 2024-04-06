@@ -15,7 +15,6 @@ Working backward in complexity these three models describe the impact of the sch
 **General school garden model illustration**
 ![CODAS_Garden_Impact pathway](https://github.com/CWWhitney/nifam_codas_school_garden/assets/19190662/65e3af17-bc53-4b58-8e00-3115925d928f)
 
-
 **School garden and food environment overview**
 ![outline_food_env_garden](https://github.com/CWWhitney/nifam_codas_school_garden/assets/19190662/782db5d2-b48f-453b-a99f-e026da7c20ba)
 
@@ -27,4 +26,6 @@ The slides:
 
 https://docs.google.com/presentation/d/1xAoO1iz1OG5Q2X1eYnZ3Juqd2eMp6k3MhLoRCQImdHs/edit#slide=id.g294d9b0dc78_0_0
 
+The draft manuscript: 
 
+https://docs.google.com/document/d/1NpZq6FFT0zNQ6C77kr3zWbQGgAzUZZ0UjQ1Pbmf7iJY/edit?usp=sharing
