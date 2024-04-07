@@ -1,84 +1,91 @@
 variable,lower ,median,upper,distribution,label
 number_of_years,5,,5,const,Number of years for garden simulation
-discount_rate,5,,8,posnorm,Discounting factor
+discount_rate,3,,8,posnorm,Discounting factor
 CV_value,0.1,,0.4,tnorm_0_1,Coefficient of variation for our school garden intervention (%)
 inflation_rate,5,,10,posnorm,Inflation rate (%)
 ,,,,,
-size_of_garden,50,,100,posnorm,Size of school garden in (m2)
-expensive_garden_size,85,,90,posnorm,Cut off value for where the garden becomes more expensive
-cost_increase_expensive_garden_size,1.01,,1.1,posnorm,Percentage more expensive we expect the garden to be if it is beyond the expensive_garden_size
+size_of_garden,5,,100,posnorm,Size of school garden in (m2)
+expensive_garden_size,80,,95,posnorm,Cut off value for where the garden becomes more expensive (m2)
+cost_increase_expensive_garden_size,1.01,,2.5,posnorm,Percentage more expensive if garden is beyond the expensive_garden_size
 ,,,,,
 if_students_like,0.5,,0.8,tnorm_0_1,Chance of student engagement (%)
 if_parents_like,0.5,,0.9,tnorm_0_1,Chance of parents support / effectiveness (%)
-if_community_likes,0.2,,0.8,tnorm_0_1,Chance of community support (%)
+if_community_likes,0.1,,0.85,tnorm_0_1,Chance of community support (%)
 if_effective_manage,0.5,,0.7,tnorm_0_1,Chance of effective garden management (%)
-if_garden_yield_enough,0.3,,0.6,tnorm_0_1,Chance of sufficient yield from garden (%)
+if_garden_yield_enough,0.3,,0.8,tnorm_0_1,Chance of sufficient yield from garden (%)
 if_garden_healthy,0.5,,0.9,tnorm_0_1,Chance of healthy food from garden (%)
-if_teachers_like,0.2,,0.8,tnorm_0_1,Chance of teacher engagement (%)
+if_teachers_like,0.2,,0.9,tnorm_0_1,Chance of teacher engagement (%)
 if_effective_teaching,0.2,,0.9,tnorm_0_1,Chance of high education quality / effectiveness (%)
 if_effective_training,0.2,,0.8,tnorm_0_1,Chance of effective training for teachers (%)
 if_offer_green_space,0.5,,0.9,tnorm_0_1,Chance of garden having ecologically valuable green space (%)
-if_reduce_polution,0.2,,0.5,tnorm_0_1,Chance of garden reducing polution (%)
-if_biophysical_good,0.2,,0.5,tnorm_0_1,Chance of biophysical not damaging (i.e. weather) (%)
+if_reduce_pollution,0.2,,0.5,tnorm_0_1,Chance of garden reducing polution (%)
+if_biophysical_good,0.2,,0.8,tnorm_0_1,Chance of biophysical not damaging (i.e. weather) (%)
 ,,,,,
-equipment_cost,50,,100,posnorm,Costs of equipment for setting up garden (million VND)
-construction_cost,15,,30,posnorm,Costs of construction for setting up garden (million VND)
+if_animals_in_garden,0.2,,0.8,tnorm_0_1,Chance of school choosing to integrate animals in garden (%)
+,,,,,
+equipment_cost,6,,20,posnorm,Costs of equipment for setting up garden (million VND)
+construction_cost,6.5,,130.5,posnorm,Costs of construction for setting up garden (million VND)
 garden_designing_costs,10,,15,posnorm,Costs of design team consultant (million VND)
 teacher_training_cost,5,,20,posnorm,Costs of training teachers when setting up garden (million VND)
 school_board_planning,6,,12,posnorm,Costs of planning meetings (million VND)
 teaching_equipment,5,,10,posnorm,Equipment for teaching (million VND)
 compost_starting,5,,10,posnorm,Starting compost (million VND)
-worm_starting,2,,5,posnorm,Starting worms for compost (million VND)
-livestock_costs,2,,5,posnorm,Starting animals  in the garden (million VND)
+worm_starting,3,,10,posnorm,Starting worms for compost (million VND)
+livestock_establishment_costs,5,,25,posnorm,Starting animals  in the garden (million VND)
+fishpond_cost,7,,10,posnorm,Digging a fish pond in the garden (million VND)
 ,,,,,
 if_family_pays_establishment,0.2,,0.5,tnorm_0_1,Chance that families donate to establishment (%)
-establishment_family_portion_paid,0.2,,0.5,tnorm_0_1,Portion of establishment costs donated by families (%)
+establishment_family_portion_paid,0.2,,0.8,tnorm_0_1,Portion of establishment costs donated by families (%)
 ,,,,,
 maintaining_labor,25,,40,posnorm,Annual Labor cost to maintain school garden  (million VND/yr)
 teacher_salary_cost,20,,30,posnorm,Additional teacher salary costs (million VND/yr)
-teaching_equipment_annual,5,,10,posnorm,Teaching equipment / manitaining microscopes etc. (million VND/yr)
-teaching_tools,2,,5,posnorm,Teaching tools / paper etc. (million VND/yr)
-seed_costs,1,,2,posnorm,Seeds and seedlings (million VND/yr)
+teaching_equipment_annual,1,,40,posnorm,Teaching equipment / manitaining microscopes etc. (million VND/yr)
+teaching_tools,2,,10,posnorm,Teaching tools / paper etc. (million VND/yr)
+seed_costs,5,,20,posnorm,Seeds and seedlings (million VND/yr)
 fertilizer,1,,2,posnorm,Fertilizer i.e. EM to add to compost (million VND/yr)
 plant_protection,2,,5,posnorm,Integrated Pest Managemernt (IPM) (million VND/yr)
 livestock_maint,2,,10,posnorm,Mainitaining animals (million VND/yr)
-annual_teacher_training,3,,5,posnorm,Mainitaining teacher training (million VND/yr)
+annual_teacher_training,5,,276,posnorm,Mainitaining teacher training (million VND/yr)
 ,,,,,
 if_school_has_canteen,0.2,,0.5,tnorm_0_1,Chance that the school has a canteen (%)
-canteen_savings,5,,10,posnorm,Canteen savings (million VND/yr)
+canteen_savings,1,,5,posnorm,Canteen savings (million VND/yr)
 sale_of_yield,10,,30,posnorm,Sales of garden products (million VND/yr)
 ,,,,,
 extra_cirricular_savings,20,,100,posnorm,Savings from extra-cirriclar activities (million VND/year)
-formal_edu_savings,1,,20,posnorm,Savings on formal education costs (no STEM garden) (million VND/year)
+formal_edu_savings,1,,3,posnorm,Savings on formal education costs (no STEM garden) (million VND/year)
 formal_edu_savings_STEM,20,,100,posnorm,Savings on STEM formal education costs (million VND/year)
 ,,,,,
-outside_investment_value,1,,100,posnorm,Value of outside investment due to improved reputation no formal STEM (million VND/year)
-outside_investment_value_STEM,10,,500,posnorm,Value of outside investment due to improved reputation with STEM (million VND/year)
+outside_investment_value,1,,5,posnorm,Outside investment value (reputation) garden (million VND/year)
+outside_investment_value_STEM,1,,8,posnorm,Outside investment value (reputation) STEM (million VND/year)
 ,,,,,
-increased_enrollment_value,1,,20,posnorm,Income from increased enrollment or tuition due to improved reputation no STEM (million VND/year)
-increased_enrollment_value_STEM,10,,100,posnorm,Income from increased enrollment or tuition due to improved reputation with STEM (million VND/year)
+increased_enrollment_value,0.1,,5,posnorm,Increased enrollment/tuition income (reputation) garden (million VND/year)
+increased_enrollment_value_STEM,10,,100,posnorm,Increased enrollment/tuition income (reputation) STEM (million VND/year)
 ,,,,,
-child_veg_health_care_savings,0.1,,0.5,posnorm,Healthcare savings for children having more access to safe vegetables from the garden (million VND/year)
-child_veg_school_performance_value,0.01,,0.2,posnorm,School performance value for children having more access to safe vegetables from the garden (million VND/year)
-child_veg_community_engagement_value,0.01,,0.1,posnorm,Community engagement value for children having more access to safe vegetables from the garden (million VND/year)
+child_veg_health_care_savings,0.1,,5,posnorm,Healthcare savings (child) access to garden (million VND/year)
+child_veg_school_performance_value,0.01,,0.2,posnorm,School performance (children) eating garden veg (million VND/year)
+child_veg_community_engagement_value,0.01,,0.1,posnorm,Community engagement (children) eating garden veg (million VND/year)
 ,,,,,
-garden_mental_health_value,1,,10,posnorm,Mental health value of children having a garden at school (million VND/year)
+garden_mental_health_value,4,,300,posnorm,Mental health value of children/others having a garden at school (million VND/year)
 ,,,,,
-child_garden_health_care_savings,10,,50,posnorm,Healthcare savings from children making better choices about food with a passive (no STEM) garden (million VND/year)
-child_garden_school_performance_value,30,,60,posnorm,School performance value for children making better choices about food with a passive (no STEM) garden (million VND/year)
-child_garden_community_engagement_value,3,,7,posnorm,Community engagement value for children making better choices about food with a passive (no STEM) garden (million VND/year)
+child_garden_health_care_savings,9,,500,posnorm,Healthcare savings (children) with garden (million VND/year)
+child_garden_school_performance_value,21,,182,posnorm,School performance value (children) with garden (million VND/year)
+child_garden_community_engagement_value,3,,7,posnorm,Community engagement value (children) with garden (million VND/year)
 ,,,,,
-child_STEM_health_care_savings,20,,80,posnorm,Healthcare savings from children making better choices about food with STEM garden (million VND/year)
-child_STEM_school_performance_value,60,,100,posnorm,School performance value for children making better choices about food with a STEM garden (million VND/year)
-child_STEM_community_engagement_value,10,,25,posnorm,Community engagement value for children making better choices about food with a STEM garden (million VND/year)
+child_STEM_health_care_savings,20,,80,posnorm,Healthcare savings (children) STEM garden (million VND/year)
+child_STEM_school_performance_value,2,,100,posnorm,School performance value (children) STEM garden (million VND/year)
+child_STEM_community_engagement_value,10,,250,posnorm,Community engagement value (children) STEM garden (million VND/year)
 ,,,,,
-green_space_value,100,,200,posnorm,Value of green space (million VND/year)
-reduce_polution_value,10,,20,posnorm,Value of reduced polution on school garden (million VND/year)
+green_space_value,1,,10,posnorm,Value of green space (million VND/year)
+reduce_pollution_value,1,,3,posnorm,Value of reduced polution on school garden (million VND/year)
 ,,,,,
-school_event_value,10,,50,posnorm,Value of garden related school events (million VND/event)
-school_event_freq,2,,10,posnorm,Number of school events per year (days/year)
+school_event_value,10,,200,posnorm,Value of garden related school events (million VND/event)
+school_event_freq,3,,10,posnorm,Number of school events per year (days/year)
 ,,,,,
 value_of_non_garden_land_use,20,,50,posnorm,"Value of non garden land use, playground etc. (million VND/yr)"
-if_parking,0.05,,0.15,tnorm_0_1,Chance of including parking on the plot without a garden (%)
-parking_value,100,,200,posnorm,Above table value of parking (million VND/yr)
+if_parking,0.1,,0.8,tnorm_0_1,Chance of including parking on the plot without a garden (%)
+parking_value,0.1,,3,posnorm,Above table value of parking (million VND/yr)
 costs_of_non_garden_land_use,1,,5,posnorm,Cost of non garden land use (million VND/yr)
+,,,,,
+land_access,0.6,,0.95,tnorm_0_1,Chance that the school has acess to land (%)
+suitability_of_land_for_garden,0.6,,0.95,tnorm_0_1,Chance that the land at the school is suitable (%)
+beurocratic_barriers,0.01,,0.5,tnorm_0_1,Chance that beurocratic barriers will inhibit the process (%)
