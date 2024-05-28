@@ -245,12 +245,12 @@ mcSimulation_table_x <- data.frame(garden_simulation_results$x[2:72]) #,
 gtExtras::gt_plt_summary(mcSimulation_table_x) 
 # a summary table with missing, mean, median and sd
 
-# The table shows the variable name, the plot overview as well as the number of missing values, the mean, median and the standard deviation of the distribution for all variables that were calculated in the model. 
-# 
-# mcSimulation_table_y <- data.frame(garden_simulation_results$y[1:11])
-# gtExtras::gt_plt_summary(mcSimulation_table_y)
-
 ```
+
+<!-- The table shows the variable name, the plot overview as well as the number of missing values, the mean, median and the standard deviation of the distribution for all variables that were calculated in the model.  -->
+
+<!-- mcSimulation_table_y <- data.frame(garden_simulation_results$y[1:11]) -->
+<!-- gtExtras::gt_plt_summary(mcSimulation_table_y) -->
 
 
 
