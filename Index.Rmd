@@ -10,7 +10,15 @@ library(gtExtras)
 library(svglite)
 ```
 
-Here we model an intervention to improve food environments and address malnutrition among school-aged children in urban Hanoi. The intervention is formulated as a decision model with three options: introduce a garden at the school, introduce the garden and make it a formal part of the education system, do not introduce a garden. Conceptually the food environment is described in the following figure. The circles with the dotted lines are external or underlying factors. 
+Here we model an intervention to improve food environments and address malnutrition among school-aged children in urban Hanoi. The intervention is formulated as a decision model with five options: 
+
+1. introduce a garden at a private school 
+1. " "  at a public school
+1. introduce the garden and make it a formal part of the education system at a private school 
+1. "  "  at a public school
+1. do not introduce a garden. 
+
+Conceptually the food environment is described in the following figure. The circles with the dotted lines are external or underlying factors. 
 
 ![](figures/outline_food_env_general.png)
 
@@ -226,18 +234,25 @@ plot_pls(pls_result_STEM, input_table = input_table, threshold = 0.9)
 
 ## Summary
 
-Here we provide a summary of the garden intervention options. We do this with a summary table of the simulation results. We show the percentage of missing values as well as the mean, median and standard deviation (SD) for each output of our model simulations. We use the `gt_plt_summary()` from {gtExtras} and with options from {svglite}. The table shows the variable name, the plot overview as well as the number of missing values, the mean, median and the standard deviation of the distribution. 
+Here we provide a summary of the garden intervention options. We do this with a summary table of the simulation results. We show the percentage of missing values as well as the mean, median and standard deviation (SD) for each output of our model simulations. We use the `gt_plt_summary()` from {gtExtras} and with options from {svglite}. The table shows the variable name, the plot overview as well as the number of missing values, the mean, median and the standard deviation of the distribution that were fed into the model from our input table of uncertainty values. 
 
-```{r gtExtras_summary, warning=FALSE, message=FALSE}
+```{r gtExtras_summary_x, warning=FALSE, message=FALSE}
 # Subset the outputs from the mcSimulation function (y) to summarize only on the variables that we want.
 # names(garden_simulation_results$x)
-mcSimulation_summary <- data.frame(garden_simulation_results$x[2:70],
+mcSimulation_table_x <- data.frame(garden_simulation_results$x[2:72]) #,
  # names(garden_simulation_results$y)
-                                 garden_simulation_results$y[1:9])
 
-gtExtras::gt_plt_summary(mcSimulation_summary) 
+gtExtras::gt_plt_summary(mcSimulation_table_x) 
 # a summary table with missing, mean, median and sd
+
+# The table shows the variable name, the plot overview as well as the number of missing values, the mean, median and the standard deviation of the distribution for all variables that were calculated in the model. 
+# 
+# mcSimulation_table_y <- data.frame(garden_simulation_results$y[1:11])
+# gtExtras::gt_plt_summary(mcSimulation_table_y)
+
 ```
+
+
 
 The full repository can be accessed at https://github.com/CWWhitney/nifam_codas_school_garden with the following QR code.
 
