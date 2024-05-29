@@ -48,6 +48,7 @@ school_garden_function <- function(x, varnames){
     garden_construction_cost  
   
   # garden establishment cost values based on garden land area 
+  # gardens are equally expensive but get more expensive if they are really big
  if (size_of_garden > expensive_garden_size) {
     # of the garden size is large then increase the establishment costs
     # increase by 
@@ -91,8 +92,9 @@ school_garden_function <- function(x, varnames){
     plant_protection  # IPM for plant protection
   
   # garden maint. cost values based on garden land area 
+  # gardens will be equally expensive to maintain (see above)
  if (size_of_garden > expensive_garden_size) {
-    # of the garden size is large then increase the establishment costs
+    # if the garden size is large then increase the establishment costs
     # increase by variable cost_increase_expensive_garden_size
    garden_maintenance_cost <- garden_maintenance_cost * cost_increase_expensive_garden_size
   } else {
@@ -414,13 +416,6 @@ school_garden_function <- function(x, varnames){
   # many schools that attended CODAS meetings (follow up to the first workshop) 
   # did not have access to land
   stop_garden_no_land <- chance_event(1-land_access)
-  # the land they have access to is just cement part of playground
-  # or otherwise turns out to be unsuitable (rocks, marsh etc.)
-  stop_garden_unsuitable_land <- chance_event(1-suitability_of_land_for_garden)
-  # many of the schools (especially public schools) can be overwhelmed with bureaucracy
-  # CODAS was unable to overcome the bureaucracy hurdles 
-  # We (CODAS and NIFAM) were unable to partner with public schools
-  stop_garden_beurocratic_barriers <- chance_event(beurocratic_barriers)
   
   # no benefits if public schools meet these challenges
   
@@ -441,6 +436,15 @@ school_garden_function <- function(x, varnames){
     total_benefit_STEM_public_school <- total_benefit_STEM
     total_cost_STEM_public_school <- total_cost_STEM
   }
+  
+  # the land they have access to is just cement part of playground
+  # or otherwise turns out to be unsuitable (rocks, marsh etc.)
+  stop_garden_unsuitable_land <- chance_event(1-suitability_of_land_for_garden)
+  
+  # many of the schools (especially public schools) can be overwhelmed with bureaucracy
+  # CODAS was unable to overcome the bureaucracy hurdles 
+  # We (CODAS and NIFAM) were unable to partner with public schools
+  stop_garden_beurocratic_barriers <- chance_event(beurocratic_barriers)
   
   ## if land turns out to be unsuitable after some investment 
   ## or bureaucratic barriers permit the use of the garden 
@@ -501,7 +505,7 @@ school_garden_function <- function(x, varnames){
   }
   
   
-  total_benefit_no <- vv(non_garden_value + # loss of playground etc.
+  total_benefit_no <- vv(non_garden_value + # loss of playground, parking etc.
                          school_board_planning, # time savings for board
                          var_CV = CV_value, 
                          n = number_of_years, 

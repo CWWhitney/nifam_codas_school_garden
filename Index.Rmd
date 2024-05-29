@@ -234,7 +234,7 @@ plot_pls(pls_result_STEM, input_table = input_table, threshold = 0.9)
 
 ## Summary
 
-Here we provide a summary of the garden intervention options. We do this with a summary table of the simulation results. We show the percentage of missing values as well as the mean, median and standard deviation (SD) for each output of our model simulations. We use the `gt_plt_summary()` from {gtExtras} and with options from {svglite}. The table shows the variable name, the plot overview as well as the number of missing values, the mean, median and the standard deviation of the distribution that were fed into the model from our input table of uncertainty values. 
+Here we provide a summary of the garden intervention options. We do this with a summary table of the simulation results. We show the percentage of missing values as well as the mean, median and standard deviation (SD) for each output of our model simulations. We use the `gt_plt_summary()` from {gtExtras} and with options from {svglite}. The table shows the  name, the plot overview as well as the number of missing values, the mean, median and the standard deviation of the distribution for all variables that were fed into the model from our input table of uncertainty values. 
 
 ```{r gtExtras_summary_x, warning=FALSE, message=FALSE}
 # Subset the outputs from the mcSimulation function (y) to summarize only on the variables that we want.
