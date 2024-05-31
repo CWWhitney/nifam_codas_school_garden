@@ -455,6 +455,9 @@ school_garden_function <- function(x, varnames){
     # no benefits from the garden
     total_benefit_public_school <- rep(0, number_of_years)
     # costs only in year 1
+    ########
+    ### Possible issue with reassigning total_cost in this step
+    ########
     total_cost[2:number_of_years]<-0
     total_cost_public_school <- total_cost
     # no benefits from STEM
