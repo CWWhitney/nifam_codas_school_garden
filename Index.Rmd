@@ -190,7 +190,7 @@ This will be the cost for public and private schools over the intervention.
 ```{r plot_cashflow, warning=FALSE, message=FALSE}
 source("functions/plot_cashflow.R")
 plot_cashflow(mcSimulation_object = garden_simulation_results, 
-              cashflow_var_name = "Cashflow_garden")
+              cashflow_var_name = "Cashflow_garden") 
 
 ```
 
