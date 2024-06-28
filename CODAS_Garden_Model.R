@@ -33,7 +33,7 @@ school_garden_function <- function(x, varnames){
   
   garden_construction_cost <- if (family_pays_establishment_yes_no == 1) {
     construction_cost * # labor cost (2-3 people/day) + machine cost to setup garden system
-         establishment_family_portion_paid # the family pays a bit
+         (1-establishment_family_portion_paid) # the family pays a bit
   } else {
     construction_cost = construction_cost
   }
@@ -563,6 +563,8 @@ school_garden_function <- function(x, varnames){
               total_costs = sum(total_cost),
               total_costs_STEM = sum(total_cost_STEM),
               Cashflow_garden = garden_result, 
-              Cashflow_garden_STEM = garden_result_STEM))
+              Cashflow_garden_STEM = garden_result_STEM, 
+              Cashflow_garden_public = garden_result_public_school, 
+              Cashflow_garden_STEM_public = garden_result_STEM_public_school))
 }
 
