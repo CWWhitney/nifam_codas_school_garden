@@ -8,6 +8,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 library(gtExtras)
 library(svglite)
+
+set.seed(42)
 ```
 
 Here we model an intervention to improve food environments and address malnutrition among school-aged children in urban Hanoi. The intervention is formulated as a decision model with five options: 
@@ -70,7 +72,7 @@ set.seed(1234)
 garden_simulation_results <- mcSimulation(
   estimate = estimate_read_csv("inputs_school_garden.csv"),
   model_function = school_garden_function,
-  numberOfModelRuns = 1000, #run 1000 times
+  numberOfModelRuns = 1e4, #run 10,000 times
   functionSyntax = "plainNames"
 )
 
@@ -153,81 +155,124 @@ source("functions/multi_EVPI.R")
 evpi <- multi_EVPI(mc = mcSimulation_table, first_out_var = "NPV_garden")
 ```
 
-**Value of information the garden intervention decision**
 
 ```{r plot-evpi-decision_garden}
-source("functions/plot_evpi.R")
-plot_evpi(evpi, decision_vars = "decision_garden")
-```
-In this case there were no high value variables. We can be confident in supporting the decision, even with our imperfect current understanding. 
+#Value of information the garden intervention decision
+  source("functions/plot_evpi.R")
+plot_evpi_garden <- plot_evpi(evpi, decision_vars = "decision_garden")
 
-Value of information for the garden option with formal STEM education.
+# In this case there were no high value variables. We can be confident in supporting the decision, even with our imperfect current understanding. 
 
-```{r evpi-decision_STEM}
+# Value of information for the garden option with formal STEM education.
 # using the results of the same multi_EVPI
-plot_evpi(evpi, decision_vars = "decision_STEM")
-```
+plot_evpi_STEM <- plot_evpi(evpi, decision_vars = "decision_STEM")
 
-Value of information for the public school garden option with no formal STEM education.
+# Value of information for the public school garden option with no formal STEM education.
 
-```{r evpi-decision_garden_public_school}
 # using the results of the same multi_EVPI
 plot_evpi(evpi, decision_vars = "decision_garden_public_school")
-```
 
-Value of information for the public school garden option with formal STEM education.
-
-```{r evpi-decision_garden_STEM_public_school}
+# Value of information for the public school garden option with formal STEM education.
 # using the results of the same multi_EVPI
 plot_evpi(evpi, decision_vars = "decision_garden_STEM_public_school")
-```
-
 
 # Cashflow of the garden option without formal STEM education
+# This will be the cost for public and private schools over the intervention. 
 
-This will be the cost for public and private schools over the intervention. 
-
-```{r plot_cashflow, warning=FALSE, message=FALSE}
 source("functions/plot_cashflow.R")
-plot_cashflow(mcSimulation_object = garden_simulation_results, 
+plot_cashflow_garden <- plot_cashflow(mcSimulation_object = garden_simulation_results, 
               cashflow_var_name = "Cashflow_garden") 
 
-```
 
-Cashflow of the garden option with formal STEM education
-
-```{r plot_cashflow_STEM, warning=FALSE, message=FALSE}
+# Cashflow of the garden option with formal STEM education
 source("functions/plot_cashflow.R")
-plot_cashflow(mcSimulation_object = garden_simulation_results, 
+plot_cashflow_STEM <- plot_cashflow(mcSimulation_object = garden_simulation_results, 
               cashflow_var_name = "Cashflow_garden_STEM")
-```
 
-# PLS
 
-We use Projection to Latent Structures model to get some sense of the correlation strength and direction for model variables and our outcome variables.
+# Projection to Latent Structures (PLS)
+# We use Projection to Latent Structures (PLS) model to get some sense of the correlation strength and direction for model variables and our outcome variables.
 
-For passive education garden option
-
-```{r pls_and_plot, warning=FALSE, message=FALSE}
+# For passive education garden option
 source("functions/pls_model.R")
 pls_result <- pls_model(object = garden_simulation_results,
-                                resultName = names(garden_simulation_results$y)[1], # the "NPV_garden" 
+                resultName = names(garden_simulation_results$y)[1], # the "NPV_garden" 
                                 ncomp = 1)
 # read in the common input table
 input_table <- read.csv("inputs_school_garden.csv")
+
 # source the plot function
 source("functions/plot_pls.R")
-plot_pls(pls_result, input_table = input_table, threshold = 0.9)
-```
+plot_pls_garden <- plot_pls(pls_result, 
+                            input_table = input_table, threshold = 0.9)
 
-For school garden with formal STEM education
 
-```{r pls_plot_stem, warning=FALSE, message=FALSE}
+#For school garden with formal STEM education
 pls_result_STEM <- pls_model(object = garden_simulation_results,
-                                resultName = names(garden_simulation_results$y)[2], # the "NPV_garden_STEM" 
+                  resultName = names(garden_simulation_results$y)[2], # the "NPV_garden_STEM" 
                                 ncomp = 1)
 
-plot_pls(pls_result_STEM, input_table = input_table, threshold = 0.9)
+plot_pls_STEM <- plot_pls(pls_result_STEM, input_table = input_table, threshold = 0.9)
+
+```
+
+
+```{r full_figure_public_school}
+
+#plot NPV as boxplot, pls, and evpi, evpi share names with pls
+#each to a row
+#shared x axis (values) and y axis (names)
+
+dist_plot_decision_garden_public <- plot_distributions(
+  mcSimulation_object = garden_simulation_results, 
+                                    vars = "decision_garden_public_school",
+                                    method = "boxplot", 
+                                    base_size = 7)
+
+dist_plot_decision_STEM_public <- plot_distributions(
+  mcSimulation_object = garden_simulation_results, 
+                                    vars = "decision_garden_STEM_public_school",
+                                    method = "boxplot", 
+                                    base_size = 7)
+
+
+# install.packages("devtools")
+# devtools::install_github("thomasp85/patchwork")                                    
+library(patchwork)
+
+dist_plot_decision_garden_public | dist_plot_decision_STEM_public /
+plot_pls_garden | plot_pls_STEM /
+plot_evpi_STEM | plot_evpi_garden /
+plot_cashflow_garden | plot_cashflow_STEM
+```
+
+```{r full_figure_private_school}
+
+#plot NPV as boxplot, pls, and evpi, evpi share names with pls
+#each to a row
+#shared x axis (values) and y axis (names)
+
+dist_plot_decision_garden <- plot_distributions(
+  mcSimulation_object = garden_simulation_results, 
+                                    vars = "decision_garden",
+                                    method = "boxplot", 
+                                    base_size = 7)
+
+dist_plot_decision_STEM <- plot_distributions(
+  mcSimulation_object = garden_simulation_results, 
+                                    vars = "decision_STEM",
+                                    method = "boxplot", 
+                                    base_size = 7)
+
+# "decision_garden_public_school", "decision_garden_STEM_public_school"),
+
+# install.packages("devtools")
+# devtools::install_github("thomasp85/patchwork")                                    
+library(patchwork)
+
+(dist_plot_decision_garden+ inset_element(plot_cashflow_garden, 0.6, 0.6, 1, 1) | plot_pls_garden | plot_evpi_garden) /
+(dist_plot_decision_STEM+ inset_element(plot_cashflow_STEM, 0.6, 0.6, 1, 1) | plot_pls_STEM | plot_evpi_STEM) 
+
 ```
 
 # Input data for the simulations 
@@ -251,8 +296,6 @@ gtExtras::gt_plt_summary(mcSimulation_table_x)
 
 <!-- mcSimulation_table_y <- data.frame(garden_simulation_results$y[1:11]) -->
 <!-- gtExtras::gt_plt_summary(mcSimulation_table_y) -->
-
-
 
 The full repository can be accessed at https://github.com/CWWhitney/nifam_codas_school_garden with the following QR code.
 
