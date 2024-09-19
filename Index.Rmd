@@ -24,7 +24,7 @@ Conceptually the food environment is described in the following figure. The circ
 
 ![](figures/outline_food_env_general.png)
 
-We express the general concept of the food environment is slightly differently when we describe it in the context of an intervention. In this figure we show that both the garden products and the education program of a school garden are expected to influence the food environment and how this is expected to happen. The garden itself may have a direct effect if it produces fruits and vegetables that are consumed by students. The garden may also effect the food environments of children by influencing their knowledge about and desire for healthy foods, including fruits and vegetables. The education that students receive may change their perception, make them willing to pay, and also increase their access to fresh fruits and vegetables. Several other expected effects are also included in the figure. 
+We express the general concept of the food environment slightly differently when we describe it in the context of an intervention. In this figure we show that both the garden products and the education program of a school garden are expected to influence the food environment and how this is expected to happen. The garden itself may have a direct effect if it produces fruits and vegetables that are consumed by students. The garden may also effect the food environments of children by influencing their knowledge about and desire for healthy foods, including fruits and vegetables. The education that students receive may change their perception, make them willing to pay, and also increase their access to fresh fruits and vegetables. Several other expected effects are also included in the figure. 
 
 ![](figures/outline_food_env_garden.png)
 
@@ -42,7 +42,7 @@ The model was developed across several iterative workshops in July 2023. These i
 
 **No garden**
 
-Here we model the baseline of not having a garden. There are some advantages to this including additional play area for kids and the possibilility of other uses for the space such as parking when school is not in session. 
+Here we model the baseline of not having a garden. There are some advantages to this including additional play area for kids and the possibility of other uses for the space such as parking when school is not in session. 
 
 **School garden**
 
@@ -66,11 +66,11 @@ source("CODAS_Garden_Model.R")
 
 # Ensure consistent results with the random number generator
 # not for each 'run' of the MC simulation but for 
-# consistency each time we call on the simulation 
+# consistency each time we run the entire simulation 
 set.seed(1234) 
 
 garden_simulation_results <- mcSimulation(
-  estimate = estimate_read_csv("inputs_school_garden.csv"),
+  estimate = estimate_read_csv("data/inputs_school_garden.csv"),
   model_function = school_garden_function,
   numberOfModelRuns = 1e4, #run 10,000 times
   functionSyntax = "plainNames"
@@ -150,9 +150,16 @@ mcSimulation_table <- data.frame(garden_simulation_results$x,
 
 ```{r evpi-general_calc}
 source("functions/multi_EVPI.R")
+
 # first_out_var is the first result variable in the table, "NPV_garden" in our case.
 # names(garden_simulation_results$y)
-evpi <- multi_EVPI(mc = mcSimulation_table, first_out_var = "NPV_garden")
+# evpi <- multi_EVPI(mc = mcSimulation_table, first_out_var = "NPV_garden")
+
+# save as a local .csv (takes ~ a day to run this)
+# save(evpi,file="data_evpi.Rda")
+load("data/data_evpi.Rda")
+# open from saved file (last model run)
+
 ```
 
 
@@ -170,11 +177,11 @@ plot_evpi_STEM <- plot_evpi(evpi, decision_vars = "decision_STEM")
 # Value of information for the public school garden option with no formal STEM education.
 
 # using the results of the same multi_EVPI
-plot_evpi(evpi, decision_vars = "decision_garden_public_school")
+plot_evpi_public <- plot_evpi(evpi, decision_vars = "decision_garden_public_school")
 
 # Value of information for the public school garden option with formal STEM education.
 # using the results of the same multi_EVPI
-plot_evpi(evpi, decision_vars = "decision_garden_STEM_public_school")
+plot_evpi_public_STEM <- plot_evpi(evpi, decision_vars = "decision_garden_STEM_public_school")
 
 # Cashflow of the garden option without formal STEM education
 # This will be the cost for public and private schools over the intervention. 
@@ -199,7 +206,7 @@ pls_result <- pls_model(object = garden_simulation_results,
                 resultName = names(garden_simulation_results$y)[1], # the "NPV_garden" 
                                 ncomp = 1)
 # read in the common input table
-input_table <- read.csv("inputs_school_garden.csv")
+input_table <- read.csv("data/inputs_school_garden.csv")
 
 # source the plot function
 source("functions/plot_pls.R")
