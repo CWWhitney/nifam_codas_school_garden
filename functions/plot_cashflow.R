@@ -36,7 +36,8 @@ plot_cashflow <- function (mcSimulation_object, cashflow_var_name, x_axis_name =
   subset_list <- list()
   for (i in 1:length(cashflow_var_name)) {
     subset_list[[i]] <- subset_data %>% tidyr::separate(name, 
-                                                        c("decision_option", "x_scale"), sep = nchar(cashflow_var_name[i])) %>% 
+                                                        c("decision_option", "x_scale"), 
+                                                        sep = nchar(cashflow_var_name[i])) %>% 
       dplyr::filter(decision_option == cashflow_var_name[i])
   }
   subset_data <- dplyr::bind_rows(subset_list)
