@@ -1,11 +1,11 @@
-# Plot the EVPI
+# Plot the EVPI with a threshold option
 # load the tidyverse library
 library(tidyverse)
 
 plot_evpi <- function (EVPIresults, decision_vars, input_table = NULL, new_names = NULL, 
                        unit = NULL, x_axis_name = "Expected Value of Perfect Information", 
                        y_axis_name = NULL, bar_color = "cadetblue", base_size = 11, 
-                       ...) 
+                       threshold = 0, ...) 
 {
   assertthat::assert_that("EVPI_outputs" %in% class(EVPIresults), 
                           msg = "EVPIresults is not class 'EVPI_outputs', please provide a valid object. This does not appear to have been generated with the 'multi_EVPI' function.")
@@ -28,11 +28,13 @@ plot_evpi <- function (EVPIresults, decision_vars, input_table = NULL, new_names
   else combined_table <- full_evpi_data
   assertthat::assert_that(any(decision_vars %in% combined_table$output_variable), 
                           msg = "The names provided for decision_vars do not match the names in the EVPIresults. Make sure that they are in the EVPIresults and are spelled correctly.")
-  filtered_table <- dplyr::filter(combined_table, EVPI > 0)
+  
+  # Filter based on threshold
+  filtered_table <- dplyr::filter(combined_table, EVPI > threshold)
   data <- dplyr::filter(filtered_table, output_variable %in% 
                           decision_vars)
   if (nrow(data) == 0) {
-    warning("There are no variables with a positive EVPI. You probably do not need a plot for that.", 
+    warning("There are no variables with an EVPI greater than the threshold. You probably do not need a plot for that.", 
             call. = FALSE)
     return(invisible(NULL))
   }
