@@ -157,8 +157,28 @@ school_garden_function <- function(x, varnames){
     # used to teach children about sustainability, such as recycling food and
     # garden waste into compost.
     if_garden_yield_enough <-  if_garden_yield_enough + manure_yield_effect
+    
+    # Mental health ####
+    # Children with certain learning or behavioral disorders are given a new
+    # form of confidence and an alternate way to learn and demonstrate their
+    # academic performance - lacks the competitive nature of traditional academic settings
+    # Value of working in groups → all learn from one another (Block et al.,
+    # 2011) https://journals.sagepub.com/doi/10.1177/1090198111422937
+    
+    # Lots of correlational evidence between social-emotional variables and
+    # academic performance: more self-aware and confident students try harder
+    # and persist in the fact of challenges. Self-discipline and motivation,
+    # stress management all lead to better academic performance. Combination of social-emotional competence, school environment, teacher
+    # practices and expectations, teacher-student relationships all support
+    # better academic performance (Durlak et al., 2011) https://srcd.onlinelibrary.wiley.com/doi/10.1111/j.1467-8624.2010.01564.x
+    
+    # School bonding and feelings of connection to school indirectly affect
+    # academic achievement - Cooperative learning opportunities improve peer relationships associated
+    # with higher academic achievement (Ozer, 2007) https://pubmed.ncbi.nlm.nih.gov/16861584/
+    
     garden_mental_health_value <- garden_mental_health_value + livestock_mental_health_effect
-  } else {
+ 
+     } else {
     total_cost_STEM = total_cost_STEM
     total_cost = total_cost
     # Running costs
