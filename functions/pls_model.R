@@ -15,8 +15,7 @@ pls_model <- function (object, resultName = NULL, variables.x = names(object$x),
       }
       else stop("No component of the model function chosen!")
     }
-  }
-  else {
+  }else {
     y <- object$y
   }
   x <- as.matrix((object$x)[variables.x])
