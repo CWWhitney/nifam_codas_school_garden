@@ -1,5 +1,6 @@
 ---
-title: "School gardens in urban Hanoi"
+title: "Supplementary: A Decision-Analytic Framework for School Garden Investments in Vietnam: Evaluating Trade-offs for Nutrition, Biodiversity, and Economic Outcomes"
+author: "Cory Whitney, Johannes Kopton"
 output:
   html_document:
     selfcontained: true
@@ -89,11 +90,12 @@ source("functions/plot_distributions.R")
 plot_distributions(mcSimulation_object = garden_simulation_results, 
                    vars = c("NPV_garden_inclusive","NPV_garden_STEM_inclusive", "NPV_garden_public_school_inclusive", "NPV_garden_STEM_public_school_inclusive"),
                    old_names = c("NPV_garden_inclusive","NPV_garden_STEM_inclusive", "NPV_garden_public_school_inclusive", "NPV_garden_STEM_public_school_inclusive"),
-                   new_names = c("NPV private school passive garden","NPV private school STEM garden", "NPV public school passive garden", "NPV public school STEM garden"),
+                   new_names = c("Private school passive garden","Private school STEM garden", "Public school passive garden", "Public school STEM garden"),
                                     method = "boxplot", 
                                     base_size = 11, 
-                                    x_axis_name = "Comparative NPV outcomes (million VND)")
+                                    x_axis_name = "Net Present Value (NPV) outcomes (million VND)")
 
+# ggsave("figures/Fig_2_Boxplots.png", width = 15, height = 8, units = "cm")
 ```
 
 As boxplots and distributions for public schools:
@@ -106,7 +108,7 @@ plot_distributions(mcSimulation_object = garden_simulation_results,
                    new_names = c("NPV public school garden", "NPV public school garden with STEM"),
                                     method = "boxplot_density", 
                                     base_size = 7, 
-                                    x_axis_name = "Comparative NPV outcomes")
+                                    x_axis_name = "NPV outcomes")
 ```
 
 As boxplots and distributions for private schools:
@@ -116,10 +118,10 @@ source("functions/plot_distributions.R")
 plot_distributions(mcSimulation_object = garden_simulation_results, 
                                     vars = c("NPV_garden_inclusive","NPV_garden_STEM_inclusive"),
                    old_names = c("NPV_garden_inclusive","NPV_garden_STEM_inclusive"),
-                   new_names = c("NPV private school garden","NPV private school with STEM"),
+                   new_names = c("Private school garden","Private school with STEM"),
                                     method = "boxplot_density", 
                                     base_size = 7, 
-                                    x_axis_name = "Comparative NPV outcomes")
+                                    x_axis_name = "NPV outcomes")
 ```
 
 ## Summary of results for the decision
@@ -127,14 +129,31 @@ plot_distributions(mcSimulation_object = garden_simulation_results,
 Summary of the NPVs for the passive education garden and STEM options for private schools:
 
 ```{r summary_private_decision, warning=FALSE, message=FALSE}
+# Summary for private school passive and STEM gardens
 summary(garden_simulation_results$y[1:2]) #"NPV_garden_inclusive"                    "NPV_garden_STEM_inclusive"
+```
+
+
+```{r percentiles_private_decision, warning=FALSE, message=FALSE}
+# Calculate the 5th and 95th percentiles for both scenarios
+quantile(garden_simulation_results$y$NPV_garden_inclusive, probs = c(0.05, 0.95))
+quantile(garden_simulation_results$y$NPV_garden_STEM_inclusive, probs = c(0.05, 0.95))
 ```
 
 Summary of the NPVs for the passive education garden and STEM options for public schools:
 
 ```{r summary_public_decision, warning=FALSE, message=FALSE}
+# Summary for public school passive and STEM gardens
 summary(garden_simulation_results$y[3:4]) #"NPV_garden_public_school_inclusive"      "NPV_garden_STEM_public_school_inclusive"
 ```
+
+```{r percentiles_public_decision, warning=FALSE, message=FALSE}
+# Calculate the 5th and 95th percentiles for both scenarios
+quantile(garden_simulation_results$y$NPV_garden_public_school_inclusive, probs = c(0.05, 0.95))
+quantile(garden_simulation_results$y$NPV_garden_STEM_public_school_inclusive, probs = c(0.05, 0.95))
+```
+
+## Child health outcomes
 
 Summary of the child health outcomes for private and public schools:
 
@@ -142,19 +161,68 @@ Summary of the child health outcomes for private and public schools:
 summary(garden_simulation_results$y[10:11]) #"health" "health_STEM" 
 ```
 
+```{r percentiles_child_health, warning=FALSE, message=FALSE}
+# Calculate the 5th and 95th percentiles for both scenarios
+quantile(garden_simulation_results$y$health, probs = c(0.05, 0.95))
+quantile(garden_simulation_results$y$health_STEM, probs = c(0.05, 0.95))
+```
+
+```{r plot_boxplot_health_public_private, warning=FALSE, message=FALSE}
+
+# 9 #"biodiversity"  
+# 10:11 "health" "health_STEM" 
+# 12:13 costs # "total_costs" "total_costs_STEM"
+
+plot_distributions(mcSimulation_object = garden_simulation_results, 
+                   vars = c("health", "health_STEM"),
+                   old_names = c("health", "health_STEM"),
+                   new_names = c("Health effect passive garden", "Health effect STEM garden"),
+                                    method = "boxplot", 
+                                    base_size = 11, 
+                                    x_axis_name = "Net Present Value (NPV) outcomes (million VND)")
+
+# ggsave("figures/Fig_health_Boxplots.png", width = 15, height = 8, units = "cm")
+```
+
+## Biodiversity outcomes
+
 Summary of the biodiversity outcomes for the passive education garden and STEM options for private and public schools:
 
 ```{r summary_biodiversity, warning=FALSE, message=FALSE}
 summary(garden_simulation_results$y[9]) #"biodiversity"
 ```
 
-## Summary of costs
+```{r percentiles_biodiversity, warning=FALSE, message=FALSE}
+# Calculate the 5th and 95th percentiles for both scenarios
+quantile(garden_simulation_results$y$biodiversity, probs = c(0.05, 0.95))
+```
+
+```{r plot_boxplot_biodiversity_public_private, warning=FALSE, message=FALSE}
+
+# 9 #"biodiversity"  
+# 10:11 "health" "health_STEM" 
+# 12:13 costs # "total_costs" "total_costs_STEM"
+
+plot_distributions(mcSimulation_object = garden_simulation_results, 
+                   vars = c("biodiversity"),
+                   old_names = c("biodiversity"),
+                   new_names = c("Environmental effect of garden"),
+                                    method = "boxplot", 
+                                    base_size = 11, 
+                                    x_axis_name = "Net Present Value (NPV) outcomes (million VND)")
+
+# ggsave("figures/Fig_3_Boxplots.png", width = 15, height = 8, units = "cm")
+```
+
+## Summary of costs ####
 
 Total expected costs for a school garden with and without STEM education:
 
 ```{r summary_costs, warning=FALSE, message=FALSE}
-summary(garden_simulation_results$y[12:13])
+summary(garden_simulation_results$y[12:13])# "total_costs" "total_costs_STEM"
 ```
+
+## Cash flows
 
 First year expected costs for a school garden:
 
@@ -167,29 +235,49 @@ First year expected costs for a school garden with STEM education:
 ```{r summary_first_year_costs_stem, warning=FALSE, message=FALSE}
 summary(garden_simulation_results$y$Cashflow_garden_STEM1)
 ```
-## Cash flows
 
 Cash flow plots of the garden option without formal STEM education. These are the expected returns for public and private schools over the intervention.
 
 ```{r cashflow_garden, warning=FALSE, message=FALSE}
-# Cashflow of the garden option without formal STEM education
-# This will be the cost for public and private schools over the intervention. 
+# Cashflow of the private garden option without formal STEM education
 
 source("functions/plot_cashflow.R")
 plot_cashflow_garden <- plot_cashflow(mcSimulation_object = garden_simulation_results, 
               cashflow_var_name = "Cashflow_garden", 
-              facet_labels = "Passive garden") + 
+              facet_labels = "Private school passive garden") + 
   theme(legend.position = "none", axis.title.y = element_blank(),
         axis.title.x = element_blank(), 
   axis.text.x = element_blank(),
-  axis.ticks = element_blank())  
+  axis.ticks.x = element_blank())  
 
-# Cashflow of the garden option with formal STEM education
+# Cashflow of the private garden option with formal STEM education
 source("functions/plot_cashflow.R")
 plot_cashflow_STEM <- plot_cashflow(mcSimulation_object = garden_simulation_results, 
               cashflow_var_name = "Cashflow_garden_STEM", 
-              facet_labels = "STEM garden")+
-  labs(y = "Cashflow (million VND)") 
+              facet_labels = "Private school STEM garden")+
+  labs(y = "Cashflow (million VND)") + 
+  theme(legend.position = "none")  
+
+
+# Cashflow of the public garden option without formal STEM education
+plot_cashflow_garden_public <- plot_cashflow(mcSimulation_object = garden_simulation_results, 
+              cashflow_var_name = "Cashflow_garden_public", 
+              facet_labels = "Public school passive garden") + 
+  theme(legend.position = "none", axis.title.y = element_blank(),
+        axis.title.x = element_blank(), 
+  axis.text.x = element_blank(),
+  axis.ticks.x = element_blank(),
+  axis.text.y = element_blank(),
+  axis.ticks.y = element_blank())  
+
+# Cashflow of the public garden option with formal STEM education
+
+plot_cashflow_STEM_public <- plot_cashflow(mcSimulation_object = garden_simulation_results, 
+              cashflow_var_name = "Cashflow_garden_public", 
+              facet_labels = "Public school STEM garden") + 
+  theme(axis.title.y = element_blank(),
+  axis.text.y = element_blank(),
+  axis.ticks.y = element_blank())
 
 # # manually share axis label (not a feature of patchwork)
 # 
@@ -205,11 +293,50 @@ plot_cashflow_STEM <- plot_cashflow(mcSimulation_object = garden_simulation_resu
 #     plot.tag.position = "left"
 #   )
 
-plot_cashflow_garden / plot_cashflow_STEM
+# Determine global y-axis limits based on all cash flow data
+y_limits <- range(
+  garden_simulation_results$y$Cashflow_garden1*.45,
+  garden_simulation_results$y$Cashflow_garden_STEM1*.45,
+  garden_simulation_results$y$Cashflow_garden_public1*.45,
+  garden_simulation_results$y$Cashflow_garden_STEM_public1*.45
+)
 
+# Apply uniform y-axis limits across all plots
+plot_cashflow_garden <- plot_cashflow_garden + ylim(y_limits)
+plot_cashflow_STEM <- plot_cashflow_STEM + ylim(y_limits)
+plot_cashflow_garden_public <- plot_cashflow_garden_public + ylim(y_limits)
+plot_cashflow_STEM_public <- plot_cashflow_STEM_public + ylim(y_limits)
+
+# Arrange plots with patchwork
+(plot_cashflow_garden / plot_cashflow_STEM) | 
+(plot_cashflow_garden_public / plot_cashflow_STEM_public)
+
+# ggsave("figures/Fig_3_cashflow.png", width=6, height=4) 
 
 ```
 
+Summary of cashflow private school with passive garden
+
+```{r summary_cashflow_private_passive_garden}
+summary(garden_simulation_results$y[15:18])
+```
+Summary of cashflow private school with STEM garden
+
+```{r summary_cashflow_private_STEM_garden}
+summary(garden_simulation_results$y[19:23])
+```
+
+Summary of cashflow public school with passive garden
+
+```{r summary_cashflow_public_passive_garden}
+summary(garden_simulation_results$y[24:28])
+```
+
+Summary of cashflow public school with STEM garden
+
+```{r summary_cashflow_public_STEM_garden}
+summary(garden_simulation_results$y[29:33])
+```
 
 ## Projection to Latent Structures (PLS)
 
@@ -238,7 +365,7 @@ plot_pls_garden <- plot_pls(plsrResults = pls_result,
   theme(legend.position = "none", axis.title.x = element_blank(), 
   axis.text.x = element_blank(),
   axis.ticks = element_blank()) + scale_x_continuous(limits = c(0, 7)) + ggtitle(label_private_school) + 
-  annotate(geom="text", x=5, y=1, label="Passive garden")
+  annotate(geom="text", x=5, y=2, label="Passive garden")
 
 #For school garden with formal STEM education
 pls_result_STEM <- pls_model(object = garden_simulation_results,
@@ -249,7 +376,7 @@ plot_pls_STEM <- plot_pls(plsrResults = pls_result_STEM,
                           input_table = input_table, 
                           threshold = 0.9) + 
   scale_x_continuous(limits = c(0, 7)) + 
-  annotate(geom="text", x=5, y=1, label="STEM garden")
+  annotate(geom="text", x=5, y=2, label="STEM garden")
 
 plot_pls_garden / plot_pls_STEM 
 ```
@@ -297,7 +424,7 @@ plot_pls_garden_public <- plot_pls(pls_result_garden_public,
   axis.text.x = element_blank(),
   axis.ticks = element_blank()) + 
   scale_x_continuous(limits = c(0, 7)) + ggtitle(label_public_school) + 
-  annotate(geom="text", x=5, y=1, label="Passive garden")
+  annotate(geom="text", x=5, y=2, label="Passive garden")
 
 #For school garden with formal STEM education
 pls_result_STEM_public <- pls_model(object = garden_simulation_results,
@@ -307,7 +434,7 @@ pls_result_STEM_public <- pls_model(object = garden_simulation_results,
 
 plot_pls_public_STEM <- plot_pls(pls_result_STEM_public, 
                                  input_table = input_table, threshold = 0.9) + scale_x_continuous(limits = c(0, 7)) + 
-  annotate(geom="text", x=5, y=1, label="STEM garden")
+  annotate(geom="text", x=5, y=2, label="STEM garden")
 
 plot_pls_garden_public / plot_pls_public_STEM 
 ```
@@ -344,6 +471,7 @@ public_pls <- plot_pls_garden / plot_pls_STEM + theme(legend.position = "none", 
 public_pls /
 plot_pls_garden_public / plot_pls_public_STEM + plot_layout(heights = c(6, 6, 7, 8))
 
+# ggsave("figures/Fig_4_VIP.png", width=8, height=7) 
 
 ```
 
@@ -454,7 +582,7 @@ plot_evpi_public_STEM
 # 
 # plot_evpi_STEM / plot_evpi_public_STEM
 
-
+# ggsave("figures/Fig_EVPI.png", width=9, height=13) 
 
 ```
 
@@ -468,6 +596,8 @@ source("pareto/plot_pareto_scenarios.R")
 
 final_plot
 
+# Save the plot
+# ggsave("figures/Fig_5_pareto_fronts.png", final_plot, width = 10, height = 8, bg = "white")
 
 ```
 
@@ -480,6 +610,7 @@ estimates = estimates[estimates$variable !="", ]
 estimates[estimates$control_status == "controllable", ]
 
 ```
+
 Variables that are considered out of the control of the decision maker included:
 
 ```{r pareto_uncontrolled}
@@ -632,6 +763,7 @@ The table shows the variable name, the plot overview as well as the number of mi
 <!-- mcSimulation_table_y <- data.frame(garden_simulation_results$y[1:11]) -->
 <!-- gtExtras::gt_plt_summary(mcSimulation_table_y) -->
 
+The full repository can be accessed at https://github.com/CWWhitney/urban_school_gardens
 
 <!-- The git create a qr -->
 <!-- library(qrcode) -->
