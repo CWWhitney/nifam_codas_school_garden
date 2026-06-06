@@ -1,6 +1,6 @@
 variable,lower ,median,upper,distribution,label,control_status
 number_of_years,5,,5,const,Number of years for garden simulation,uncertain
-discount_rate,3,,8,posnorm,Discounting factor (%),uncertain
+discount_rate,3,,8,posnorm,Discounting factor,uncertain
 CV_value,0.1,,0.4,tnorm_0_1,Coefficient of variation for our school garden intervention (%),uncertain
 inflation_rate,5,,10,posnorm,Inflation rate (%),uncertain
 ,,,,,,
@@ -48,9 +48,9 @@ fertilizer,1,,2,posnorm,Standard annual fertilizer i.e. EM to add to compost (mi
 fertilizer_m2,0.01,,0.02,posnorm,Additional (per m2) fertilizer i.e. EM to add to compost (million VND/yr),uncertain
 plant_protection,2,,5,posnorm,Integrated Pest Managemernt (IPM) (million VND/yr),uncertain
 plant_protection_m2,0.02,,0.05,posnorm,Integrated Pest Managemernt (IPM) (million VND/yr),uncertain
-livestock_maint,2,,10,posnorm,Standard annual costs of mainitaining animals (million VND/yr),uncertain
-livestock_maint_m2,0.02,,0.1,posnorm,Additional (per m2) mainitaining animals (million VND/yr),uncertain
-annual_teacher_training,5,,276,posnorm,Mainitaining teacher training (million VND/yr),uncertain
+livestock_maint,2,,10,posnorm,Standard annual costs of maintaining animals (million VND/yr),uncertain
+livestock_maint_m2,0.02,,0.1,posnorm,Additional (per m2) maintaining animals (million VND/yr),uncertain
+annual_teacher_training,5,,276,posnorm,Maintaining teacher training (million VND/yr),uncertain
 ,,,,,,
 if_school_has_canteen,0.2,,0.5,tnorm_0_1,Chance that the school has a canteen (%),controllable
 canteen_savings,1,,5,posnorm,Canteen savings (million VND/yr),uncertain
@@ -65,7 +65,6 @@ outside_investment_value,1,,5,posnorm,Outside investment value (reputation) gard
 outside_investment_value_STEM,1,,8,posnorm,Outside investment value (reputation) STEM (million VND/year),uncertain
 ,,,,,,
 increased_enrollment_value,0.1,,5,posnorm,Increased enrollment/tuition income (reputation) garden (million VND/year),uncertain
-increased_enrollment_value_STEM,10,,100,posnorm,Increased enrollment/tuition income (reputation) STEM (million VND/year),uncertain
 ,,,,,,
 child_veg_health_care_savings,0.1,,5,posnorm,Healthcare savings (child) access to garden (million VND/year),uncertain
 child_veg_school_performance_value,0.01,,0.2,posnorm,School performance (children) eating garden veg (million VND/year),uncertain
@@ -91,9 +90,9 @@ fallow_eco_reduction,0.5,,0.8,tnorm_0_1,Proportion of value of fallow greenspace
 green_space_health_value,1,,10,posnorm,Value of non-garden green space for child health (million VND/year),uncertain
 fallow_health_reduction,0.5,,0.8,tnorm_0_1,Proportion of value of fallow greenspace for child heatlh compared to garden (%),uncertain
 ,,,,,,
-school_event_value,10,,200,posnorm,Value of garden related school events (million VND/event),uncertain
+school_event_value,10,,200,posnorm,Value of garden-related school events (million VND/event),uncertain
 school_event_freq,3,,10,posnorm,Number of school events per year (days/year),controllable
-school_event_mgmt_cost,0.5,,10,posnorm,Cost of garden related school events (million VND/event),uncertain
+school_event_mgmt_cost,0.5,,10,posnorm,Cost of garden-related school events (million VND/event),uncertain
 ,,,,,,
 value_of_non_garden_land_use,20,,50,posnorm,"Value of non garden land use, playground etc. (million VND/yr)",uncertain
 if_parking,0.1,,0.8,tnorm_0_1,Chance of including parking on the plot without a garden (%),controllable
@@ -102,4 +101,4 @@ costs_of_non_garden_land_use,1,,5,posnorm,Cost of non garden land use (million V
 ,,,,,,
 land_access,0.6,,0.95,tnorm_0_1,Chance that the school has acess to land (%),uncertain
 suitability_of_land_for_garden,0.6,,0.95,tnorm_0_1,Chance that the land at the school is suitable (%),uncertain
-beurocratic_barriers,0.01,,0.5,tnorm_0_1,Chance that beurocratic barriers will inhibit the process (%),uncertain
+bureaucratic_barriers,0.01,,0.5,tnorm_0_1,Chance that bureaucratic barriers will inhibit the process (%),uncertain

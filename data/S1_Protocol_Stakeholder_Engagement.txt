@@ -1,0 +1,103 @@
+PROTOCOL FOR EXPERT ELICITATION AND MODEL CO-DEVELOPMENT IN HANOI
+
+Objective:
+To co-develop a decision-support model for school garden investments in urban Hanoi through iterative expert engagement.
+
+Core Participating Institutions:
+- University of Bonn
+- Genesis School, Hanoi
+- Hermann Gmeiner SOS Children's Village School
+- Center for Organic Agriculture Development Support (CODAS)
+
+Additional Participants:
+Many other stakeholder groups, including parents, teachers, chefs, and experts from agriculture, nutrition, economics, and education, took part in training and workshops.
+
+Overall Timeline:
+February 2023 – January 2025 (Iterative process)
+
+PHASES OF ENGAGEMENT:
+
+1. Initial Scoping & Relationship Building (Feb - Apr 2023)
+   Activities: Informal dinners and virtual meetings to align on research goals.
+   Key Events:
+     - CODAS Team Dinners (Feb 20 & 27, 2023, Hanoi)
+     - Virtual Alignment Meetings (Apr 24, May 23, 2023)
+   Approximate Attendance: Core team of ~5-10 key members.
+
+2. Intensive Model Formulation Workshops (Aug - Nov 2023)
+   Activities: In-person and virtual workshops to define the impact pathway, variables, and initial model structure.
+   Key Events:
+     - 3-Day Workshop at CODAS Office (Aug 4-6, 2023, Hanoi)
+     - Series of Virtual Model Development Sessions (Oct 30, 31, Nov 3, 6, 2023)
+   Approximate Attendance: 15-20 experts per workshop from diverse fields.
+
+3. Model Calibration and Refinement (Nov 2023 - Mar 2024)
+   Activities: Refining probability distributions through expert calibration training and field visits for contextual grounding.
+   Key Events:
+     - Calibration Training Session (Nov 28, 2023)
+     - School Visits (Hermann Gmeiner School, Mar 27 & 29, 2024)
+     - Follow-up Model Meetings (Mar 15, 23, 2024)
+   Approximate Attendance: 10-15 experts per session; smaller teams (~5-8) for school visits.
+
+4. Implementation Planning and Model Validation (Jul 2024 - Ongoing)
+   Activities: Site visits for garden implementation and planning for policy workshops.
+   Key Events:
+     - Garden Design Visit at Hermann Gmeiner School (Jul 22, 2024)
+     - Planning Meeting at Genesis School & CODAS (Jan 2, 2025)
+     - Dedicated Model Validation and Revision Sessions (Planned for Sep 2025)
+   Approximate Attendance: Variable (~5-10 for planning, 20+ for calibration, smaller groups for validation).
+
+SUMMARY:
+The process involved a core group of ~50 experts who participated in a series of at least 12 structured workshops and meetings over a two-year period, complemented by field visits. This ensured deep, iterative engagement for model co-development, calibration, and validation.
+
+---
+
+ANNEX 1: PRIMARY MODEL-RELATED MEETINGS AND WORKSHOPS
+
+Note: '~' denotes approximate attendance, reflecting the dynamic nature of sessions.
+
+Date	Workshop_Meeting	Location	Attendees
+2021-08-23	Proposal Planning	Online	~3
+2021-08-24	Proposal - Meeting	Online	~3
+2021-09-01	Proposal - Myanmar Field Plan	Online	~3
+2021-09-27	Proposal - Meeting Project Partners	Online	~4
+2023-02-12	Kick-off Workshop	Hotel Red Scarf, Hanoi	~15
+2023-02-13	Plenary Dinner	Hanoi	~10
+2023-02-19	DA Training	Hanoi University of Public Health	~10
+2023-02-20	CODAS evening dinner	Hanoi	MODEL team (~6)
+2023-02-27	Dinner with CODAS team	Nht Qun restaurant, Hanoi	CODAS team (~6)
+2023-03-07	Team Meeting	Bonn	~6
+2023-04-24	Virtual Meeting	Online	~10
+2023-05-23	Virtual Meeting	Online	~10
+2023-05-31	Tropentag Meet	Online	~2
+2023-07-22	Meeting with CODAS Team	Hanoi	~5
+2023-08-04	CODAS Meeting	VOAA office, Hanoi	~10
+2023-08-05	CODAS Meeting	VOAA office, Hanoi	~10
+2023-08-06	CODAS Meeting	VOAA office, Hanoi	~10
+2023-09-27	CODAS model as paper	Online	Model team (~4)
+2023-10-30	CODAS School Garden Model	Bonn	~4
+2023-10-30	CODAS School Garden Model (PM)	Bonn	~4
+2023-10-31	CODAS School Garden Model	Bonn	~4
+2023-11-03	CODAS School Garden Model & Hanoi Meeting	Hanoi	~5
+2023-11-06	CODAS School Garden (Hoa - new issues)	Online	~4
+2023-11-21	CODAS Model	Bonn	~4
+2023-11-23	School Garden CODAS	Bonn	~4
+2023-11-28	CODAS Calibration Training	Bonn	~6
+2024-01-16	Tu Kien Discussion - BaVi Plan	Online	~3
+2024-03-05	Project Dinner	Nh Hiáu bô, Hanoi	~5
+2024-03-08	Calibration Prep	Hanoi	~5
+2024-03-11	Meeting with Fred at ILRI	Hanoi	~3
+2024-03-15	CODAS Model Meeting	Hanoi	~4
+2024-03-23	Ha and CODAS Planning	Hanoi	~4
+2024-03-27	Hermann School Visit with CODAS	Hanoi	~4
+2024-03-29	School Visits with CODAS	Hanoi	~6
+2024-04-09	Planning for FGD	Online	~4
+2024-04-11	CODAS Model Meeting (AM/PM)	Online	~4
+2024-04-17	Design Focus Group Discussion	Online	~4
+2024-04-24	Team Meeting	Bonn	~6
+2024-07-22	Hermann Gmeiner School Garden Visit and discussion	Hanoi	CODAS and Model team (~6)
+2024-09-16	CCD CODAS Meeting	Online	~4
+2024-12-31	CODAS Validation Session	Hanoi	~3
+2025-01-02	CODAS Site Visit + Lunch + Office Talk	Genesis School & CODAS Office, Hanoi	~6
+2025-01-18	New Year Planning and discussion	GENESIS School, Hanoi	~10
+2025-03-14	CODAS Catch-up	Bonn	~5
