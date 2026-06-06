@@ -1,4 +1,4 @@
-# Model of the school garden (see Index.RMD for the explaination and posthoc)
+# Model of the school garden (see Index.RMD for the explanation and posthoc)
 
 # We need these functions to run our model ####
 # value_varrier function to add variability to values
@@ -11,11 +11,20 @@ source("functions/chance_event.R")
 # discount values for NPV (time value for money)
 source("functions/discount.R")
 
+# Check variables ####
+
+# Check in the input table and script have the same variables
+data <- read.csv("data/inputs_school_garden.csv")  # replace with your actual CSV file name
+var_list <- unique(data$variable)  # extract the variable names you're checking
+r_script_lines <- readLines("Garden_Model.R")  # replace with your actual R file
+r_script_text <- paste(r_script_lines, collapse = " ")
+# Check which variables from CSV are NOT found in the R script text
+var_list[!sapply(var_list, function(v) grepl(v, r_script_text))]
+
 # Model testing ####
 
 # make variables for testing our model (only for construction)
 source("functions/make_variables.R")
-source("functions/estimate_read_csv.R")
 make_variables(decisionSupport::estimate_read_csv(paste("data/inputs_school_garden.csv",sep="")))
 
 # The model ####
@@ -157,28 +166,8 @@ school_garden_function <- function(x, varnames){
     # used to teach children about sustainability, such as recycling food and
     # garden waste into compost.
     if_garden_yield_enough <-  if_garden_yield_enough + manure_yield_effect
-    
-    # Mental health ####
-    # Children with certain learning or behavioral disorders are given a new
-    # form of confidence and an alternate way to learn and demonstrate their
-    # academic performance - lacks the competitive nature of traditional academic settings
-    # Value of working in groups → all learn from one another (Block et al.,
-    # 2011) https://journals.sagepub.com/doi/10.1177/1090198111422937
-    
-    # Lots of correlational evidence between social-emotional variables and
-    # academic performance: more self-aware and confident students try harder
-    # and persist in the fact of challenges. Self-discipline and motivation,
-    # stress management all lead to better academic performance. Combination of social-emotional competence, school environment, teacher
-    # practices and expectations, teacher-student relationships all support
-    # better academic performance (Durlak et al., 2011) https://srcd.onlinelibrary.wiley.com/doi/10.1111/j.1467-8624.2010.01564.x
-    
-    # School bonding and feelings of connection to school indirectly affect
-    # academic achievement - Cooperative learning opportunities improve peer relationships associated
-    # with higher academic achievement (Ozer, 2007) https://pubmed.ncbi.nlm.nih.gov/16861584/
-    
     garden_mental_health_value <- garden_mental_health_value + livestock_mental_health_effect
- 
-     } else {
+  } else {
     total_cost_STEM = total_cost_STEM
     total_cost = total_cost
     # Running costs
@@ -429,7 +418,7 @@ school_garden_function <- function(x, varnames){
   # raise awareness about waste reduction and resource conservation.
     
   # some discussion of carbon credit values (not included)
-  # garden ecological value - possible fallow land ecologcal value 
+  # garden ecological value - possible fallow land ecological value 
   # assuming it could be a green space
   # low chance since land is needed in the city
   
@@ -528,14 +517,14 @@ school_garden_function <- function(x, varnames){
   # many of the schools (especially public schools) can be overwhelmed with bureaucracy
   # CODAS was unable to overcome the bureaucracy hurdles 
   # We (CODAS and NIFAM) were unable to partner with public schools
-  stop_garden_beurocratic_barriers <- chance_event(beurocratic_barriers)
+  stop_garden_bureaucratic_barriers <- chance_event(bureaucratic_barriers)
   
   ## if land turns out to be unsuitable after some investment 
   ## or bureaucratic barriers permit the use of the garden 
   ## then establishment costs are incurred
   ## but there are no returns 
   if (stop_garden_unsuitable_land == 1 | 
-     stop_garden_beurocratic_barriers == 1) {
+     stop_garden_bureaucratic_barriers == 1) {
     # no benefits from the garden
     total_benefit_public_school <- rep(0, number_of_years)
     total_benefit_public_school_inclusive <- rep(0, number_of_years)
@@ -682,6 +671,7 @@ school_garden_function <- function(x, varnames){
   
   # Beware, if we do not name our outputs (left-hand side of the equal sign) 
   # in the return section, the variables will be called output_1, _2, etc.
+  # must be done as list()
   return(list(NPV_garden_inclusive = NPV_garden_inclusive,
               # comparative results do - do nothing
               NPV_garden_STEM_inclusive = NPV_garden_STEM_inclusive,
