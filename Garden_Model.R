@@ -97,7 +97,9 @@ school_garden_function <- function(x, varnames){
   # Additional costs incurred at a m2 basis
   # garden maintenance cost values based on garden land area 
   # gardens will be equally expensive to maintain (see above)
-  garden_maintenance_cost + ((maintaining_labor_m2 + # technical staff etc
+  # Corrected: this was computed but never assigned back to
+  # garden_maintenance_cost, so the per-m2 costs never entered the model.
+  garden_maintenance_cost <- garden_maintenance_cost + ((maintaining_labor_m2 + # technical staff etc
     # 2-3 hours per day to manage a garden of this rough size
     seed_costs_m2 + # seeds and seedlings each year
     fertilizer_m2 + # EM and other helpers for compost
@@ -490,9 +492,13 @@ school_garden_function <- function(x, varnames){
   if (stop_garden_no_land == 1) {
     # no benefits from the garden
     total_benefit_public_school <- rep(0, number_of_years)
+    # Corrected: the "_inclusive" variants were not zeroed here either; they
+    # relied on the (now-fixed) overwrite in the block below to be set at all.
+    total_benefit_public_school_inclusive <- rep(0, number_of_years)
     total_cost_public_school <- rep(0, number_of_years)
     # no benefits from STEM
     total_benefit_STEM_public_school <- rep(0, number_of_years)
+    total_benefit_STEM_public_school_inclusive <- rep(0, number_of_years)
     total_cost_STEM_public_school <- rep(0, number_of_years)
     environment_related_value <- rep(0, number_of_years)
     health_related_value <- rep(0, number_of_years)
@@ -523,18 +529,25 @@ school_garden_function <- function(x, varnames){
   ## or bureaucratic barriers permit the use of the garden 
   ## then establishment costs are incurred
   ## but there are no returns 
+  # Corrected: this block used to run unconditionally, overwriting the
+  # no-land result above, so land_access had no effect on any NPV. It is now
+  # skipped once the no-land case has already applied.
+  if (stop_garden_no_land != 1) {
   if (stop_garden_unsuitable_land == 1 | 
      stop_garden_bureaucratic_barriers == 1) {
     # no benefits from the garden
     total_benefit_public_school <- rep(0, number_of_years)
     total_benefit_public_school_inclusive <- rep(0, number_of_years)
     # costs only in year 1
-    total_cost_public_school <- (total_cost[2:number_of_years]<-0)
+    # Corrected: the original scalar assignment here zeroed years 2+ of
+    # total_cost itself (also used later for the private-school results) and
+    # lost the year-1 cost.
+    total_cost_public_school <- c(total_cost[1], rep(0, number_of_years - 1))
     # no benefits from STEM
     total_benefit_STEM_public_school <- rep(0, number_of_years)
     total_benefit_STEM_public_school_inclusive <- rep(0, number_of_years)
     # costs only in year 1
-    total_cost_STEM_public_school <- (total_cost_STEM[2:number_of_years]<-0)
+    total_cost_STEM_public_school <- c(total_cost_STEM[1], rep(0, number_of_years - 1))
   } else {
     # costs and benefits are the same
     total_benefit_public_school <- total_benefit
@@ -543,6 +556,7 @@ school_garden_function <- function(x, varnames){
     total_benefit_STEM_public_school <- total_benefit_STEM
     total_benefit_STEM_public_school_inclusive <- total_benefit_STEM_inclusive
     total_cost_STEM_public_school <- total_cost_STEM
+  }
   }
   
   # Final result of the costs and benefits no STEM
